@@ -1,3 +1,31 @@
 <resources>
-    <string name="app_name">AbschlussProjektAndroide</string>
+    <!-- App-Name -->
+    <string name="app_name">Echo</string>
+    <string name="Slogan">Demokratie digital. Meinung zentral.</string>
+
+    <!-- Homescreen -->
+    <string name="daily_polls">search polls</string>
+
+    <!-- Navigation -->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_profile">Profil</string>
+    <string name="navigation_settings">Einstellungen</string>
+
+    <!-- Umfrage -->
+    <string name="vote">Abstimmen</string>
+    <string name="agree">Zustimmen</string>
+    <string name="disagree">Ablehnen</string>
+
+    <!-- Profile -->
+    <string name="user_profile">Mein Profil</string>
+    <string name="user_profil_pic">Profilbild</string>
+    <string name="edit_profile">Profil bearbeiten</string>
+    <string name="create_poll">Umfrage erstellen</string>
+
+    <!-- Kommentare -->
+    <string name="comments">Kommentare</string>
+    <string name="post_comment">Kommentar posten</string>
+
+    <!-- Allgemeine Fehlermeldungen -->
+    <string name="error_loading_data">Daten konnten nicht geladen werden</string>
 </resources>
