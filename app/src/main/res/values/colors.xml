@@ -5,9 +5,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Primärfarben für die App -->
-    <color name="colorPrimary">#87D3EB</color> <!-- PrimaryColor_Blue -->
-    <color name="colorPrimaryDark">#DAA520</color> <!-- PrimarySignalColor -->
-    <color name="colorPrimaryLight">#F5F5DC</color> <!-- SecondColor -->
+    <color name="colorPrimary">#FFFFFF</color> <!-- PrimaryColor_Blue -->
+    <color name="colorPrimaryLight">#FBFBEA</color> <!-- SecondColor -->
 
     <!-- Akzentfarbe -->
     <color name="colorAccent">#DAA520</color> <!-- PrimarySignalColor (optional) -->
@@ -20,4 +19,5 @@
     <!-- Spezifische Farben für Umfragen -->
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
     <color name="disagree">#FF6B6B</color> <!-- Color2_disagree -->
+
 </resources>

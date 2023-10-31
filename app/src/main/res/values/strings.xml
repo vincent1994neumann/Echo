@@ -18,6 +18,7 @@
 
     <!-- Profile -->
     <string name="user_profile">Mein Profil</string>
+    <string name="user_name_default">Klaus Peter</string>
     <string name="user_profil_pic">Profilbild</string>
     <string name="edit_profile">Profil bearbeiten</string>
     <string name="create_poll">Umfrage erstellen</string>
