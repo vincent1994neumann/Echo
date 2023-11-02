@@ -6,10 +6,10 @@
 
     <!-- Primärfarben für die App -->
     <color name="colorPrimary">#FFFFFF</color> <!-- PrimaryColor_Blue -->
-    <color name="colorPrimaryLight">#FBFBEA</color> <!-- SecondColor -->
+    <color name="colorPrimaryRv">#ECE9E8</color> <!-- SecondColor -->
 
     <!-- Akzentfarbe -->
-    <color name="colorAccent">#DAA520</color> <!-- PrimarySignalColor (optional) -->
+    <color name="colorAccent">#D8CBAB</color> <!-- PrimarySignalColor (optional) -->
 
     <!-- Hintergrund und Schriftfarben -->
     <color name="background">#F5F5DC</color> <!-- SecondColor -->

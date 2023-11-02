@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/btn_homeFragment"
+        android:enabled="true"
+        android:icon="@drawable/default_pic"
+        android:title="Home"/>
+    <item
+        android:id="@+id/btn_profilFragment"
+        android:enabled="true"
+        android:icon="@drawable/default_pic"
+        android:title="Profil"/>
+    <item
+        android:id="@+id/btn_searchFragment"
+        android:enabled="true"
+        android:icon="@drawable/default_pic"
+        android:title="Search"/>
+    <item
+        android:id="@+id/btn_communityFragment"
+        android:enabled="true"
+        android:icon="@drawable/default_pic"
+        android:title="Community"/>
+    <item
+        android:id="@+id/btn_SettingsFragment"
+        android:enabled="true"
+        android:icon="@drawable/default_pic"
+        android:title="Settings"/>
 </menu>
+

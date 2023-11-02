@@ -7,7 +7,7 @@
     android:layout_width="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/home_toolbar"
+        android:id="@+id/search_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
@@ -24,7 +24,7 @@
                 android:id="@+id/header_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Homescreen"
+                android:text="Search"
                 android:textSize="24dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -35,62 +35,37 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.appcompat.widget.Toolbar>
 
-    <Button
-        android:id="@+id/btn_liveVotesFilter"
-        style="@style/StyledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="16dp"
-        android:text="Live Votes"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
 
-    <Button
-        android:id="@+id/btn_recentFilter"
-        style="@style/StyledButton"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInput"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Recent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_savedFilter"
-        app:layout_constraintStart_toEndOf="@+id/btn_liveVotesFilter"
-        app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
-
-    <Button
-        android:id="@+id/btn_savedFilter"
-        style="@style/StyledButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="Saved"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_toolbar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="search term"
+            android:maxLines="1"
+            android:textSize="24sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_home"
+        android:id="@+id/rv_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_savedFilter"
-        tools:listitem="@layout/list_item_survey"/>
+        app:layout_constraintTop_toBottomOf="@+id/textInput" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_Floating_new_Vote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/colorAccent"
-        android:src="@drawable/baseline_post_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_home"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
