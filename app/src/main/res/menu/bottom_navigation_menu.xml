@@ -3,27 +3,27 @@
     <item
         android:id="@+id/btn_homeFragment"
         android:enabled="true"
-        android:icon="@drawable/default_pic"
+        android:icon="@drawable/baseline_home_24"
         android:title="Home"/>
     <item
         android:id="@+id/btn_profilFragment"
         android:enabled="true"
-        android:icon="@drawable/default_pic"
+        android:icon="@drawable/baseline_person_24"
         android:title="Profil"/>
     <item
         android:id="@+id/btn_searchFragment"
         android:enabled="true"
-        android:icon="@drawable/default_pic"
+        android:icon="@drawable/baseline_search_24"
         android:title="Search"/>
     <item
         android:id="@+id/btn_communityFragment"
         android:enabled="true"
-        android:icon="@drawable/default_pic"
+        android:icon="@drawable/baseline_groups_3_24"
         android:title="Community"/>
     <item
         android:id="@+id/btn_SettingsFragment"
         android:enabled="true"
-        android:icon="@drawable/default_pic"
+        android:icon="@drawable/baseline_settings_24"
         android:title="Settings"/>
 </menu>
 

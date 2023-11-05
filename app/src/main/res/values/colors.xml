@@ -9,7 +9,8 @@
     <color name="colorPrimaryRv">#ECE9E8</color> <!-- SecondColor -->
 
     <!-- Akzentfarbe -->
-    <color name="colorAccent">#D8CBAB</color> <!-- PrimarySignalColor (optional) -->
+    <color name="colorvoteitem">#D8CBAB</color> <!-- PrimarySignalColor (optional) -->
+    <color name="votebackgounditemview">#7EB3B3B3</color>
 
     <!-- Hintergrund und Schriftfarben -->
     <color name="background">#F5F5DC</color> <!-- SecondColor -->
@@ -18,6 +19,7 @@
 
     <!-- Spezifische Farben für Umfragen -->
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
-    <color name="disagree">#FF6B6B</color> <!-- Color2_disagree -->
+    <color name="disagree">#FF6B6B</color>
+
 
 </resources>

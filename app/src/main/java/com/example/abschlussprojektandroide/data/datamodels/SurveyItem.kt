@@ -1,9 +1,10 @@
 package com.example.abschlussprojektandroide.data.datamodels
 
 data class SurveyItem(
-    val id: String, // Eindeutige ID, z.B. von einer Datenbank
+    val surveyid: Int, // Eindeutige ID, z.B. von einer Datenbank
     val timestamp: String, // Zeitstempel des Surveys
-    val publishedBy: String, // Name des Veröffentlichers
+    val publishedBy: User, // Name des Veröffentlichers
+    val isPublished: Boolean = false, // Status der Umfrage: Veröffentlicht oder nicht veröffentlicht.
     val header: String, // Überschrift des Surveys
     val category: String, // Kategorie des Surveys (z.B. "Umwelt")
     val imageUrl: String?, // URL oder Pfad zum Bild, wenn vorhanden
@@ -12,8 +13,9 @@ data class SurveyItem(
     val votesTrue: Int = 0, // Anzahl der "true" Stimmen
     val votesNeutral: Int = 0, // Anzahl der "neutral" Stimmen
     val votesFalse: Int = 0, // Anzahl der "false" Stimmen
-    val upvotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
-    val downvotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
+    val questionUpvotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
+    val questionDownvotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
+
     //val usersVoted: MutableSet<String> = mutableSetOf() // Set von User-IDs, die bereits abgestimmt haben
     val userVoted: MutableMap<String, String> = mutableMapOf() // Map von User-IDs zu ihrer gewählten Antwort ("true", "neutral" oder "false")
 ) {
