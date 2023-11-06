@@ -1,4 +1,4 @@
-package com.example.abschlussprojektandroide.data.datamodels
+package com.example.abschlussprojektandroide.data.dataclass
 
 data class User(
     val userId: Int, // Ein eindeutiger Identifikator für jeden Benutzer.

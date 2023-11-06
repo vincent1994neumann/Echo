@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.abschlussprojektandroide.R
+import com.example.abschlussprojektandroide.data.viewmodel.MainViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
+    private val viewModel:MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,5 +29,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+
+        binding.btnFloatingNewVote.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment()) }
     }
 }

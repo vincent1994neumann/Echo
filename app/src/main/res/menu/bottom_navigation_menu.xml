@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/btn_homeFragment"
+        android:id="@+id/homeFragment"
         android:enabled="true"
         android:icon="@drawable/baseline_home_24"
         android:title="Home"/>
     <item
-        android:id="@+id/btn_profilFragment"
+        android:id="@+id/profilFragment"
         android:enabled="true"
         android:icon="@drawable/baseline_person_24"
         android:title="Profil"/>
     <item
-        android:id="@+id/btn_searchFragment"
+        android:id="@+id/searchFragment"
         android:enabled="true"
         android:icon="@drawable/baseline_search_24"
         android:title="Search"/>
     <item
-        android:id="@+id/btn_communityFragment"
+        android:id="@+id/communityFragment"
         android:enabled="true"
         android:icon="@drawable/baseline_groups_3_24"
         android:title="Community"/>
     <item
-        android:id="@+id/btn_SettingsFragment"
+        android:id="@+id/settingsFragment"
         android:enabled="true"
         android:icon="@drawable/baseline_settings_24"
         android:title="Settings"/>
