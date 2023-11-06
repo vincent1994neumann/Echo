@@ -9,29 +9,35 @@ import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
 
 class SurveyAdapter (
     private val context: Context,
-    private val dataset : List<SurveyItem>
+    private var dataset : List<SurveyItem>
 
-): RecyclerView.Adapter<SurveyAdapter.ItemViewHolder>(){
+): RecyclerView.Adapter<SurveyAdapter.SurveyItemViewHolder>(){
 
-    class ItemViewHolder(val binding: ListItemSurveyBinding) : RecyclerView.ViewHolder(binding.root)
+    class SurveyItemViewHolder(val binding: ListItemSurveyBinding) : RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyItemViewHolder {
         val binding = ListItemSurveyBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ItemViewHolder(binding)
+        return SurveyItemViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
         return dataset.size
     }
 
-    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val data = dataset[position]
-        holder.binding.tvHeaderCv.text = data.header
-        holder.binding.tvCategorieCv.text = data.category
-        holder.binding.tvSurveyText.text = data.surveyText
-        holder.binding.tvTimestamp.text = data.timestamp
-        holder.binding.tvPublishedUsernameInput.setText(data.userId)
-        holder.binding.tvVoteCounter.setText(data.totalVotes)
+    override fun onBindViewHolder(holder: SurveyItemViewHolder, position: Int) {
+        val surveyItem = dataset[position]
+        holder.binding.tvHeaderCv.text = surveyItem.header
+        holder.binding.tvCategorieCv.text = surveyItem.category
+        holder.binding.tvSurveyText.text = surveyItem.surveyText
+        holder.binding.tvTimestamp.text = surveyItem.timestamp
+        holder.binding.tvPublishedUsernameInput.setText(surveyItem.userId)
+        holder.binding.tvVoteCounter.setText(surveyItem.totalVotes)
     }
 
+    /*
+    fun updateData(newData: List<SurveyItem>){
+        this.dataset = newData
+        notifyDataSetChanged()
+    }
+    */
 }

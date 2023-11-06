@@ -11,8 +11,9 @@ class AppRepository {
         get() = _survey
 
     init {
-      loadSurveys()
+   //     loadSurveys()
     }
+
 
     fun loadSurveys() {
         _survey.value = listOf(

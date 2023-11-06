@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.example.abschlussprojektandroide.R
-import com.example.abschlussprojektandroide.data.viewmodel.MainViewModel
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
-    private val viewModel:MainViewModel by activityViewModels()
+    private val viewModel:SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,7 +27,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val rVc = binding.rvHome
+        rVc.layoutManager = LinearLayoutManager(context)
+        rVc.setHasFixedSize(true)
 
         binding.btnFloatingNewVote.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment()) }

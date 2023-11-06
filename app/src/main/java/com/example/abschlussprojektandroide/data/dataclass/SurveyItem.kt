@@ -19,6 +19,6 @@ data class SurveyItem(
     val questionUpvotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
     val questionDownvotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
     //val votedUser: MutableSet<Int> = mutableSetOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
-)
+    )
 
 //Listen sind problematisch bei der ROOMDatenbank ggf. Anpassungen erforderlich
