@@ -52,17 +52,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Username"
+        android:textStyle="bold"
+        android:text="Max Mustermann"
         app:layout_constraintStart_toEndOf="@+id/iv_prfoilPic"
         app:layout_constraintTop_toTopOf="@+id/iv_prfoilPic" />
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_beschreibungProfil"
+        android:layout_width="245dp"
         android:layout_height="wrap_content"
+        android:textStyle="italic"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Beschreibung"
+        android:text="Nicht nur dabei, sondern mittendrin im Dialog der Zeit."
         app:layout_constraintStart_toEndOf="@+id/iv_prfoilPic"
         app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
@@ -72,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Beiträge"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_username"
         app:layout_constraintStart_toEndOf="@+id/tv_username"
         app:layout_constraintTop_toBottomOf="@+id/profil_toolbar"
@@ -81,8 +84,7 @@
         android:id="@+id/tv_count_beiträge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="45"
+        android:text="8"
         app:layout_constraintEnd_toEndOf="@+id/tv_beiträge"
         app:layout_constraintStart_toStartOf="@+id/tv_beiträge"
         app:layout_constraintTop_toBottomOf="@+id/tv_beiträge" />
@@ -91,8 +93,9 @@
         android:id="@+id/tv_follower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:text="Follower"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/tv_beiträge"
         app:layout_constraintStart_toEndOf="@+id/tv_beiträge"
         app:layout_constraintTop_toTopOf="@+id/tv_beiträge" />
@@ -101,7 +104,6 @@
         android:id="@+id/tv_count_Follower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:text="125"
         app:layout_constraintEnd_toEndOf="@+id/tv_follower"
         app:layout_constraintStart_toStartOf="@+id/tv_follower"
@@ -145,9 +147,11 @@
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tl_tabbar_profil"
-        tools:listitem="@layout/list_item_survey"/>
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/list_item_survey" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_Floating_new_Vote_profil"

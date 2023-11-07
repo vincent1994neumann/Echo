@@ -1,11 +1,14 @@
 package com.example.abschlussprojektandroide.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
+
+//aktuell kann jede Survey nur einmal abgestimmt werden
+//Hier fehlt noch die Logik das jeder User das abstimmen kann
+
 
 class SurveyAdapter (
     private var dataset : List<SurveyItem>
@@ -31,20 +34,76 @@ class SurveyAdapter (
         holder.binding.tvSurveyText.text = surveyItem.surveyText
         holder.binding.tvTimestamp.text = surveyItem.timestamp
         holder.binding.tvPublishedUsernameInput.text = surveyItem.publishedBy
+        holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
 
-        //
-        holder.binding.tvVoteCounter.text = surveyItem.totalVotes.toString()
-        holder.binding.tvVoteCountFalse.text = surveyItem.votesFalse.toString()
-        holder.binding.tvVoteCountTrue.text = surveyItem.votesTrue.toString()
-        holder.binding.tvVoteCountNeutral.text = surveyItem.votesNeutral.toString()
+        holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
+        holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
+        holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
 
-        //wenn Live Data eingefügt wurde, dann müssen die
-        //holder.binding.tvPublishedUsernameInput.setText(surveyItem.userId)
-        //holder.binding.tvVoteCounter.setText(surveyItem.totalVotes)
-        //holder.binding.tvVoteCountFalse.setText(surveyItem.votesFalse)
-        //holder.binding.tvVoteCountTrue.setText(surveyItem.votesTrue)
-        //holder.binding.tvVoteCountNeutral.setText(surveyItem.votesNeutral)
 
+
+        //_______________________________________________________________________
+
+        //UP & Down Vote der Frage Logik
+        holder.binding.btnVoteUp.setOnClickListener{
+            surveyItem.questionUpVotes++
+            surveyItem.totalUpDownVotes()
+            disableVotingUpDownBtn(holder)
+            holder.binding.tvVoteCounter.text =surveyItem.totalUpDownVotes()
+        }
+        holder.binding.btnVoteDown.setOnClickListener{
+            surveyItem.questionDownVotes++
+            disableVotingUpDownBtn(holder)
+            holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+        }
+
+        //_______________________________________________________________________
+
+        //Abstimmungslogik der Frage
+
+
+        holder.binding.rbTrue.setOnClickListener{
+            if (!surveyItem.hasVoted){
+                surveyItem.votesTrue++
+                surveyItem.totalVotes++
+                surveyItem.hasVoted = true
+                disableVotingButtons(holder)
+                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
+                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
+                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+            }
+        }
+
+        holder.binding.rbDontknow.setOnClickListener{
+            if (!surveyItem.hasVoted){
+                surveyItem.votesNeutral++
+                surveyItem.totalVotes++
+                disableVotingButtons(holder)
+                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
+                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
+                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+            }
+        }
+
+        holder.binding.rbFalse.setOnClickListener {
+            if (!surveyItem.hasVoted){
+                surveyItem.votesFalse++
+                surveyItem.totalVotes++
+                disableVotingButtons(holder)
+                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
+                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
+                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+            }
+        }
+    }
+    private fun disableVotingButtons(holder: SurveyItemViewHolder) {
+        holder.binding.rbTrue.isEnabled = false
+        holder.binding.rbDontknow.isEnabled = false
+        holder.binding.rbFalse.isEnabled = false
+    }
+    private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder){
+        holder.binding.btnVoteUp.isEnabled = false
+        holder.binding.btnVoteDown.isEnabled = false
     }
 
 
@@ -52,5 +111,7 @@ class SurveyAdapter (
         this.dataset = newData
         notifyDataSetChanged()
     }
+
+
 
 }
