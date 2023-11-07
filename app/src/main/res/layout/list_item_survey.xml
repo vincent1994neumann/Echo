@@ -13,10 +13,11 @@
         app:cardCornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_margin="8dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:cardElevation="10dp"
+        app:cardElevation="6dp"
         app:cardBackgroundColor="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,14 +26,18 @@
 
             <TextView
                 android:id="@+id/tv_header_cv"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
                 android:text="Header"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/divider"
-                app:layout_constraintStart_toEndOf="@+id/tv_timestamp"
+                app:layout_constraintEnd_toStartOf="@+id/iv_share_icon"
+                app:layout_constraintHorizontal_bias="0.727"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -47,38 +52,26 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_header_cv"
                 app:layout_constraintTop_toBottomOf="@+id/tv_header_cv" />
 
-            <ImageView
-                android:id="@+id/iv_surveypic"
-                android:layout_width="115dp"
-                android:layout_height="80dp"
-                android:layout_marginLeft="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_arrow_down"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/iv_arrow_up"
-                app:srcCompat="@drawable/e_fuel" />
-
             <TextView
                 android:id="@+id/tv_surveyText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
                 android:text="Glauben Sie, dass Elektroautos die Schlüssellösung für die Herausforderungen des Klimawandels sind?"
-                android:textSize="12dp"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_surveypic"
-                app:layout_constraintEnd_toStartOf="@+id/iv_arrow_up"
-                app:layout_constraintStart_toEndOf="@+id/iv_surveypic"
-                app:layout_constraintTop_toTopOf="@+id/iv_surveypic" />
+                android:textSize="14dp"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_categorie_cv" />
 
             <RadioGroup
                 android:id="@+id/rg_radiogroup"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/tv_surveyText"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_arrow_down">
+                app:layout_constraintTop_toBottomOf="@+id/tv_surveyText">
 
                 <RadioButton
                     android:id="@+id/rb_true"
@@ -107,6 +100,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:textSize="16dp"
+                android:textStyle="bold"
                 android:text="29"
                 android:textColor="@color/agree"
                 app:layout_constraintEnd_toEndOf="@+id/iv_arrow_up"
@@ -136,23 +131,24 @@
                 android:id="@+id/tv_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="23.11.2023 14:18"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_published_username_input"
+                app:layout_constraintEnd_toEndOf="@+id/tv_surveyText"
+                app:layout_constraintTop_toTopOf="@+id/tv_published_username_input" />
 
             <TextView
                 android:id="@+id/tv_publishedby"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="by:"
                 android:textSize="12dp"
                 android:textStyle="italic"
-                app:layout_constraintStart_toStartOf="@+id/tv_timestamp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_timestamp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/tv_published_username_input"
@@ -170,10 +166,10 @@
                 android:id="@+id/divider"
                 android:layout_width="1dp"
                 android:layout_height="213dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
                 android:background="@color/votebackgounditemview"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_surveyText"
+                app:layout_constraintEnd_toStartOf="@+id/tv_vote_counter"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
@@ -181,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_share_24" />
@@ -202,9 +198,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 android:text="50"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/tv_published_username_input"
                 app:layout_constraintStart_toStartOf="@+id/rg_radiogroup"
                 app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
 
@@ -213,9 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:text="20"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_vote_count_false"
                 app:layout_constraintStart_toEndOf="@+id/tv_vote_count_true"
                 app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
@@ -226,9 +220,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
                 android:text="15"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/rg_radiogroup"
                 app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
 

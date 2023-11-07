@@ -1,4 +1,6 @@
-package com.example.abschlussprojektandroide.data.dataclass
+package com.example.abschlussprojektandroide.data.dataclass.model
+
+import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 
 data class User(
     val userId: Int, // Ein eindeutiger Identifikator für jeden Benutzer.

@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
-        android:text="Live Votes"
+        android:text="Startseite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
 
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Recent"
+        android:text="Recently Published"
         app:layout_constraintEnd_toStartOf="@+id/btn_savedFilter"
         app:layout_constraintStart_toEndOf="@+id/btn_liveVotesFilter"
         app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
@@ -64,24 +64,26 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="Saved"
+        android:text="Top Votes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_home"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_savedFilter"
-        tools:listitem="@layout/list_item_survey"/>
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/list_item_survey" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btn_Floating_new_Vote"

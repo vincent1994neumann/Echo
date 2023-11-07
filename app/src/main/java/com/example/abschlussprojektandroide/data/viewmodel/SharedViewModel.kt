@@ -2,7 +2,9 @@ package com.example.abschlussprojektandroide.data.viewmodel
 
 
 import androidx.lifecycle.ViewModel
-import com.example.abschlussprojektandroide.data.model.AppRepository
+import androidx.lifecycle.viewModelScope
+import com.example.abschlussprojektandroide.data.dataclass.AppRepository
+import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel(){
     private val repository = AppRepository()
@@ -10,6 +12,10 @@ class SharedViewModel : ViewModel(){
 
     init {
         repository.loadSurveys()
+    }
+
+    fun loadSurveys (){
+        viewModelScope.launch {  repository.loadSurveys() }
     }
 
 }
