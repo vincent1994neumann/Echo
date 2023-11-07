@@ -14,8 +14,6 @@ class SharedViewModel : ViewModel(){
         repository.loadSurveys()
     }
 
-    fun loadSurveys (){
-        viewModelScope.launch {  repository.loadSurveys() }
-    }
+
 
 }

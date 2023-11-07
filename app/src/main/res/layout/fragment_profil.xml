@@ -41,7 +41,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:src="@drawable/defaultprofilpic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profil_toolbar" />
@@ -107,6 +107,34 @@
         app:layout_constraintStart_toStartOf="@+id/tv_follower"
         app:layout_constraintTop_toBottomOf="@+id/tv_follower" />
 
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_tabbar_profil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/iv_prfoilPic"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Post" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My Drafts" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Saved Surveys" />
+
+    </com.google.android.material.tabs.TabLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_profil"
         android:layout_width="0dp"
@@ -118,7 +146,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_prfoilPic"
+        app:layout_constraintTop_toBottomOf="@+id/tl_tabbar_profil"
         tools:listitem="@layout/list_item_survey"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
