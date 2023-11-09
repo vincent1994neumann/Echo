@@ -48,7 +48,7 @@
             android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="search term"
+            android:hint="search for surveys"
             android:maxLines="1"
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>

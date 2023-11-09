@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android">
+        <solid android:color="#FFF"/> <!-- Hintergrundfarbe des Toasts -->
+        <stroke android:width="2dp" android:color="#000"/> <!-- Stroke-Breite und Farbe -->
+        <corners android:radius="4dp"/> <!-- Eckenradius -->
+        <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/> <!-- Optional: Innenabstand -->
+    </shape>
+</selector>

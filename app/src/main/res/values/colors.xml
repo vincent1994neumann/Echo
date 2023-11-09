@@ -10,7 +10,7 @@
 
     <!-- Akzentfarbe -->
     <color name="colorvoteitem">#D8CBAB</color> <!-- PrimarySignalColor (optional) -->
-    <color name="votebackgounditemview">#7EB3B3B3</color>
+    <color name="grey">#7EE9E9E9</color>
 
     <!-- Hintergrund und Schriftfarben -->
     <color name="background">#F5F5DC</color> <!-- SecondColor -->

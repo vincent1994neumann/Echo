@@ -151,26 +151,28 @@
                 android:layout_width="1dp"
                 android:layout_height="213dp"
                 android:layout_marginEnd="16dp"
-                android:background="@color/votebackgounditemview"
+                android:background="@color/grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_vote_counter"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/iv_share_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/transparent"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_share_24" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/iv_save_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:background="@color/transparent"
                 app:layout_constraintEnd_toEndOf="@+id/btn_vote_up"
                 app:layout_constraintStart_toStartOf="@+id/btn_vote_up"
                 app:layout_constraintTop_toTopOf="parent"

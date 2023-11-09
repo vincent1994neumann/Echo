@@ -28,6 +28,8 @@
     <string name="post_comment">Kommentar posten</string>
 
     <!-- Allgemeine Fehlermeldungen -->
+    <string name="survey_removed">removed from - My Saved Surveys</string>
+    <string name="survey_saved">saved to - My Saved Surveys</string>
     <string name="error_loading_data">Daten konnten nicht geladen werden</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

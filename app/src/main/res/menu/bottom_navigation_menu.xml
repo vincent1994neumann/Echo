@@ -16,6 +16,8 @@
         android:enabled="true"
         android:icon="@drawable/baseline_search_24"
         android:title="Search"/>
+
+    <!--
     <item
         android:id="@+id/communityFragment"
         android:enabled="true"
@@ -26,5 +28,6 @@
         android:enabled="true"
         android:icon="@drawable/baseline_settings_24"
         android:title="Settings"/>
+        -->
 </menu>
 

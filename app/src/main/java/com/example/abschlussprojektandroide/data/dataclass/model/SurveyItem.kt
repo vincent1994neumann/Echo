@@ -1,5 +1,7 @@
 package com.example.abschlussprojektandroide.data.dataclass.model
 
+import android.health.connect.datatypes.units.Percentage
+
 data class SurveyItem(
     val surveyid: Int, // Eindeutige ID, z.B. von einer Datenbank
     val userId: Int = 0,
@@ -10,12 +12,15 @@ data class SurveyItem(
     val category: String, // Kategorie des Surveys (z.B. "Umwelt")
     val surveyText: String, // Text der eigentlichen Umfrage
 
+    var surveySaved: Boolean = false, // Für den SaveBtn im Survey
+
     var totalVotes: Int = 0, // Gesamtanzahl der Stimmen
     var votesTrue: Int = 0, // Anzahl der "true" Stimmen
     var votesNeutral: Int = 0, // Anzahl der "neutral" Stimmen
     var votesFalse: Int = 0, // Anzahl der "false" Stimmen
     var hasVoted:Boolean = false,
     val votedUser: MutableSet<Int> = mutableSetOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
+    var showPercentage: Boolean = false,
 
     var questionUpVotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
     var questionDownVotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)

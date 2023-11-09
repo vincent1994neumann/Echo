@@ -7,26 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektandroide.R
-import com.example.abschlussprojektandroide.databinding.FragmentSurveyCreateBinding
+import com.example.abschlussprojektandroide.databinding.FragmentRegistrierungBinding
 
 
-class SurveyCreateFragment : Fragment() {
-    private lateinit var binding: FragmentSurveyCreateBinding
+class RegistrierungFragment : Fragment() {
+    private lateinit var binding: FragmentRegistrierungBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSurveyCreateBinding.inflate(inflater,container,false)
+        binding = FragmentRegistrierungBinding.inflate(inflater,container,false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnBack.setOnClickListener {
-            findNavController().popBackStack()
+        binding.btnBackToLogin.setOnClickListener {
+            findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
+        }
+        binding.btnRegistieren.setOnClickListener {
+
+
+            findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
         }
     }
 }
