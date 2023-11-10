@@ -4,116 +4,133 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black">
+    android:layout_marginTop="16dp"
+    android:background="@color/white">
 
 
     <TextView
         android:id="@+id/tv_reg_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bitte Registrieren sie sich hier"
-        android:textColor="@color/white"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Sign Up"
+        android:textColor="@color/black"
+        android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewR"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/iv_LogoR" />
+
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/EditTextStyle"
-        android:id="@+id/ti_username_reg"
+        android:id="@+id/ti_e_username_reg"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
         android:layout_margin="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_reg_header">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputusername"
+            android:id="@+id/textInputusername_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="username"
+            android:hint="Username"
             android:maxLines="1"
-            android:textSize="24sp" />
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ti_e_mail_reg"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_e_username_reg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:maxLines="1"
+            android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_password_reg"
-        style="@style/EditTextStyle"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
         android:layout_margin="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_username_reg">
+        app:layout_constraintTop_toBottomOf="@+id/ti_e_mail_reg"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="password"
+            android:hint="Password"
+            android:inputType="textPassword"
             android:maxLines="1"
-            android:textSize="24sp" />
+            android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_password_repeat_reg"
-        style="@style/EditTextStyle"
+        android:layout_width="320dp"
+        android:layout_height="65dp"
         android:layout_margin="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_password_reg">
+        app:layout_constraintTop_toBottomOf="@+id/ti_password_reg"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputpasswordrepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="repeat password"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
             android:maxLines="1"
-            android:textSize="24sp" />
+            android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <Button
         android:id="@+id/btn_Registieren"
         style="@style/StyledButton"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Registrieren"
+        android:layout_marginBottom="16dp"
+        android:text="SIGN UP"
         app:layout_constraintBottom_toTopOf="@+id/btn_back_to_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_back_to_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_back_to_login" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewR"
-        android:layout_width="426dp"
-        android:layout_height="255dp"
-        app:cardCornerRadius="25dp"
-        app:cardBackgroundColor="@android:color/transparent"
+
+    <ImageView
+        android:id="@+id/iv_LogoR"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerInside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/iv_LogoR"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/echo" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/echo" />
 
     <Button
         android:id="@+id/btn_back_to_login"
         style="@style/StyledButton"
-        android:layout_width="320dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/grey"
-        android:text="back"
+        android:text="BACK"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
