@@ -35,15 +35,13 @@ class RegistrierungFragment : Fragment() {
 
 
        if (firebaseAuth.currentUser != null){
-
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+            findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
               }
 
         binding.btnBackToLogin.setOnClickListener {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
         }
         binding.btnRegistieren.setOnClickListener {
-            val user = binding.tiEUsernameReg.textAlignment.toString()
             val email= binding.textInputemail.text.toString()
             val password= binding.textInputpassword.text.toString()
             val confirmPassword= binding.textInputpasswordrepeat.text.toString()
@@ -58,8 +56,9 @@ class RegistrierungFragment : Fragment() {
                         dann sollten Sie keine Operationen durchführen, die von einem Kontext abhängen, da dies zu einer IllegalStateException führen kann.
                          */
                         if (task.isSuccessful && isAdded) {
+                            var navController = findNavController()
                             // Navigation zum HomeFragment, wenn die Registrierung erfolgreich war
-                            findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
+                            navController.navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
                         }
 
                         else {
@@ -69,10 +68,10 @@ class RegistrierungFragment : Fragment() {
                     }
 
                 }else {
-                    Toast.makeText(requireContext(), "Passwörter stimmen nicht überein!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Password Is Not Matching!", Toast.LENGTH_SHORT).show()
                 }
             } else {
-            Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Empty Fields Are Not Allowed!", Toast.LENGTH_SHORT).show()
         }
             }
 

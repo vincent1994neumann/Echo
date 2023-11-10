@@ -75,7 +75,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
 
     //Firebase Data
-    implementation("com.google.firebase:firebase-database:20.3.0")
+    implementation("com.google.firebase:firebase-auth")
 
 
 
