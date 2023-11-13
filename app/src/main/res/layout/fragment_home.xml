@@ -80,7 +80,7 @@
         android:id="@+id/btn_Floating_new_Vote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorvoteitem"
         android:src="@drawable/baseline_post_add_24"

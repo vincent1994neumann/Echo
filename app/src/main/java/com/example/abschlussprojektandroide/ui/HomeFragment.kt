@@ -35,8 +35,6 @@ class HomeFragment : Fragment() {
 
         viewModel.survey.observe(viewLifecycleOwner){rVc.adapter = SurveyAdapter(it)}
 
-
-
         binding.btnFloatingNewVote.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment()) }
     }

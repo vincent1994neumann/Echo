@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektandroide.R
+import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginFragment : Fragment() {
     private lateinit var binding : FragmentLoginBinding
-    private lateinit var firebaseAuth: FirebaseAuth
+    private val viewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,17 +25,16 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentLoginBinding.inflate(inflater,container,false)
-        firebaseAuth = FirebaseAuth.getInstance()
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (firebaseAuth.currentUser != null){
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+        viewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                findNavController().navigate(R.id.homeFragment)
+            }
         }
 
 
@@ -49,19 +51,8 @@ class LoginFragment : Fragment() {
     }
 
     private fun login(email: String, password:String){
-        if(email.isNotEmpty() && password.isNotEmpty()){
-            val email= binding.textInputemail.text.toString()
-            val password= binding.textInputpassword.text.toString()
-
-            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-                if (task.isSuccessful && isAdded) {
-                    // Navigieren zum nächsten Fragment, wenn der Login erfolgreich war
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-                } else {
-                    // Zeigen Sie eine Fehlermeldung an, wenn der Login fehlschlägt
-                    Toast.makeText(context, "Login fehlgeschlagen: ${task.exception?.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+            viewModel.login(email, password)
         } else {
             Toast.makeText(context, "E-Mail und Passwort dürfen nicht leer sein", Toast.LENGTH_LONG).show()
         }

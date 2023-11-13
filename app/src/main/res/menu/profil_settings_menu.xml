@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/action_profil_logout"
+            android:title="Logout"
+            android:icon="@drawable/baseline_logout_24"/>
+        <!-- Fügen Sie weitere Menüpunkte hinzu, falls nötig -->
+    </menu>

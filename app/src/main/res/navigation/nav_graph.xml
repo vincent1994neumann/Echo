@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_profilFragment_to_surveyCreateFragment"
             app:destination="@id/surveyCreateFragment" />
+        <action
+            android:id="@+id/action_profilFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
@@ -80,6 +83,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registrierungFragment"
             app:destination="@id/registrierungFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrierungFragment"
