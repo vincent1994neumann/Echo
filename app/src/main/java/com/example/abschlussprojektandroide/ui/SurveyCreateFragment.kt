@@ -30,3 +30,5 @@ class SurveyCreateFragment : Fragment() {
         }
     }
 }
+
+//Implementieren Sie Logik in Ihrem Fragment, um die ausgewählte Anzahl von Antwortmöglichkeiten zu verarbeiten.

@@ -41,7 +41,7 @@ class SurveyAdapter (
         holder.binding.tvHeaderCv.text = surveyItem.header
         holder.binding.tvCategorieCv.text = surveyItem.category
         holder.binding.tvSurveyText.text = surveyItem.surveyText
-        holder.binding.tvTimestamp.text = surveyItem.timestamp
+        holder.binding.tvTimestamp.text = surveyItem.getFormattedTime()
         holder.binding.tvPublishedUsernameInput.text = surveyItem.publishedBy
         holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
 

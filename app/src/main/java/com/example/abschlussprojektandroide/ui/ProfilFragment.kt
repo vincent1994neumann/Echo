@@ -42,12 +42,15 @@ class ProfilFragment : Fragment() {
         viewModel.survey.observe(viewLifecycleOwner){rVc.adapter = SurveyAdapter(it)}
 
         binding.btnFloatingNewVoteProfil.setOnClickListener{
+            findNavController().popBackStack()
             viewModel.logout()
-            findNavController().navigate(ProfilFragmentDirections.actionProfilFragmentToLoginFragment())
             Toast.makeText(context, "Erfolgreich ausgeloggt", Toast.LENGTH_SHORT).show()
 
         }
 
+        viewModel.currentUser.observe(viewLifecycleOwner){user->
+            binding.headerHome.text = user?.email ?: "Text"
+        }
     }
 
 

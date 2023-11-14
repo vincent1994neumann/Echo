@@ -14,6 +14,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     private val repository = AppRepository()
     val survey = repository.survey
     var firebaseAuth = FirebaseAuth.getInstance()
+    //val db = Firebase.firestore
 
 
     //LiveData Überwachung vom User
@@ -58,4 +59,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
         firebaseAuth.signOut()
 
     }
+
+
+
 }

@@ -3,6 +3,7 @@ package com.example.abschlussprojektandroide.data.dataclass
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
+import com.google.firebase.Timestamp
 
 class AppRepository {
 
@@ -15,8 +16,9 @@ class AppRepository {
     fun loadSurveys() {
         _survey.value = listOf(
             SurveyItem(
-                surveyid = 1,
-                timestamp = "2023-11-06 13:47",
+                surveyid = "1",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Alice",
                 isPublished = true,
                 header = "Investitionen in erneuerbare Energien",
@@ -30,8 +32,9 @@ class AppRepository {
                 questionDownVotes = 20,
             ),
             SurveyItem(
-                surveyid = 2,
-                timestamp = "2023-11-06 21:55",
+                surveyid = "2",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Cassandra",
                 isPublished = true,
                 header = "Alternative zum Auto: Öffentlicher Nahverkehr",
@@ -45,8 +48,9 @@ class AppRepository {
                 questionDownVotes = 15,
             ),
             SurveyItem(
-                surveyid = 3,
-                timestamp = "2023-11-06 21:05",
+                surveyid = "3",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "David",
                 isPublished = true,
                 header = "Verschärfung der Gesetze für Online-Streaming",
@@ -57,11 +61,11 @@ class AppRepository {
                 votesNeutral = 20,
                 votesFalse = 25,
                 questionUpVotes = 70,
-                questionDownVotes = 15,
             ),
             SurveyItem(
-                surveyid = 4,
-                timestamp = "2023-11-06 23:48",
+                surveyid = "4",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Eva",
                 isPublished = true,
                 header = "Die 4-Tage-Arbeitswoche",
@@ -75,8 +79,9 @@ class AppRepository {
                 questionDownVotes = 20,
             ),
             SurveyItem(
-                surveyid = 5,
-                timestamp = "2023-11-06 06:36",
+                surveyid = "5",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Felix",
                 isPublished = true,
                 header = "Staatliche Finanzierung von Bildung",
@@ -90,8 +95,9 @@ class AppRepository {
                 questionDownVotes = 15,
             ),
             SurveyItem(
-                surveyid = 6,
-                timestamp = "2023-11-06 13:55",
+                surveyid = "6",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Grace",
                 isPublished = false,
                 header = "Globale Klimaabgabe",
@@ -105,8 +111,9 @@ class AppRepository {
                 questionDownVotes = 5,
             ),
             SurveyItem(
-                surveyid = 10,
-                timestamp = "2023-11-06 14:00",
+                surveyid = "10",
+                userId = "",
+                timestamp = Timestamp.now(),
                 publishedBy = "Ben",
                 isPublished = false,
                 header = "Datenschutzgesetze",

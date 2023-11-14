@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
+    <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/home_toolbar"
         android:layout_width="match_parent"
@@ -15,59 +16,179 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/header_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Create a Survey"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Header "Create a Survey" -->
+        <TextView
+            android:id="@+id/header_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create a Survey"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.appcompat.widget.Toolbar>
 
+    <!-- Beschriftung für das Header Survey-Feld -->
+    <TextView
+        android:id="@+id/tv_HeaderSurveyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Survey Header"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_toolbar" />
+
+    <!-- TextInputLayout für das Header Survey-Feld -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_HeaderSurvey"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:hint="Name"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        app:helperText="Header"
+        android:layout_marginTop="8dp"
+        android:hint="Enter Header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_toolbar"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_HeaderSurveyLabel">
 
+        <!-- TextInputEditText für das Header Survey-Feld -->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ti_HeaderSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Beschriftung für das Survey Text-Feld -->
+    <TextView
+        android:id="@+id/tv_SurveyTextLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Survey Text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_HeaderSurvey" />
+
+    <!-- TextInputLayout für das Survey Text-Feld -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_SurveyText"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="8dp"
-        android:hint="Name"
-        android:inputType="textPassword"
-        android:textColor="@color/white"
-        app:helperText="Survey"
+        android:layout_marginTop="8dp"
+        android:hint="Enter your survey here"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_HeaderSurvey" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_SurveyTextLabel">
+
+        <!-- TextInputEditText für das Survey Text-Feld -->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ti_TextSurvey"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:maxLines="4"
+            android:textSize="18dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Beschriftung für den Spinner (Kategorie-Auswahl) -->
+    <TextView
+        android:id="@+id/tv_CategoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_SurveyText" />
+
+    <Spinner
+        android:id="@+id/spinner_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:entries="@array/survey_categories"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_CategoryLabel" />
+
+    <Switch
+        android:id="@+id/switch_isPublished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Publish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup_choices" />
 
     <Button
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginTop="16dp"
+        android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_SurveyText" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_isPublished" />
 
+    <TextView
+        android:id="@+id/tv_ChoiceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Select options"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_category" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/radioGroup_choices"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_ChoiceLabel">
+
+        <RadioButton
+            android:id="@+id/radioButton_true"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Agree"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/radioButton_neutral"
+            app:layout_constraintHorizontal_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_neutral"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="D'ont know"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/radioButton_true"
+            app:layout_constraintEnd_toStartOf="@+id/radioButton_false"
+            app:layout_constraintHorizontal_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/radioButton_false"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="D'ont Agree"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/radioButton_neutral"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
