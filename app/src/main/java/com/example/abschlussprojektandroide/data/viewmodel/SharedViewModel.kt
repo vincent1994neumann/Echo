@@ -8,8 +8,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.abschlussprojektandroide.data.dataclass.ApiRepository
 import com.example.abschlussprojektandroide.data.dataclass.AppRepository
-import com.example.abschlussprojektandroide.data.dataclass.model.Quote
+import com.example.abschlussprojektandroide.data.dataclass.model.api.Quote
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.dataclass.remote.QuotesApi
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
 
 class SharedViewModel(application: Application) : AndroidViewModel(application){
     private val repository = AppRepository()
+    private val apiRepository = ApiRepository()
     val survey = repository.survey
     var firebaseAuth = FirebaseAuth.getInstance()
     val db = Firebase.firestore
@@ -40,6 +42,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     //LiveData für den QuoteOfDay
     private val _quoteOfTheDay = MutableLiveData<Quote>()
     val quoteOfTheDay: LiveData<Quote> = _quoteOfTheDay
+
 
     init {
         repository.loadSurveys()
@@ -100,18 +103,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     //QQD API Call
     fun loadQuoteOfTheDay(category: String? = null) {
         viewModelScope.launch {
-            try {
-                val response = QuotesApi.retrofitService.getQuoteOfTheDay(category)
-                if (response.isSuccessful && response.body() != null) {
-                    // Verarbeite die Antwort
-                    val quoteOfTheDay = response.body()!!.contents.quotes.first()
-                    Log.d("SharedViewModel", "Zitat des Tages geladen: ${_quoteOfTheDay.value?.quote}")
-                } else {
-                    Log.e("SharedViewModel", "API-Antwort war nicht erfolgreich oder leer.")
-                }
-            } catch (e: Exception) {
-                Log.e("SharedViewModel", "Fehler beim Laden des Zitats des Tages", e)
-            }
+                apiRepository.loadQuoteOfTheDay(category)
         }
     }
 }

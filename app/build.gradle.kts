@@ -45,7 +45,7 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -55,24 +55,24 @@ dependencies {
 
 
     // Navigation
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.4")
-    androidTestImplementation ("androidx.navigation:navigation-testing:2.7.4")
+    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
+    androidTestImplementation ("androidx.navigation:navigation-testing:2.7.5")
 
     //ProfilPic Rundung
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
     // Room Dependencies
-    implementation ("androidx.room:room-runtime:2.6.0")
-    kapt ("androidx.room:room-compiler:2.6.0")
-    implementation ("androidx.room:room-ktx:2.6.0")
+   // implementation ("androidx.room:room-runtime:2.6.0")
+    //kapt ("androidx.room:room-compiler:2.6.0")
+    //implementation ("androidx.room:room-ktx:2.6.0")
 
     //Firebase
 
     // Firebase Authentifizierung
     // Import the BoM for the Firebase platform
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
-    implementation("com.google.firebase:firebase-auth")
+
 
     //Firebase Data
     implementation("com.google.firebase:firebase-auth")

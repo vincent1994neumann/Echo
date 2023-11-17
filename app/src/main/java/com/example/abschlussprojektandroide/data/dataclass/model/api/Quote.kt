@@ -1,4 +1,4 @@
-package com.example.abschlussprojektandroide.data.dataclass.model
+package com.example.abschlussprojektandroide.data.dataclass.model.api
 
 data class Quote(
     val quote: String,

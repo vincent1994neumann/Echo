@@ -25,21 +25,36 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentSplashScreenBinding.inflate(inflater,container,false)
-
-        Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },1800)
-
         return binding.root
+
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.quoteOfTheDay.observe(viewLifecycleOwner){quote->
-            binding.tvApiCallQuote.text = "\"${quote}\" - ${quote.author}"
+
+        // Beobachte das LiveData-Objekt für das Zitat des Tages
+        viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
+            // Überprüfe, ob das Zitat nicht null ist, bevor du es anzeigst
+            quote?.let {
+                binding.tvApiCallQuote.text = "\"${it.quote}\" - ${it.author}"
+            }
         }
 
+
+        // Lade das Zitat des Tages, wenn das ViewModel noch keinen Wert hat
+        if (viewModel.quoteOfTheDay.value == null) {
+            viewModel.loadQuoteOfTheDay()
+        }
+
+        /*
+        Handler(Looper.myLooper()!!).postDelayed({
+            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
+        },5000)
+
+         */
     }
+
+
 }
