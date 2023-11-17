@@ -1,7 +1,9 @@
 package com.example.abschlussprojektandroide.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.provider.ContactsContract.CommonDataKinds.Email
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,7 +39,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-
         binding.btnRegistieren.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrierungFragment())
         }
@@ -45,15 +46,16 @@ class LoginFragment : Fragment() {
         binding.btnLogin.setOnClickListener {
             val email = binding.textInputemail.text.toString()
             val password = binding.textInputpassword.text.toString()
-            login(email, password)
-
+            login(email, password,requireContext())
         }
     }
 
-    private fun login(email: String, password:String){
+    private fun login(email: String, password:String,context: Context){
         if(email.isNotEmpty() && password.isNotEmpty()) {
-            viewModel.login(email, password)
+            viewModel.login(email, password,context)
+            Log.d("RepositoryFirestore", "Login erfolgreich für Benutzer: ${email}")
         } else {
+            Log.d("RepositoryFirestore", "Login nicht erfolgreich für Benutzer: ${email}")
             Toast.makeText(context, "E-Mail und Passwort dürfen nicht leer sein", Toast.LENGTH_LONG).show()
         }
     }

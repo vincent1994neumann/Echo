@@ -66,34 +66,39 @@
             <RadioGroup
                 android:id="@+id/rg_radiogroup"
                 android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="8dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/tv_surveyText"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_surveyText">
 
                 <RadioButton
-                    android:id="@+id/rb_true"
+                    android:id="@+id/rb_option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="40dp"
                     android:text="true" />
 
                 <RadioButton
-                    android:id="@+id/rb_dontknow"
+                    android:id="@+id/rb_option2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="40dp"
                     android:text="neutral" />
 
                 <RadioButton
-                    android:id="@+id/rb_false"
+                    android:id="@+id/rb_option3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="40dp"
                     android:text="false" />
+
+                <RadioButton
+                    android:id="@+id/rb_option4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sontiges" />
 
             </RadioGroup>
 
@@ -127,12 +132,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="by:"
                 android:textSize="12dp"
                 android:textStyle="italic"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
 
             <TextView
                 android:id="@+id/tv_published_username_input"
@@ -148,8 +155,8 @@
 
             <View
                 android:id="@+id/divider"
-                android:layout_width="1dp"
-                android:layout_height="213dp"
+                android:layout_width="3dp"
+                android:layout_height="0dp"
                 android:layout_marginEnd="16dp"
                 android:background="@color/grey"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -179,46 +186,53 @@
                 app:srcCompat="@drawable/baseline_bookmark_border_24" />
 
             <TextView
-                android:id="@+id/tv_vote_count_true"
+                android:id="@+id/tv_vote_count_option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:text="0"
-                app:layout_constraintBottom_toTopOf="@+id/tv_published_username_input"
-                app:layout_constraintStart_toStartOf="@+id/rg_radiogroup"
-                app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
+                app:layout_constraintEnd_toStartOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/rg_radiogroup" />
+
 
             <TextView
-                android:id="@+id/tv_vote_count_neutral"
+                android:id="@+id/tv_vote_count_option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:text="0"
-                app:layout_constraintEnd_toStartOf="@+id/tv_vote_count_false"
-                app:layout_constraintStart_toEndOf="@+id/tv_vote_count_true"
-                app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_vote_count_option3"
+                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_vote_count_option1" />
 
             <TextView
-                android:id="@+id/tv_vote_count_false"
+                android:id="@+id/tv_vote_count_option3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp"
                 android:text="0"
-                app:layout_constraintEnd_toEndOf="@+id/rg_radiogroup"
-                app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
+                app:layout_constraintBottom_toTopOf="@+id/tv_vote_count_option4"
+                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option2" />
+
+            <TextView
+                android:id="@+id/tv_vote_count_option4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+
+                android:text="0"
+                app:layout_constraintBottom_toBottomOf="@+id/rg_radiogroup"
+                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option3" />
 
             <ImageButton
                 android:id="@+id/btn_vote_up"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="16dp"
                 android:backgroundTint="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/tv_categorie_cv"
+                app:layout_constraintTop_toBottomOf="@+id/iv_save_icon"
                 app:srcCompat="@drawable/baseline_arrow_upward_24" />
 
             <ImageButton

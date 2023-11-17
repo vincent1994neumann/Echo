@@ -50,7 +50,7 @@ class RegistrierungFragment : Fragment() {
     private fun register(email:String, password:String, confirmPassword:String){
         if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
             if (password == confirmPassword) {
-                viewModel.register(email, password, confirmPassword)
+                viewModel.register(email, password, confirmPassword,requireContext())
             } else {
                 Toast.makeText(
                     requireContext(),

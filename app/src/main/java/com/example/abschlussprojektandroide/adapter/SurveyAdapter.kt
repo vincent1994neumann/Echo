@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussprojektandroide.R
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
@@ -19,10 +18,10 @@ import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
 
 class SurveyAdapter (
     private var dataset : List<SurveyItem>
-
 ): RecyclerView.Adapter<SurveyAdapter.SurveyItemViewHolder>(){
 
-    class SurveyItemViewHolder(val binding: ListItemSurveyBinding) : RecyclerView.ViewHolder(binding.root)
+    class SurveyItemViewHolder(val binding: ListItemSurveyBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyItemViewHolder {
         val binding = ListItemSurveyBinding.inflate(LayoutInflater.from(parent.context),parent,false)
@@ -45,11 +44,17 @@ class SurveyAdapter (
         holder.binding.tvPublishedUsernameInput.text = surveyItem.publishedBy
         holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
 
+        holder.binding.rbOption1.setText(surveyItem.answerOption1)
+        holder.binding.rbOption2.setText(surveyItem.answerOption2)
+        holder.binding.rbOption3.setText(surveyItem.answerOption3)
+        holder.binding.rbOption4.setText(surveyItem.answerOption4)
+
         // die Sichtbarkeit der Prozentangaben basierend auf der showPercentages-Eigenschaft - erst nach Abstimmung sichtbar
         val percentageVisibility = if (surveyItem.showPercentage) View.VISIBLE else View.INVISIBLE
-        holder.binding.tvVoteCountTrue.visibility = percentageVisibility
-        holder.binding.tvVoteCountNeutral.visibility = percentageVisibility
-        holder.binding.tvVoteCountFalse.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption1.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption2.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption3.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption4.visibility = percentageVisibility
 
 
 
@@ -73,45 +78,66 @@ class SurveyAdapter (
         //Abstimmungslogik der Frage
 
 
-        holder.binding.rbTrue.setOnClickListener{
+        holder.binding.rbOption1.setOnClickListener{
             if (!surveyItem.hasVoted){
-                surveyItem.votesTrue++
+
+                surveyItem.votesOption1++
                 surveyItem.totalVotes++
                 surveyItem.hasVoted = true
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem.showPercentage)
-                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
-                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
-                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+                holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
+                holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
+                holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
+                holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
             }
         }
 
-        holder.binding.rbDontknow.setOnClickListener{
+        holder.binding.rbOption2.setOnClickListener{
             if (!surveyItem.hasVoted){
-                surveyItem.votesNeutral++
+                surveyItem.votesOption2++
                 surveyItem.totalVotes++
                 surveyItem.hasVoted = true
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem.showPercentage)
-                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
-                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
-                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+                holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
+                holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
+                holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
+                holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
             }
         }
 
-        holder.binding.rbFalse.setOnClickListener {
+        holder.binding.rbOption3.setOnClickListener {
             if (!surveyItem.hasVoted){
-                surveyItem.votesFalse++
+                surveyItem.votesOption3++
                 surveyItem.totalVotes++
                 surveyItem.hasVoted = true
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem.showPercentage)
-                holder.binding.tvVoteCountTrue.text = surveyItem.percentageTrue()
-                holder.binding.tvVoteCountNeutral.text = surveyItem.percentageNeutral()
-                holder.binding.tvVoteCountFalse.text = surveyItem.percentageFalse()
+                holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
+                holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
+                holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
+                holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
+
+            }
+        }
+
+        holder.binding.rbOption4.setOnClickListener{
+            if (!surveyItem.hasVoted){
+                surveyItem.votesOption4++
+                surveyItem.totalVotes++
+                surveyItem.hasVoted = true
+                disableVotingButtons(holder)
+                surveyItem.showPercentage=true
+                updatePercentageVisibility(holder,surveyItem.showPercentage)
+                holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
+                holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
+                holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
+                holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
+
             }
         }
 
@@ -152,7 +178,7 @@ class SurveyAdapter (
             val shareText = "Schauen Sie sich diese Umfrage an: \n" +
                     "Frage: ${surveyItem.surveyText} \n" +
                     "Abgestimmt: ${surveyItem.totalVotes} Stimmen \n" +
-                    "Ergebnisse: Wahr - ${surveyItem.votesTrue}, Neutral - ${surveyItem.votesNeutral}, Falsch - ${surveyItem.votesFalse} \n" +
+                    "Ergebnisse: Wahr - ${surveyItem.votesOption1}, Neutral - ${surveyItem.votesOption2}, Falsch - ${surveyItem.votesOption3} \n" +
                     "Was ist deine Meinung dazu?"
 
             // Intent für das Teilen erstellen
@@ -184,9 +210,10 @@ class SurveyAdapter (
 
     }
     private fun disableVotingButtons(holder: SurveyItemViewHolder) {
-        holder.binding.rbTrue.isEnabled = false
-        holder.binding.rbDontknow.isEnabled = false
-        holder.binding.rbFalse.isEnabled = false
+        holder.binding.rbOption1.isEnabled = false
+        holder.binding.rbOption2.isEnabled = false
+        holder.binding.rbOption3.isEnabled = false
+        holder.binding.rbOption4.isEnabled = false
     }
     private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder){
         holder.binding.btnVoteUp.isEnabled = false
@@ -195,16 +222,18 @@ class SurveyAdapter (
 
     private fun updatePercentageVisibility(holder: SurveyItemViewHolder, visible: Boolean) {
         val visibility = if (visible) View.VISIBLE else View.INVISIBLE
-        holder.binding.tvVoteCountTrue.visibility = visibility
-        holder.binding.tvVoteCountNeutral.visibility = visibility
-        holder.binding.tvVoteCountFalse.visibility = visibility
+        holder.binding.tvVoteCountOption1.visibility = visibility
+        holder.binding.tvVoteCountOption2.visibility = visibility
+        holder.binding.tvVoteCountOption3.visibility = visibility
+        holder.binding.tvVoteCountOption4.visibility = visibility
     }
 
 
-    fun updateData(newData: List<SurveyItem>){
-        this.dataset = newData
-        notifyDataSetChanged()
+    fun updateData(newData: List<SurveyItem>) {
+        dataset = newData
+        notifyDataSetChanged() // Benachrichtigen Sie den Adapter, dass die Daten aktualisiert wurden
     }
+
 
 
 

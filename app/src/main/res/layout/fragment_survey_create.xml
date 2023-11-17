@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:fillViewport="true"> <!-- Diese Option stellt sicher, dass der ScrollView den gesamten Raum einnimmt, wenn der Inhalt kleiner als der Bildschirm ist -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
@@ -77,7 +81,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_SurveyText"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:layout_marginTop="8dp"
         android:hint="Enter your survey here"
@@ -119,14 +123,15 @@
         android:id="@+id/switch_isPublished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Publish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup_choices" />
+        app:layout_constraintTop_toBottomOf="@+id/addAnswerButton" />
 
     <Button
         android:id="@+id/btn_back"
+        style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -141,54 +146,110 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Select options"
+        android:text="Select possible answers"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner_category" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/radioGroup_choices"
+    <LinearLayout
+        android:id="@+id/answerContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_ChoiceLabel">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ChoiceLabel">
 
-        <RadioButton
-            android:id="@+id/radioButton_true"
-            android:layout_width="0dp"
+        <!-- Material Design Text Input für die ersten beiden stets sichtbaren Antwortfelder -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_answer1"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Agree"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/radioButton_neutral"
-            app:layout_constraintHorizontal_weight="1"/>
+            android:layout_margin="8dp">
 
-        <RadioButton
-            android:id="@+id/radioButton_neutral"
-            android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_answer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 1"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_answer2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="D'ont know"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/radioButton_true"
-            app:layout_constraintEnd_toStartOf="@+id/radioButton_false"
-            app:layout_constraintHorizontal_weight="1"/>
+            android:layout_margin="8dp">
 
-        <RadioButton
-            android:id="@+id/radioButton_false"
-            android:layout_width="0dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_answer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 2"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_answer3"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="D'ont Agree"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/radioButton_neutral"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"/>
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_answer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Option 3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_answer4"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_answer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Option 4" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addAnswerButton"
+        style="@style/StyledButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/baseline_add_24"
+        android:drawableTint="@color/agree"
+        android:text="add"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/answerContainer" />
+
+    <Button
+        android:id="@+id/removeAnswerButton"
+        style="@style/StyledButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:drawableLeft="@drawable/baseline_delete_forever_24"
+        android:drawableTint="@color/disagree"
+        android:text="delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/addAnswerButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

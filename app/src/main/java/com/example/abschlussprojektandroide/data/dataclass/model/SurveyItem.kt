@@ -16,12 +16,19 @@ data class SurveyItem(
     val category: String, // Kategorie des Surveys (z.B. "Umwelt")
     val surveyText: String, // Text der eigentlichen Umfrage
 
+    val answerOption1 : String,
+    val answerOption2: String,
+    val answerOption3: String,
+    val answerOption4: String,
+
     var surveySaved: Boolean = false, // Für den SaveBtn im Survey
 
     var totalVotes: Int = 0, // Gesamtanzahl der Stimmen
-    var votesTrue: Int = 0, // Anzahl der "true" Stimmen
-    var votesNeutral: Int = 0, // Anzahl der "neutral" Stimmen
-    var votesFalse: Int = 0, // Anzahl der "false" Stimmen
+    var votesOption1: Int = 0, // Anzahl der "1" Stimmen
+    var votesOption2: Int = 0, // Anzahl der "2" Stimmen
+    var votesOption3: Int = 0, // Anzahl der "3" Stimmen
+    var votesOption4: Int = 0,// Anzahl der "4" Stimmen
+
     var hasVoted:Boolean = false,
     val votedUser: MutableSet<String> = mutableSetOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
     var showPercentage: Boolean = false,
@@ -32,34 +39,42 @@ data class SurveyItem(
 
 
     ){
-    fun percentageTrue(): String {
+    fun percentageOption1(): String {
         return if (totalVotes > 0) {
-            val trueVotePercentage = (votesTrue.toDouble() / totalVotes.toDouble()) * 100
-            String.format("%.2f", trueVotePercentage) + "%"
+            val option1VotePercentage = (votesOption1.toDouble() / totalVotes.toDouble()) * 100
+            String.format("%.2f", option1VotePercentage) + "%"
         } else "0.00%"
     }
 
-    fun percentageNeutral(): String {
+    fun percentageOption2(): String {
         return if (totalVotes > 0) {
-            val neutralVotePercentage = (votesNeutral.toDouble() / totalVotes.toDouble()) * 100
-            String.format("%.2f", neutralVotePercentage) + "%"
+            val option2VotePercentage = (votesOption2.toDouble() / totalVotes.toDouble()) * 100
+            String.format("%.2f", option2VotePercentage) + "%"
         } else "0.00%"
     }
 
 
-    fun percentageFalse(): String {
+    fun percentageOption3(): String {
         return if (totalVotes > 0) {
-            val falseVotePercentage = (votesFalse.toDouble() / totalVotes.toDouble()) * 100
-            String.format("%.2f", falseVotePercentage) + "%"
+            val option3VotePercentage = (votesOption3.toDouble() / totalVotes.toDouble()) * 100
+            String.format("%.2f", option3VotePercentage) + "%"
         } else "0.00%"
     }
+
+    fun percentageOption4():String{
+        return if (totalVotes > 0){
+            val option4VotePercentage = (votesOption4.toDouble() / totalVotes.toDouble()) * 100
+            String.format("%.2f", option4VotePercentage) + "%"
+        }else "0.00%"
+    }
+
 
     //Logik zum Abstimmen der Frage
 
 
     // Enumeration der möglichen Abstimmungstypen
     enum class VoteType {
-        TRUE, NEUTRAL, FALSE
+        OPTION1, OPTION2, OPTION3,OPTION4
     }
     // Funktion zum Hinzufügen einer Stimme zu einer Abstimmung
     fun addVote(userId: String, vote: VoteType): Boolean {
@@ -67,9 +82,10 @@ data class SurveyItem(
         if (userId !in votedUser) {
             // Hinzufügen einer Stimme basierend auf dem Stimmentyp
             when (vote) {
-                VoteType.TRUE -> votesTrue++     // Erhöhung der TRUE-Stimmen
-                VoteType.NEUTRAL -> votesNeutral++ // Erhöhung der NEUTRAL-Stimmen
-                VoteType.FALSE -> votesFalse++   // Erhöhung der FALSE-Stimmen
+                VoteType.OPTION1 -> votesOption1++     // Erhöhung der TRUE-Stimmen
+                VoteType.OPTION2 -> votesOption2++ // Erhöhung der NEUTRAL-Stimmen
+                VoteType.OPTION3 -> votesOption3++   // Erhöhung der FALSE-Stimmen
+                VoteType.OPTION4 -> votesOption4++
             }
             totalVotes++   // Gesamtanzahl der Stimmen erhöhen
             votedUser.add(userId)  // Benutzer zur Liste der abgestimmten Benutzer hinzufügen
@@ -79,12 +95,6 @@ data class SurveyItem(
         return false
     }
 
-    fun setVotingResults(trueVotes: Int, neutralVotes: Int, falseVotes: Int) {
-        votesTrue = trueVotes
-        votesNeutral = neutralVotes
-        votesFalse = falseVotes
-        totalVotes = trueVotes + neutralVotes + falseVotes
-    }
 
 
     fun totalUpDownVotes ():String{
@@ -98,6 +108,37 @@ data class SurveyItem(
         val format = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.getDefault())
         return format.format(date)
     }
+
+    fun toMap(): HashMap<String, Any> {
+        return hashMapOf(
+            "surveyid" to surveyid,
+            "userId" to userId,
+            "timestamp" to timestamp, // Beachten Sie, dass der Timestamp in einen geeigneten Format umgewandelt werden muss, wenn er nicht bereits ein String ist.
+            "publishedBy" to publishedBy,
+            "isPublished" to isPublished,
+            "header" to header,
+            "category" to category,
+            "surveyText" to surveyText,
+            "answerOption1" to answerOption1,
+            "answerOption2" to answerOption2,
+            "answerOption3" to answerOption3,
+            "answerOption4" to answerOption4,
+            "surveySaved" to surveySaved,
+            "totalVotes" to totalVotes,
+            "votesOption1" to votesOption1,
+            "votesOption2" to votesOption2,
+            "votesOption3" to votesOption3,
+            "votesOption4" to votesOption4,
+            "hasVoted" to hasVoted,
+            "votedUser" to votedUser.toList(), // Umwandlung des Sets in eine Liste, da Sets nicht direkt in Firebase gespeichert werden können.
+            "showPercentage" to showPercentage,
+            "questionUpVotes" to questionUpVotes,
+            "questionDownVotes" to questionDownVotes,
+            "hasVotedQuestion" to hasVotedQuestion
+        )
+    }
+
+
 
 }
 
