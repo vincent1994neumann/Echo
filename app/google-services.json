@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "335995933932",
+    "project_id": "abschlussprojektandroide-1a221",
+    "storage_bucket": "abschlussprojektandroide-1a221.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335995933932:android:4cf7fb0d8417bdd26481c9",
+        "android_client_info": {
+          "package_name": "com.example.abschlussprojektandroide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl_iq2eLzzQelOefYFm5dVNbG7k9wi7xA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
