@@ -1,20 +1,55 @@
 package com.example.abschlussprojektandroide.data.dataclass
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
+import com.google.firebase.firestore.FirebaseFirestore
+
 import com.google.firebase.Timestamp
 
 class AppRepository {
 
     private val _survey = MutableLiveData<List<SurveyItem>>()
-    val survey : LiveData<List<SurveyItem>>
+    val survey: LiveData<List<SurveyItem>>
         get() = _survey
+
     var firestore = RepositoryFirestore()
 
 
-
     fun loadSurveys() {
+        FirebaseFirestore.getInstance().collection("SurveyItem")
+            .get()
+            .addOnSuccessListener { result ->
+                val surveyList = result.map { document ->
+                    document.toObject(SurveyItem::class.java).apply {
+                        surveyid = document.id
+                    }
+                }
+                _survey.postValue(surveyList)
+            }
+            .addOnFailureListener { exeption ->
+                Log.w("AppRepository", "Error loading surveys", exeption)
+            }
+        /*
+        firestoreSurveyItem.collection("SurveyItem")
+            .get()
+            .addOnSuccessListener { result ->
+                val surveyList = result.map { document ->
+                    // Konvertieren Sie das DocumentSnapshot-Objekt in ein SurveyItem-Objekt.
+                    // Stellen Sie sicher, dass Sie eine passende Methode in Ihrer SurveyItem-Klasse haben,
+                    // um ein DocumentSnapshot in ein SurveyItem zu konvertieren.
+                   document.toObject(SurveyItem::class.java).apply {
+                   surveyid = document.id // Setzen Sie die surveyid auf die Document-ID.
+                    }
+                }
+                _survey.value = surveyList // Aktualisieren Sie LiveData mit der geladenen Liste.
+            }
+            .addOnFailureListener { exception ->
+                Log.w("AppRepository", "Error loading surveys", exception)
+            }
+
+
         _survey.value = listOf(
             SurveyItem(
                 surveyid = "1",
@@ -164,6 +199,8 @@ class AppRepository {
                 answerOption4 = "Sonstiges"
             )
         )
+
+         */
     }
 
 

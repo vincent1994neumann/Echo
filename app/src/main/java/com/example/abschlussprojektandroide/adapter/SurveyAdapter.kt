@@ -46,15 +46,41 @@ class SurveyAdapter (
 
         holder.binding.rbOption1.setText(surveyItem.answerOption1)
         holder.binding.rbOption2.setText(surveyItem.answerOption2)
-        holder.binding.rbOption3.setText(surveyItem.answerOption3)
-        holder.binding.rbOption4.setText(surveyItem.answerOption4)
+
+        // Setze Text und Sichtbarkeit für RadioButton 3
+        if (surveyItem.answerOption3.isEmpty()) {
+            holder.binding.rbOption3.visibility = View.GONE
+        } else {
+            holder.binding.rbOption3.visibility = View.VISIBLE
+            holder.binding.rbOption3.text = surveyItem.answerOption3
+        }
+
+// Setze Text und Sichtbarkeit für RadioButton 4
+        if (surveyItem.answerOption4.isEmpty()) {
+            holder.binding.rbOption4.visibility = View.GONE
+        } else {
+            holder.binding.rbOption4.visibility = View.VISIBLE
+            holder.binding.rbOption4.text = surveyItem.answerOption4
+        }
+
+
 
         // die Sichtbarkeit der Prozentangaben basierend auf der showPercentages-Eigenschaft - erst nach Abstimmung sichtbar
         val percentageVisibility = if (surveyItem.showPercentage) View.VISIBLE else View.INVISIBLE
         holder.binding.tvVoteCountOption1.visibility = percentageVisibility
         holder.binding.tvVoteCountOption2.visibility = percentageVisibility
-        holder.binding.tvVoteCountOption3.visibility = percentageVisibility
-        holder.binding.tvVoteCountOption4.visibility = percentageVisibility
+        if (surveyItem.answerOption3.isNotEmpty()){
+            holder.binding.tvVoteCountOption3.visibility = percentageVisibility
+        }else  {
+            holder.binding.tvVoteCountOption3.visibility = View.GONE
+        }
+
+        if (surveyItem.answerOption4.isNotEmpty()){
+            holder.binding.tvVoteCountOption4.visibility = percentageVisibility
+        }else  {
+            holder.binding.tvVoteCountOption4.visibility = View.GONE
+        }
+
 
 
 

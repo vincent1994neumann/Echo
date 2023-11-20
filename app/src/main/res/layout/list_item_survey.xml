@@ -200,29 +200,32 @@
                 android:id="@+id/tv_vote_count_option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:text="0"
                 app:layout_constraintBottom_toTopOf="@+id/tv_vote_count_option3"
-                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option1"
+                app:layout_constraintEnd_toStartOf="@+id/divider"
                 app:layout_constraintTop_toBottomOf="@+id/tv_vote_count_option1" />
 
             <TextView
                 android:id="@+id/tv_vote_count_option3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
                 android:layout_marginBottom="32dp"
                 android:text="0"
                 app:layout_constraintBottom_toTopOf="@+id/tv_vote_count_option4"
-                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option2" />
+                app:layout_constraintEnd_toStartOf="@+id/divider" />
 
             <TextView
                 android:id="@+id/tv_vote_count_option4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="24dp"
 
+                android:layout_marginBottom="8dp"
                 android:text="0"
                 app:layout_constraintBottom_toBottomOf="@+id/rg_radiogroup"
-                app:layout_constraintEnd_toEndOf="@+id/tv_vote_count_option3" />
+                app:layout_constraintEnd_toStartOf="@+id/divider" />
 
             <ImageButton
                 android:id="@+id/btn_vote_up"

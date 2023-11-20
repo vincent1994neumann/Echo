@@ -15,6 +15,7 @@ import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private val viewModel:SharedViewModel by activityViewModels()
+    private lateinit var  surveyAdapter: SurveyAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,12 +29,15 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        surveyAdapter = SurveyAdapter(listOf()) // Initial leer
+        binding.rvHome.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = surveyAdapter
+        }
 
-        val rVc = binding.rvHome
-        rVc.layoutManager = LinearLayoutManager(context)
-        rVc.setHasFixedSize(true)
-
-        viewModel.survey.observe(viewLifecycleOwner){rVc.adapter = SurveyAdapter(it)}
+        viewModel.survey.observe(viewLifecycleOwner) { surveyList ->
+            surveyAdapter.updateData(surveyList) // Aktualisieren Sie Ihren Adapter mit der neuen Liste
+        }
 
         binding.btnFloatingNewVote.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment()) }

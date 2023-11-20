@@ -7,19 +7,19 @@ import java.util.Locale
 
 
 data class SurveyItem(
-    val surveyid: String, // Eindeutige ID, z.B. von einer Datenbank
-    val userId: String,
-    val timestamp:Timestamp, // Zeitstempel des Surveys
-    val publishedBy: String, // Name des Veröffentlichers via ID
-    val isPublished: Boolean = false, // Status der Umfrage: Veröffentlicht oder nicht veröffentlicht.
-    val header: String, // Überschrift des Surveys
-    val category: String, // Kategorie des Surveys (z.B. "Umwelt")
-    val surveyText: String, // Text der eigentlichen Umfrage
+    var surveyid: String ="", // Eindeutige ID, z.B. von einer Datenbank
+    var userId: String ="",
+    var timestamp:Timestamp = Timestamp.now(), // Zeitstempel des Surveys
+    var publishedBy: String ="", // Name des Veröffentlichers via ID
+    var isPublished: Boolean = false, // Status der Umfrage: Veröffentlicht oder nicht veröffentlicht.
+    var header: String="", // Überschrift des Surveys
+    var category: String="", // Kategorie des Surveys (z.B. "Umwelt")
+    var surveyText: String="", // Text der eigentlichen Umfrage
 
-    val answerOption1 : String,
-    val answerOption2: String,
-    val answerOption3: String,
-    val answerOption4: String,
+    var answerOption1 : String="",
+    var answerOption2: String="",
+    var answerOption3: String="",
+    var answerOption4: String="",
 
     var surveySaved: Boolean = false, // Für den SaveBtn im Survey
 
@@ -30,7 +30,7 @@ data class SurveyItem(
     var votesOption4: Int = 0,// Anzahl der "4" Stimmen
 
     var hasVoted:Boolean = false,
-    val votedUser: MutableSet<String> = mutableSetOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
+    var votedUser: MutableList<String> = mutableListOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
     var showPercentage: Boolean = false,
 
     var questionUpVotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)

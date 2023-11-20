@@ -29,10 +29,11 @@ class SplashScreenFragment : Fragment() {
 
     }
 
-    @SuppressLint("SetTextI18n")
+    //@SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /*
 
         // Beobachte das LiveData-Objekt für das Zitat des Tages
         viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
@@ -47,14 +48,12 @@ class SplashScreenFragment : Fragment() {
         if (viewModel.quoteOfTheDay.value == null) {
             viewModel.loadQuoteOfTheDay()
         }
+*/
 
-        /*
         Handler(Looper.myLooper()!!).postDelayed({
             findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },5000)
+        },2000)
 
-         */
+
     }
-
-
 }
