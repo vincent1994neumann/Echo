@@ -33,6 +33,7 @@ class SurveyCreateFragment : Fragment() {
 
         binding.btnBack.setOnClickListener {
             createSurveyItem()
+
             findNavController().popBackStack()
         }
 

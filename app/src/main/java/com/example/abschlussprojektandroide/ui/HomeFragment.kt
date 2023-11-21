@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.abschlussprojektandroide.adapter.SurveyAdapter
+import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
 
@@ -17,7 +18,9 @@ class HomeFragment : Fragment() {
     private val viewModel:SharedViewModel by activityViewModels()
     private lateinit var  surveyAdapter: SurveyAdapter
 
+
     override fun onCreateView(
+
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +32,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        surveyAdapter = SurveyAdapter(listOf()) // Initial leer
+        var updateSurveyItem = { surveyItem: SurveyItem ->
+            viewModel.updateSurveyItem(surveyItem)
+        }
+        if (viewModel.currentUser.value != null) {
+            surveyAdapter = SurveyAdapter(listOf(), viewModel.currentUser.value!!.uid,updateSurveyItem)
+        } // Initial leer
         binding.rvHome.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = surveyAdapter

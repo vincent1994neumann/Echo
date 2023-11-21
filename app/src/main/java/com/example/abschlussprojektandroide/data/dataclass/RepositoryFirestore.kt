@@ -10,6 +10,7 @@ import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.google.android.play.core.integrity.e
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -17,6 +18,7 @@ class RepositoryFirestore{
 
     var firebaseAuth = FirebaseAuth.getInstance()
     val db = Firebase.firestore
+    var TAG = "RepositoryFirestore"
 
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
     val currentUser : LiveData<FirebaseUser?>
@@ -52,6 +54,15 @@ class RepositoryFirestore{
     fun logout(){
         _currentUser.value = null
         firebaseAuth.signOut()
+    }
+
+    fun updateSurveyItem(surveyItem: SurveyItem){
+        val surveyRef = db.collection("SurveyItem").document(surveyItem.surveyid)
+        try {
+            surveyRef.update(surveyItem.toMap())
+        }catch (e:Exception){
+            Log.e(TAG,"Update from SurveyItem failed: $e")
+        }
     }
 
 

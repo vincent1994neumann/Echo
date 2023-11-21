@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.abschlussprojektandroide.R
 import com.example.abschlussprojektandroide.adapter.SurveyAdapter
+import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentProfilBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -39,7 +40,11 @@ class ProfilFragment : Fragment() {
         rVc.layoutManager = LinearLayoutManager(context)
         rVc.setHasFixedSize(true)
 
-        viewModel.survey.observe(viewLifecycleOwner){rVc.adapter = SurveyAdapter(it)}
+        var updateSurveyItem = { surveyItem: SurveyItem ->
+            viewModel.updateSurveyItem(surveyItem)
+        }
+
+        viewModel.survey.observe(viewLifecycleOwner){rVc.adapter = SurveyAdapter(it,viewModel.currentUser.value!!.uid,updateSurveyItem)}
 
         binding.btnFloatingNewVoteProfil.setOnClickListener{
             findNavController().popBackStack()

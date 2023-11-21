@@ -1,6 +1,7 @@
 package com.example.abschlussprojektandroide.data.dataclass.model
 
 
+import com.example.abschlussprojektandroide.VoteType
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -39,28 +40,25 @@ data class SurveyItem(
 
 
     ){
+    //Ergebniss Berechnung
     fun percentageOption1(): String {
         return if (totalVotes > 0) {
             val option1VotePercentage = (votesOption1.toDouble() / totalVotes.toDouble()) * 100
             String.format("%.2f", option1VotePercentage) + "%"
         } else "0.00%"
     }
-
     fun percentageOption2(): String {
         return if (totalVotes > 0) {
             val option2VotePercentage = (votesOption2.toDouble() / totalVotes.toDouble()) * 100
             String.format("%.2f", option2VotePercentage) + "%"
         } else "0.00%"
     }
-
-
     fun percentageOption3(): String {
         return if (totalVotes > 0) {
             val option3VotePercentage = (votesOption3.toDouble() / totalVotes.toDouble()) * 100
             String.format("%.2f", option3VotePercentage) + "%"
         } else "0.00%"
     }
-
     fun percentageOption4():String{
         return if (totalVotes > 0){
             val option4VotePercentage = (votesOption4.toDouble() / totalVotes.toDouble()) * 100
@@ -73,9 +71,6 @@ data class SurveyItem(
 
 
     // Enumeration der möglichen Abstimmungstypen
-    enum class VoteType {
-        OPTION1, OPTION2, OPTION3,OPTION4
-    }
     // Funktion zum Hinzufügen einer Stimme zu einer Abstimmung
     fun addVote(userId: String, vote: VoteType): Boolean {
         // Überprüfen, ob der Benutzer bereits abgestimmt hat

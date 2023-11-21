@@ -33,13 +33,13 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*
+
 
         // Beobachte das LiveData-Objekt für das Zitat des Tages
         viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
             // Überprüfe, ob das Zitat nicht null ist, bevor du es anzeigst
             quote?.let {
-                binding.tvApiCallQuote.text = "\"${it.quote}\" - ${it.author}"
+                binding.tvApiCallQuote.text = "\"${it.quote}\"\\n - ${it.author}"
             }
         }
 
@@ -48,11 +48,11 @@ class SplashScreenFragment : Fragment() {
         if (viewModel.quoteOfTheDay.value == null) {
             viewModel.loadQuoteOfTheDay()
         }
-*/
+
 
         Handler(Looper.myLooper()!!).postDelayed({
             findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },2000)
+        },1000)
 
 
     }

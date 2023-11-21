@@ -15,6 +15,9 @@ class AppRepository {
         get() = _survey
 
     var firestore = RepositoryFirestore()
+    private var apiRepository = ApiRepository()
+
+    val quoteOfTheDay = apiRepository.quoteOfTheDay
 
 
     fun loadSurveys() {
@@ -201,6 +204,10 @@ class AppRepository {
         )
 
          */
+    }
+
+   suspend fun loadQuoteOfTheDay(){
+        apiRepository.loadQuoteOfTheDay()
     }
 
 
