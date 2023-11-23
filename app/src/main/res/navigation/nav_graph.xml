@@ -81,8 +81,8 @@
             android:id="@+id/action_loginFragment_to_registrierungFragment"
             app:destination="@id/registrierungFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_profilFragment2"
-            app:destination="@id/profilFragment" />
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrierungFragment"

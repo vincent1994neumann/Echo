@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
 
         viewModel.currentUser.observe(viewLifecycleOwner) {
             if (it != null) {
-                findNavController().navigate(R.id.homeFragment)
+                findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
             }
         }
 

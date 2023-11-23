@@ -34,6 +34,7 @@ class RegistrierungFragment : Fragment() {
             if (it!= null) {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
               }
+        }
 
         binding.btnBackToLogin.setOnClickListener {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
@@ -44,7 +45,7 @@ class RegistrierungFragment : Fragment() {
             val confirmPassword= binding.textInputpasswordrepeat.text.toString()
             register(email,password,confirmPassword)
             }
-        }
+
     }
 
     private fun register(email:String, password:String, confirmPassword:String){

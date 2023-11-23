@@ -5,18 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussprojektandroide.R
-import com.example.abschlussprojektandroide.VoteType
+import com.example.abschlussprojektandroide.util.VoteType
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
-import com.example.abschlussprojektandroide.data.dataclass.model.User
-import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
-import com.google.android.gms.common.data.DataHolder
-import com.google.firebase.auth.FirebaseUser
 
 //aktuell kann jede Survey nur einmal abgestimmt werden
 //Hier fehlt noch die Logik das jeder User  abstimmen kann
@@ -39,7 +34,6 @@ class SurveyAdapter(
             ListItemSurveyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return SurveyItemViewHolder(binding)
     }
-
     override fun getItemCount(): Int {
         return dataset.size
     }
@@ -52,8 +46,9 @@ class SurveyAdapter(
         holder.binding.tvCategorieCv.text = surveyItem.category
         holder.binding.tvSurveyText.text = surveyItem.surveyText
         holder.binding.tvTimestamp.text = surveyItem.getFormattedTime()
-        holder.binding.tvPublishedUsernameInput.text = surveyItem.userId
+        holder.binding.tvPublishedUsernameInput.text = surveyItem.publishedBy
         holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+        holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
 
         // Abstimmung
         // Radio Btn's 1+2
@@ -139,6 +134,7 @@ class SurveyAdapter(
                 updatePercentageVisibility(holder, surveyItem)
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
+                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
             }
             holder.binding.rbOption2.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION2)
@@ -147,6 +143,7 @@ class SurveyAdapter(
                 updatePercentageVisibility(holder, surveyItem)
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
+                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
             }
             holder.binding.rbOption3.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION3)
@@ -155,6 +152,7 @@ class SurveyAdapter(
                 updatePercentageVisibility(holder, surveyItem)
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
+                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
             }
             holder.binding.rbOption4.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION4)
@@ -163,6 +161,7 @@ class SurveyAdapter(
                 updatePercentageVisibility(holder, surveyItem)
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
+                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
             }
 
         }

@@ -7,78 +7,115 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
+import com.example.abschlussprojektandroide.data.dataclass.model.User
 import com.google.android.play.core.integrity.e
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
-class RepositoryFirestore{
+class RepositoryFirestore {
 
     var firebaseAuth = FirebaseAuth.getInstance()
     val db = Firebase.firestore
     var TAG = "RepositoryFirestore"
 
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
-    val currentUser : LiveData<FirebaseUser?>
+    val currentUser: LiveData<FirebaseUser?>
         get() = _currentUser
 
-    fun login(email: String, password:String,context: Context){
-        try { firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                Log.d("RepositoryFirestore", "Login erfolgreich für Benutzer: ${email} Repo")
-                // festlegen vom currentUser
-                _currentUser.value = firebaseAuth.currentUser
-            }
-        }
 
-        }catch (e:Exception){
+    fun login(email: String, password: String, context: Context) {
+        try {
+            firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("RepositoryFirestore", "Login erfolgreich für Benutzer: ${email} Repo")
+                    // festlegen vom currentUser
+                    _currentUser.value = firebaseAuth.currentUser
+                }
+            }
+        } catch (e: Exception) {
             Log.d("RepositoryFirestore", "Login nicht erfolgreich für Benutzer: ${email}")
         }
     }
 
-    fun register(email: String, password: String, confirmPassword: String,context: Context){
-        try { firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                _currentUser.value = firebaseAuth.currentUser
+    fun register(email: String, password: String, confirmPassword: String, context: Context) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+
+                val user = User(
+                    it.user?.uid!!,
+                    "",
+                    mutableListOf(),
+                    mutableListOf(),
+                    mutableListOf(),
+                    mutableListOf(),
+                )
+                db.collection("users")
+                    .document(it.user?.uid!!)
+                    .set(user.toFirebase())
+
+                _currentUser.value = it.user
                 Log.d("RepositoryFirestore", "Registrierung erfolgreich für Benutzer: ${email}")
             }
-        }
-        }catch (e:Exception){
-            Log.d("RepositoryFirestore", "Registrierung nicht erfolgreich für Benutzer: ${email}")
-            Toast.makeText(context,"Registration unsuccessful",Toast.LENGTH_LONG).show()
-
-        }
+            .addOnFailureListener {
+                Log.d(
+                    "RepositoryFirestore",
+                    "Registrierung nicht erfolgreich für Benutzer: ${email}"
+                )
+                Toast.makeText(context, "Registration unsuccessful", Toast.LENGTH_LONG).show()
+            }
     }
-    fun logout(){
+
+    fun logout() {
         _currentUser.value = null
         firebaseAuth.signOut()
     }
 
-    fun updateSurveyItem(surveyItem: SurveyItem){
+    fun updateSurveyItem(surveyItem: SurveyItem) {
         val surveyRef = db.collection("SurveyItem").document(surveyItem.surveyid)
         try {
             surveyRef.update(surveyItem.toMap())
-        }catch (e:Exception){
-            Log.e(TAG,"Update from SurveyItem failed: $e")
+        } catch (e: Exception) {
+            Log.e(TAG, "Update from SurveyItem failed: $e")
         }
     }
 
 
-    fun saveSurveyItem(surveyItem: SurveyItem){
+    fun saveSurveyItem(surveyItem: SurveyItem) {
         db.collection("SurveyItem")
             .add(surveyItem.toMap())
             .addOnSuccessListener {
                 Log.d("FirestorRepository", "DocumentSnapshot added with ID: ${it.id}")
-                    db.collection("SurveyItem")
-                        .document(it.id).update(
-                            mapOf("surveyId" to it.id)
-                        )
+                val surveyItemId = it.id
+                val currentUser = firebaseAuth.currentUser
+                currentUser?.let {
+                    addSurveyToUser(it.uid,surveyItemId)
+                }
+                db.collection("SurveyItem")
+                    .document(it.id).update(
+                        mapOf("surveyId" to it.id)
+                    )
             }
             .addOnFailureListener {
                 Log.d("FirestorRepository", "Failed: $it")
             }
 
+    }
+
+    fun addSurveyToUser(userId:String,surveyId:String){
+        val userRef = db.collection("users").document(userId)
+        userRef.get().addOnSuccessListener {
+            val user = it.toObject(User::class.java)
+            user?.userCreatedSurveys?.add(surveyId)
+            Log.d(TAG, "Current userCreatedSurveys: ${user?.userCreatedSurveys}") // Protokollieren der aktuellen Liste
+            userRef.update("userCreatedSurveys",user?.userCreatedSurveys)
+            Log.d(TAG, "Updated userCreatedSurveys: ${user?.userCreatedSurveys}") // Protokollieren der aktualisierten Liste
+            userRef.update("userCreatedSurveys", user?.userCreatedSurveys)
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "Error adding survey to user: ", e)
+        }
     }
 }

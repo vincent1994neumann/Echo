@@ -1,7 +1,7 @@
 package com.example.abschlussprojektandroide.data.dataclass.model
 
 
-import com.example.abschlussprojektandroide.VoteType
+import com.example.abschlussprojektandroide.util.VoteType
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Locale

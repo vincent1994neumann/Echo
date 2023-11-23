@@ -39,7 +39,7 @@ class SplashScreenFragment : Fragment() {
         viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
             // Überprüfe, ob das Zitat nicht null ist, bevor du es anzeigst
             quote?.let {
-                binding.tvApiCallQuote.text = "\"${it.quote}\"\\n - ${it.author}"
+                binding.tvApiCallQuote.text = "\"${it.quote}\"\n - ${it.author} -"
             }
         }
 
@@ -52,7 +52,7 @@ class SplashScreenFragment : Fragment() {
 
         Handler(Looper.myLooper()!!).postDelayed({
             findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },1000)
+        },500)
 
 
     }

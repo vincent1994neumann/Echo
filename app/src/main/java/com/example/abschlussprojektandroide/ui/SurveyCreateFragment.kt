@@ -36,7 +36,6 @@ class SurveyCreateFragment : Fragment() {
 
             findNavController().popBackStack()
         }
-
         binding.addAnswerButton.setOnClickListener { addAnswerField() }
         binding.removeAnswerButton.setOnClickListener { removeAnswerField() }
     }
@@ -71,7 +70,7 @@ class SurveyCreateFragment : Fragment() {
             SurveyItem(
                 surveyid ="",
                 userId = it.uid ,
-                timestamp = Timestamp.now(), // ToDO - Timestampp richtig anpassen
+                timestamp = Timestamp.now(),
                 publishedBy =it.uid, // ToDo - richtigen Namen vom User einpflegen (Datenbank user bearbeite)
                 isPublished = false,
                 header = header,
@@ -87,10 +86,4 @@ class SurveyCreateFragment : Fragment() {
             viewModel.saveSurveyItem(surveyItem)
         }
     }
-
-
-
-
 }
-
-//Implementieren Sie Logik in Ihrem Fragment, um die ausgewählte Anzahl von Antwortmöglichkeiten zu verarbeiten.
