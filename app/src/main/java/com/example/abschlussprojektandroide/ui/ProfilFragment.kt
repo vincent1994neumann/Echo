@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -36,6 +33,13 @@ class ProfilFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.fetchCurrentUser()
+        viewModel.currentAppUser.observe(viewLifecycleOwner){
+            binding.tvUsername.text = it?.username
+            binding.tvCountBeitrGe.text = it?.userCreatedSurveys?.size.toString()
+        }
+
         val rVc = binding.rvProfil
         rVc.layoutManager = LinearLayoutManager(context)
         rVc.setHasFixedSize(true)
@@ -53,12 +57,10 @@ class ProfilFragment : Fragment() {
 
         }
 
-        viewModel.currentUser.observe(viewLifecycleOwner){user->
-            binding.headerHome.text = user?.email ?: "Text"
-        }
+        //viewModel.currentUser.observe(viewLifecycleOwner){user->
+        //    binding.headerHome.text = user?.email ?: "Text"
+        //}
+
+
     }
-
-
-
-
 }

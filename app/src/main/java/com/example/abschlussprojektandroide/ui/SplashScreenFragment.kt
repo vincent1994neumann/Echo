@@ -52,7 +52,7 @@ class SplashScreenFragment : Fragment() {
 
         Handler(Looper.myLooper()!!).postDelayed({
             findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },500)
+        },2500)
 
 
     }

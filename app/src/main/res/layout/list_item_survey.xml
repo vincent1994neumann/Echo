@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:backgroundTint="@color/colorPrimaryRv"
+
         app:cardCornerRadius="12dp"
         app:cardElevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,6 +53,7 @@
 
             <TextView
                 android:id="@+id/tv_surveyText"
+                android:textAlignment="center"
                 android:layout_width="250dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -106,12 +107,12 @@
                 android:id="@+id/tv_vote_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:text="29"
                 android:textColor="@color/textSecondary"
                 android:textSize="16dp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/btn_vote_down"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_vote_up" />
 
@@ -188,7 +189,6 @@
                 android:id="@+id/tv_vote_count_option1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginEnd="24dp"
                 android:text="0"
                 app:layout_constraintEnd_toStartOf="@+id/divider"
@@ -241,11 +241,11 @@
                 android:id="@+id/btn_vote_down"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginBottom="32dp"
                 android:backgroundTint="@color/transparent"
+                app:layout_constraintBottom_toTopOf="@+id/divider3"
                 app:layout_constraintEnd_toEndOf="@+id/btn_vote_up"
                 app:layout_constraintStart_toStartOf="@+id/btn_vote_up"
-                app:layout_constraintTop_toBottomOf="@+id/tv_vote_counter"
                 app:srcCompat="@drawable/baseline_arrow_downward_24" />
 
             <TextView
@@ -262,11 +262,12 @@
                 android:id="@+id/tv_totalVoteCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:text="125"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_gesamteVotes"
-                app:layout_constraintStart_toEndOf="@+id/tv_gesamteVotes" />
+                app:layout_constraintStart_toEndOf="@+id/tv_gesamteVotes"
+                app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
             <View
                 android:id="@+id/divider2"

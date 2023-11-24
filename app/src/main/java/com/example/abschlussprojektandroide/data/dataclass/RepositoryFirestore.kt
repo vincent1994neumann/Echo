@@ -27,6 +27,8 @@ class RepositoryFirestore {
         get() = _currentUser
 
 
+
+
     fun login(email: String, password: String, context: Context) {
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -41,13 +43,12 @@ class RepositoryFirestore {
         }
     }
 
-    fun register(email: String, password: String, confirmPassword: String, context: Context) {
+    fun register(email: String, password: String, confirmPassword: String, username:String, context: Context) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-
                 val user = User(
                     it.user?.uid!!,
-                    "",
+                    username,
                     mutableListOf(),
                     mutableListOf(),
                     mutableListOf(),
@@ -56,7 +57,6 @@ class RepositoryFirestore {
                 db.collection("users")
                     .document(it.user?.uid!!)
                     .set(user.toFirebase())
-
                 _currentUser.value = it.user
                 Log.d("RepositoryFirestore", "Registrierung erfolgreich für Benutzer: ${email}")
             }
@@ -96,13 +96,12 @@ class RepositoryFirestore {
                 }
                 db.collection("SurveyItem")
                     .document(it.id).update(
-                        mapOf("surveyId" to it.id)
+                        mapOf("surveyid" to it.id)
                     )
             }
             .addOnFailureListener {
                 Log.d("FirestorRepository", "Failed: $it")
             }
-
     }
 
     fun addSurveyToUser(userId:String,surveyId:String){
@@ -110,12 +109,10 @@ class RepositoryFirestore {
         userRef.get().addOnSuccessListener {
             val user = it.toObject(User::class.java)
             user?.userCreatedSurveys?.add(surveyId)
-            Log.d(TAG, "Current userCreatedSurveys: ${user?.userCreatedSurveys}") // Protokollieren der aktuellen Liste
             userRef.update("userCreatedSurveys",user?.userCreatedSurveys)
-            Log.d(TAG, "Updated userCreatedSurveys: ${user?.userCreatedSurveys}") // Protokollieren der aktualisierten Liste
-            userRef.update("userCreatedSurveys", user?.userCreatedSurveys)
         }.addOnFailureListener { e ->
             Log.e(TAG, "Error adding survey to user: ", e)
         }
     }
+
 }

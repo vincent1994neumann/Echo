@@ -1,12 +1,14 @@
 package com.example.abschlussprojektandroide.adapter
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussprojektandroide.R
 import com.example.abschlussprojektandroide.util.VoteType
@@ -75,7 +77,9 @@ class SurveyAdapter(
         // die Sichtbarkeit der Prozentangaben basierend auf der showPercentages-Eigenschaft - erst nach Abstimmung sichtbar
         val percentageVisibility = if (surveyItem.showPercentage) View.VISIBLE else View.INVISIBLE
         holder.binding.tvVoteCountOption1.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
         holder.binding.tvVoteCountOption2.visibility = percentageVisibility
+        holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
         // Setze Text und Sichtbarkeit für RadioButton 3
         if (surveyItem.answerOption3.isEmpty()) {
             holder.binding.rbOption3.visibility = View.GONE
@@ -91,7 +95,6 @@ class SurveyAdapter(
                 holder.binding.tvVoteCountOption3.visibility = View.INVISIBLE
             }
         }
-
         if (surveyItem.answerOption4.isEmpty()) {
             holder.binding.rbOption4.visibility = View.GONE
             holder.binding.tvVoteCountOption4.visibility = View.GONE
@@ -134,7 +137,8 @@ class SurveyAdapter(
                 updatePercentageVisibility(holder, surveyItem)
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
-                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
+                holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString() // aktualisiert den totalVote Count, sobald abgestimmt wurde
+                updateUiAfterVote(surveyItem,holder)
             }
             holder.binding.rbOption2.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION2)
@@ -144,6 +148,7 @@ class SurveyAdapter(
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
                 holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
+                updateUiAfterVote(surveyItem,holder)
             }
             holder.binding.rbOption3.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION3)
@@ -153,6 +158,7 @@ class SurveyAdapter(
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
                 holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
+                updateUiAfterVote(surveyItem,holder)
             }
             holder.binding.rbOption4.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION4)
@@ -162,6 +168,7 @@ class SurveyAdapter(
                 updatePercentage(holder,surveyItem)
                 updateSurveyItem(surveyItem)
                 holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
+                updateUiAfterVote(surveyItem,holder)
             }
 
         }
@@ -172,9 +179,6 @@ class SurveyAdapter(
             holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
             holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
         }
-
-
-
 
         //_______________________________________________________________________
 
@@ -195,7 +199,6 @@ class SurveyAdapter(
             val toastIcon = toastLayout.findViewById<ImageView>(R.id.toast_icon)
 
             if (surveyItem.surveySaved) {
-
                 surveyItem.surveySaved = false
                 holder.binding.ivSaveIcon.setImageResource(R.drawable.baseline_bookmark_border_24)
                 toastText.text = holder.itemView.context.getString(R.string.survey_removed)
@@ -206,7 +209,6 @@ class SurveyAdapter(
                 toastText.text = holder.itemView.context.getString(R.string.survey_saved)
                 toastIcon.setImageResource(R.drawable.baseline_bookmark_24)
             }
-
             val toast = Toast(holder.itemView.context).apply {
                 duration = Toast.LENGTH_SHORT
                 view = toastLayout
@@ -253,12 +255,22 @@ class SurveyAdapter(
         }
     }
 
-
     private fun disableVotingButtons(holder: SurveyItemViewHolder) {
         holder.binding.rbOption1.isEnabled = false
         holder.binding.rbOption2.isEnabled = false
         holder.binding.rbOption3.isEnabled = false
         holder.binding.rbOption4.isEnabled = false
+    }
+
+    private fun updateUiAfterVote(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
+        if (surveyItem.votedUser.contains(currentUserId)) {
+            val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.agree)
+            holder.binding.cvSurvey.setCardBackgroundColor(votedColor)
+        } else {
+            val notVotedColor = ContextCompat.getColor(holder.itemView.context, R.color.colorvoteitem)
+            holder.binding.cvSurvey.setCardBackgroundColor(notVotedColor)
+        }
+
     }
 
     private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder) {

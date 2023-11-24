@@ -54,8 +54,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textStyle="bold"
         android:text="Max Mustermann"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_prfoilPic"
         app:layout_constraintTop_toTopOf="@+id/iv_prfoilPic" />
 

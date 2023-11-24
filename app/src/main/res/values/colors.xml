@@ -9,7 +9,7 @@
     <color name="colorPrimaryRv">#ECE9E8</color> <!-- SecondColor -->
 
     <!-- Akzentfarbe -->
-    <color name="colorvoteitem">#D8CBAB</color> <!-- PrimarySignalColor (optional) -->
+    <color name="colorvoteitem">#E1DFD7</color> <!-- PrimarySignalColor (optional) -->
     <color name="grey">#7EE9E9E9</color>
 
     <!-- Hintergrund und Schriftfarben -->

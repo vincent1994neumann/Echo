@@ -102,11 +102,11 @@
 
 
     <Button
-        android:id="@+id/btn_Registieren"
+        android:id="@+id/btn_SignUp"
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="48dp"
         android:text="SIGN UP"
         app:layout_constraintBottom_toTopOf="@+id/btn_back_to_login"
         app:layout_constraintEnd_toEndOf="@+id/btn_back_to_login"
@@ -128,7 +128,7 @@
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="@color/grey"
         android:text="BACK"
         app:layout_constraintBottom_toBottomOf="parent"

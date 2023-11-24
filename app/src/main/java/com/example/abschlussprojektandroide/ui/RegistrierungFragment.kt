@@ -30,6 +30,8 @@ class RegistrierungFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
         viewModel.currentUser.observe(viewLifecycleOwner){
             if (it!= null) {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
@@ -39,19 +41,20 @@ class RegistrierungFragment : Fragment() {
         binding.btnBackToLogin.setOnClickListener {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
         }
-        binding.btnRegistieren.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             val email= binding.textInputemail.text.toString()
             val password= binding.textInputpassword.text.toString()
             val confirmPassword= binding.textInputpasswordrepeat.text.toString()
-            register(email,password,confirmPassword)
+            val username = binding.textInputusernameReg.text.toString()
+            register(email,password,confirmPassword,username)
             }
 
     }
 
-    private fun register(email:String, password:String, confirmPassword:String){
+    private fun register(email:String, password:String, confirmPassword:String, username:String){
         if(email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
             if (password == confirmPassword) {
-                viewModel.register(email, password, confirmPassword,requireContext())
+                viewModel.register(email, password, confirmPassword,username,requireContext())
             } else {
                 Toast.makeText(
                     requireContext(),
