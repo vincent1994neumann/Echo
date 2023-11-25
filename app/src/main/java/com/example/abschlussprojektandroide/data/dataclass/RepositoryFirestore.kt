@@ -8,12 +8,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.dataclass.model.User
-import com.google.android.play.core.integrity.e
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
 class RepositoryFirestore {
@@ -96,7 +93,7 @@ class RepositoryFirestore {
                 }
                 db.collection("SurveyItem")
                     .document(it.id).update(
-                        mapOf("surveyid" to it.id)
+                        mapOf("surveyId" to it.id)
                     )
             }
             .addOnFailureListener {
@@ -115,4 +112,48 @@ class RepositoryFirestore {
         }
     }
 
+
+    fun addSurveyToUserFavoriteList(userId: String, surveyId: String, shouldSave: Boolean) {
+        val userRef = db.collection("users").document(userId)
+
+        db.runTransaction { transaction ->
+            val userSnapshot = transaction.get(userRef)
+            val user = userSnapshot.toObject(User::class.java)
+            user?.let {
+                if (shouldSave) {
+                    if (!user.savedSurveys.contains(surveyId)) {
+                        user.savedSurveys.add(surveyId)
+                    }
+                } else {
+                    user.savedSurveys.remove(surveyId)
+                }
+                transaction.set(userRef, user)
+            }
+        }.addOnSuccessListener {
+            Log.d(TAG, "Saved surveys updated successfully")
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "Error updating saved surveys: ", e)
+            // Optional: Benutzerfeedback über UI-Komponenten
+        }
+    }
+
+    fun removeSurveyFromUserFavoriteList(userId: String, surveyId: String) {
+        val userRef = db.collection("users").document(userId)
+
+        db.runTransaction { transaction ->
+            val userSnapshot = transaction.get(userRef)
+            val user = userSnapshot.toObject(User::class.java)
+            user?.let {
+                if (user.savedSurveys.contains(surveyId)) {
+                    user.savedSurveys.remove(surveyId)
+                    transaction.set(userRef, user)
+                }
+            }
+        }.addOnSuccessListener {
+            Log.d(TAG, "Survey removed from saved list successfully")
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "Error removing survey from saved list: ", e)
+            // Optional: Benutzerfeedback über UI-Komponenten
+        }
+    }
 }

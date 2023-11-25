@@ -33,11 +33,17 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.currentUser.observe(viewLifecycleOwner) {
-            if (it != null) {
+        viewModel.currentAppUser.observe(viewLifecycleOwner){
+            if (it != null && viewModel.currentUser.value != null){
                 findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
             }
         }
+        viewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                viewModel.fetchCurrentUser()
+            }
+        }
+
 
         binding.btnSignUp.setOnClickListener {
             findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToRegistrierungFragment())

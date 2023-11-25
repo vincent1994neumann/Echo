@@ -1,6 +1,7 @@
 package com.example.abschlussprojektandroide.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,40 +15,63 @@ import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
-    private lateinit var binding : FragmentHomeBinding
-    private val viewModel:SharedViewModel by activityViewModels()
-    private lateinit var  surveyAdapter: SurveyAdapter
+    // Deklaration der Variablen für das Binding und das ViewModel
+    private lateinit var binding: FragmentHomeBinding
+    private val viewModel: SharedViewModel by activityViewModels()
+    // Deklaration des SurveyAdapters als spät initialisierte Variable.
+    // Dieser Adapter wird verwendet, um die Daten (Umfragen) in der RecyclerView anzuzeigen.
+    // Die Variable wird später initialisiert, da sie Daten benötigt, die erst nach der Erstellung des Fragments verfügbar sind.
+    private lateinit var surveyAdapter: SurveyAdapter
 
 
     override fun onCreateView(
-
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentHomeBinding.inflate(inflater,container,false)
+        // Initialisieren des View Bindings
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Lambda-Funktion, die eine SurveyItem-Instanz an das ViewModel zur Aktualisierung weiterleitet
         var updateSurveyItem = { surveyItem: SurveyItem ->
             viewModel.updateSurveyItem(surveyItem)
         }
-        if (viewModel.currentUser.value != null) {
-            surveyAdapter = SurveyAdapter(listOf(), viewModel.currentUser.value!!.uid,updateSurveyItem)
-        } // Initial leer
-        binding.rvHome.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = surveyAdapter
+
+        // Definieren Sie den onSaveClicked-Callback
+        val onSaveClicked: (String, Boolean) -> Unit = { surveyId, shouldSave ->
+            viewModel.updateFavoriteSurveys(surveyId, shouldSave)
         }
 
+        // Beobachten der aktuellen App-Benutzerdaten und Initialisieren des Adapters, wenn Benutzerdaten vorhanden sind
+        viewModel.currentAppUser.observe(viewLifecycleOwner) {
+            if (viewModel.currentUser.value != null) {
+                surveyAdapter = SurveyAdapter(
+                    listOf(),
+                    viewModel.currentUser.value!!.uid,
+                    updateSurveyItem,
+                    onSaveClicked,
+                    viewModel.currentAppUser.value?.savedSurveys?: mutableListOf()
+                )
+            }
+            // RecyclerView-Setup mit dem SurveyAdapter
+            binding.rvHome.apply {
+                layoutManager = LinearLayoutManager(context)
+                adapter = surveyAdapter
+            }
+        }
+
+        // Beobachten von Änderungen in der Umfrageliste und Aktualisieren des Adapters bei Änderungen
         viewModel.survey.observe(viewLifecycleOwner) { surveyList ->
-            surveyAdapter.updateData(surveyList) // Aktualisieren Sie Ihren Adapter mit der neuen Liste
+            Log.d("HomeFragment", viewModel.currentAppUser.value.toString())
+            surveyAdapter.updateData(surveyList)
         }
 
+        // Setzen des Click Listeners für den Floating Action Button, um zur Umfrageerstellungsseite zu navigieren
         binding.btnFloatingNewVote.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment()) }
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment())
+        }
     }
 }

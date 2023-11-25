@@ -13,19 +13,6 @@ data class User(
     var idQuestionVoteList: MutableList<String> = mutableListOf() //Eine Liste oder ein Set von IDs der Fragen, bei denen der Benutzer bereits gevoted hat.
 ){
 
-    companion object{
-        fun fromFireBase(snapshot: DocumentSnapshot):User{
-            return User(
-                snapshot["userId"] as String,
-                snapshot["username"] as String,
-                snapshot["userCreatedSurveys"] as MutableList<String>,
-                snapshot["savedSurveys"] as MutableList<String>,
-                snapshot["idSurveyList"] as MutableList<String>,
-                snapshot["idQuestionVoteList"] as MutableList<String>,
-            )
-        }
-    }
-
     fun toFirebase():Map<String,Any>{
         return mapOf(
             "userId" to userId,
@@ -36,20 +23,6 @@ data class User(
             "idQuestionVoteList" to idQuestionVoteList
         )
     }
-
-/*
-    constructor(userdata: Map<String,Any>) : this (
-        userId = userdata["userId"] as String,
-        username = userdata["username"] as String,
-        userCreatedSurveys = userdata["userCreatedSurveys"] as MutableList<String>,
-        savedSurveys = userdata["savedSurveys"] as MutableList<String>,
-        idSurveyList = userdata["idSurveyListe"] as MutableList<String>,
-        idQuestionVoteList = userdata["idQuestionVoteList"] as MutableList<String>
-    )
-
-
- */
-
 
 }
 

@@ -32,12 +32,16 @@ class RegistrierungFragment : Fragment() {
 
 
 
-        viewModel.currentUser.observe(viewLifecycleOwner){
-            if (it!= null) {
-            findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
-              }
+        viewModel.currentAppUser.observe(viewLifecycleOwner){
+            if (it != null && viewModel.currentUser.value != null){
+                findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToHomeFragment())
+            }
         }
-
+        viewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                viewModel.fetchCurrentUser()
+            }
+        }
         binding.btnBackToLogin.setOnClickListener {
             findNavController().navigate(RegistrierungFragmentDirections.actionRegistrierungFragmentToLoginFragment())
         }

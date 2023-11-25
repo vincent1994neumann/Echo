@@ -16,24 +16,22 @@ data class SurveyItem(
     var header: String="", // Überschrift des Surveys
     var category: String="", // Kategorie des Surveys (z.B. "Umwelt")
     var surveyText: String="", // Text der eigentlichen Umfrage
-
     var answerOption1 : String="",
     var answerOption2: String="",
     var answerOption3: String="",
     var answerOption4: String="",
-
     var surveySaved: Boolean = false, // Für den SaveBtn im Survey
-
     var totalVotes: Int = 0, // Gesamtanzahl der Stimmen
     var votesOption1: Int = 0, // Anzahl der "1" Stimmen
     var votesOption2: Int = 0, // Anzahl der "2" Stimmen
     var votesOption3: Int = 0, // Anzahl der "3" Stimmen
     var votesOption4: Int = 0,// Anzahl der "4" Stimmen
-
+    var selectedOption: VoteType? = null, // Standardmäßig ist keine Option ausgewählt
     var hasVoted:Boolean = false,
     var votedUser: MutableList<String> = mutableListOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
     var showPercentage: Boolean = false,
 
+    var votedQuestionUser: MutableList<String> = mutableListOf(),
     var questionUpVotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
     var questionDownVotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
     var hasVotedQuestion: Boolean =false,
@@ -95,6 +93,7 @@ data class SurveyItem(
     fun totalUpDownVotes ():String{
         var totalVotesQuestion= questionUpVotes-questionDownVotes
         return totalVotesQuestion.toString()
+        votedQuestionUser.add(userId)
     }
 
     fun getFormattedTime(): String {

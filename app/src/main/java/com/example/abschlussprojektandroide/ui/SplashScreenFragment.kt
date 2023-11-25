@@ -12,12 +12,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentSplashScreenBinding
+import com.google.firebase.auth.FirebaseAuth
 
 
 class SplashScreenFragment : Fragment() {
     private lateinit var binding : FragmentSplashScreenBinding
     private val viewModel: SharedViewModel by activityViewModels()
-
+    var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +34,23 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (firebaseAuth.currentUser == null){
+            Handler(Looper.myLooper()!!).postDelayed({
+                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
+            },2500)
+        }
 
+        //currentAPPUser Laden
+        viewModel.currentAppUser.observe(viewLifecycleOwner){
+            if (it != null && viewModel.currentUser.value != null){
+                findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
+            }
+        }
+        viewModel.currentUser.observe(viewLifecycleOwner) {
+            if (it != null) {
+                viewModel.fetchCurrentUser()
+            }
+        }
 
         // Beobachte das LiveData-Objekt für das Zitat des Tages
         viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
@@ -48,12 +65,5 @@ class SplashScreenFragment : Fragment() {
         if (viewModel.quoteOfTheDay.value == null) {
             viewModel.loadQuoteOfTheDay()
         }
-
-
-        Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-        },2500)
-
-
     }
 }

@@ -22,8 +22,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     var firebaseAuth = FirebaseAuth.getInstance()
 
 
-
-
     //LiveData Überwachung vom User
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
     val currentUser :LiveData<FirebaseUser?>
@@ -32,14 +30,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     private val _currentAppUser = MutableLiveData<User?>()
     val currentAppUser :LiveData<User?>
         get()= _currentAppUser
-
-
-    //LiveData für die Abstimmungen der Surveys
-    private val _voteResult = MutableLiveData<Result<String>>()
-    val voteResult: LiveData<Result<String>> = _voteResult
-
-
-
 
     init {
         repository.loadSurveys()
@@ -86,6 +76,17 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
 
     fun saveSurveyItem (surveyItem: SurveyItem){
         repository.firestore.saveSurveyItem(surveyItem)
+    }
+
+    fun updateFavoriteSurveys(surveyId: String, shouldSave: Boolean) {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+        viewModelScope.launch {
+            if (shouldSave) {
+                repository.firestore.addSurveyToUserFavoriteList(userId, surveyId,shouldSave)
+            } else {
+                repository.firestore.removeSurveyFromUserFavoriteList(userId,surveyId)
+            }
+        }
     }
 
     //QQD API Call
