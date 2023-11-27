@@ -20,6 +20,9 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     val quoteOfTheDay = repository.quoteOfTheDay
     val survey = repository.survey
     var firebaseAuth = FirebaseAuth.getInstance()
+    //val userPosts: LiveData<List<SurveyItem>> = repository.firestore.getUserSurvey(currentUser.value?.uid?:"")
+    //val userSavedSurveys: LiveData<List<SurveyItem>> = repository.firestore.getUserSavedSurveys(currentUser.value?.uid?:"") // Implementieren Sie ähnlich wie userPosts
+   // val userDraft: LiveData<List<SurveyItem>> // Implementieren Sie ähnlich wie userPosts
 
 
     //LiveData Überwachung vom User
@@ -65,7 +68,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     fun login(email: String, password:String,context: Context){
     repository.firestore.login(email,password, context)
     }
-
+//Firestore Registrierung Logik Aufruf
     fun register(email: String, password: String, confirmPassword: String,username:String,context: Context){
     repository.firestore.register(email,password,confirmPassword,username,context)
     }
@@ -78,6 +81,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
         repository.firestore.saveSurveyItem(surveyItem)
     }
 
+
     fun updateFavoriteSurveys(surveyId: String, shouldSave: Boolean) {
         val userId = firebaseAuth.currentUser?.uid ?: return
         viewModelScope.launch {
@@ -88,6 +92,29 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
             }
         }
     }
+
+    //RV Segmentierung der SurveyItems
+
+    fun getUserCreatedSurveys(userId: String): LiveData<List<SurveyItem>> {
+        return repository.firestore.getUserSurvey(userId)
+    }
+
+    fun getUserSavedSurveys(userId: String): LiveData<List<SurveyItem>> {
+        return repository.firestore.getUserSavedSurveys(userId)
+    }
+
+    //HomeTabMenü
+    fun getLatestSurveysForHomepage():LiveData<List<SurveyItem>>{
+        return repository.firestore.getLatestSurveysForHomepage()
+    }
+    fun getSurveysUserNotVoted():LiveData<List<SurveyItem>>{
+        return repository.firestore.getSurveysUserNotVoted(currentAppUser.value?.userId!!)
+    }
+    fun getSurveysByQuestionCount():LiveData<List<SurveyItem>>{
+        return repository.firestore.getSurveysByQuestionCount()
+    }
+
+
 
     //QQD API Call
     fun loadQuoteOfTheDay(category: String? = null) {

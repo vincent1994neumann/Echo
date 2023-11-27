@@ -16,18 +16,17 @@
         android:navigationIcon="@drawable/baseline_arrow_back_ios_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/profil_settings_menu">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/header_home"
+                android:id="@+id/header_profil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profil"
+                android:text="Profilname"
                 android:textSize="24dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -50,66 +49,46 @@
 
 
     <TextView
-        android:id="@+id/tv_username"
+        android:id="@+id/tv_createdSurveys"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Max Mustermann"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Created Surveys"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/iv_prfoilPic"
-        app:layout_constraintTop_toTopOf="@+id/iv_prfoilPic" />
+        app:layout_constraintTop_toBottomOf="@+id/profil_toolbar" />
 
     <TextView
-        android:id="@+id/tv_beschreibungProfil"
-        android:layout_width="245dp"
-        android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="Nicht nur dabei, sondern mittendrin im Dialog der Zeit."
-        app:layout_constraintStart_toEndOf="@+id/iv_prfoilPic"
-        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
-
-    <TextView
-        android:id="@+id/tv_beiträge"
+        android:id="@+id/tv_countSurveysCreated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Beiträge"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_username"
-        app:layout_constraintStart_toEndOf="@+id/tv_username"
-        app:layout_constraintTop_toBottomOf="@+id/profil_toolbar"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/tv_count_beiträge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:text="8"
-        app:layout_constraintEnd_toEndOf="@+id/tv_beiträge"
-        app:layout_constraintStart_toStartOf="@+id/tv_beiträge"
-        app:layout_constraintTop_toBottomOf="@+id/tv_beiträge" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_createdSurveys"
+        app:layout_constraintStart_toEndOf="@+id/tv_createdSurveys"
+        app:layout_constraintTop_toTopOf="@+id/tv_createdSurveys" />
 
     <TextView
         android:id="@+id/tv_follower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Follower"
+        android:layout_marginTop="24dp"
+        android:text="Saved Surveys"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_beiträge"
-        app:layout_constraintStart_toEndOf="@+id/tv_beiträge"
-        app:layout_constraintTop_toTopOf="@+id/tv_beiträge" />
+        app:layout_constraintStart_toStartOf="@+id/tv_createdSurveys"
+        app:layout_constraintTop_toBottomOf="@+id/tv_createdSurveys" />
 
     <TextView
-        android:id="@+id/tv_count_Follower"
+        android:id="@+id/tv_countSavedSurveys"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="125"
-        app:layout_constraintEnd_toEndOf="@+id/tv_follower"
-        app:layout_constraintStart_toStartOf="@+id/tv_follower"
-        app:layout_constraintTop_toBottomOf="@+id/tv_follower" />
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_follower"
+        app:layout_constraintStart_toStartOf="@+id/tv_countSurveysCreated"
+        app:layout_constraintTop_toTopOf="@+id/tv_follower" />
 
 
     <com.google.android.material.tabs.TabLayout
@@ -127,15 +106,11 @@
             android:layout_height="wrap_content"
             android:text="My Post" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Drafts" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My Saved Surveys" />
+            android:text="My Saved" />
 
     </com.google.android.material.tabs.TabLayout>
 

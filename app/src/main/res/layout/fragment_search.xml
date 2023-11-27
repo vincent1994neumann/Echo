@@ -20,7 +20,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/header_home"
+                android:id="@+id/header_profil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Search"

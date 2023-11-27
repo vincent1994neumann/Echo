@@ -2,6 +2,7 @@ package com.example.abschlussprojektandroide.data.dataclass.model
 
 
 import com.example.abschlussprojektandroide.util.VoteType
+import com.example.abschlussprojektandroide.util.VoteTypeQuestion
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -30,7 +31,7 @@ data class SurveyItem(
     var hasVoted:Boolean = false,
     var votedUser: MutableList<String> = mutableListOf(), // Abfragen ob USer bereits abgestimmt hat, Set von User-IDs, die bereits abgestimmt haben
     var showPercentage: Boolean = false,
-
+    var votedQuestionResult : Int = 0,
     var votedQuestionUser: MutableList<String> = mutableListOf(),
     var questionUpVotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
     var questionDownVotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
@@ -88,12 +89,23 @@ data class SurveyItem(
         return false
     }
 
+    fun addUserToQuestionUpDownVote(userId: String,questionVote: VoteTypeQuestion):Boolean {
+        if (userId !in votedQuestionUser) {
+            when (questionVote) {
+                VoteTypeQuestion.OPTIONUP -> questionUpVotes++
+                VoteTypeQuestion.OPTIONDOWN -> questionDownVotes++
+            }
+            votedQuestionUser.add(userId)
+            return true
+        }
+    return false
+    }
+
 
 
     fun totalUpDownVotes ():String{
-        var totalVotesQuestion= questionUpVotes-questionDownVotes
-        return totalVotesQuestion.toString()
-        votedQuestionUser.add(userId)
+        votedQuestionResult= questionUpVotes-questionDownVotes
+        return votedQuestionResult.toString()
     }
 
     fun getFormattedTime(): String {
@@ -126,6 +138,8 @@ data class SurveyItem(
             "hasVoted" to hasVoted,
             "votedUser" to votedUser.toList(), // Umwandlung des Sets in eine Liste, da Sets nicht direkt in Firebase gespeichert werden können.
             "showPercentage" to showPercentage,
+            "votedQuestionResult" to votedQuestionResult,
+            "votedQuestionUser" to votedQuestionUser.toList(),
             "questionUpVotes" to questionUpVotes,
             "questionDownVotes" to questionDownVotes,
             "hasVotedQuestion" to hasVotedQuestion

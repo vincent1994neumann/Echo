@@ -1,5 +1,6 @@
 package com.example.abschlussprojektandroide.adapter
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.abschlussprojektandroide.R
 import com.example.abschlussprojektandroide.util.VoteType
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
+import com.example.abschlussprojektandroide.util.VoteTypeQuestion
 
 class SurveyAdapter(
     private var dataset: List<SurveyItem>,
@@ -37,6 +40,7 @@ class SurveyAdapter(
         return dataset.size
     }
 
+    @SuppressLint("ResourceAsColor")
     override fun onBindViewHolder(holder: SurveyItemViewHolder, position: Int) {
         val surveyItem = dataset[position]
 
@@ -114,18 +118,25 @@ class SurveyAdapter(
         //_______________________________________________________________________
 
         //UP & Down Vote der Frage Logik
+        updateUiAfterVoteQuestion(surveyItem, holder)
         if (!surveyItem.votedQuestionUser.contains(currentUserId)){
             holder.binding.btnVoteUp.setOnClickListener {
-                surveyItem.questionUpVotes++
+                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONUP)
                 surveyItem.totalUpDownVotes()
-                disableVotingUpDownBtn(holder)
                 holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+                disableVotingUpDownBtn(holder)
+                updateSurveyItem(surveyItem)
+                updateUiAfterVoteQuestion(surveyItem, holder)
+                surveyItem.hasVotedQuestion = true
             }
             holder.binding.btnVoteDown.setOnClickListener {
-                surveyItem.questionDownVotes++
+                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONDOWN)
                 surveyItem.totalUpDownVotes()
-                disableVotingUpDownBtn(holder)
                 holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+                disableVotingUpDownBtn(holder)
+                updateSurveyItem(surveyItem)
+                updateUiAfterVoteQuestion(surveyItem, holder)
+                surveyItem.hasVotedQuestion = true
             }
         }
 
@@ -159,6 +170,7 @@ class SurveyAdapter(
             }
             holder.binding.rbOption2.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION2)
+
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem)
@@ -169,6 +181,7 @@ class SurveyAdapter(
             }
             holder.binding.rbOption3.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION3)
+
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem)
@@ -179,6 +192,7 @@ class SurveyAdapter(
             }
             holder.binding.rbOption4.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION4)
+
                 disableVotingButtons(holder)
                 surveyItem.showPercentage = true
                 updatePercentageVisibility(holder, surveyItem)
@@ -262,8 +276,10 @@ class SurveyAdapter(
             )
         }
     }
-
-
+    private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder) {
+        holder.binding.btnVoteUp.isEnabled = false
+        holder.binding.btnVoteDown.isEnabled = false
+    }
 
     private fun disableVotingButtons(holder: SurveyItemViewHolder) {
         holder.binding.rbOption1.isEnabled = false
@@ -278,9 +294,11 @@ class SurveyAdapter(
         holder.binding.rbOption4.isEnabled = true
     }
 
+
+
     private fun updateUiAfterVote(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
-        if (surveyItem.votedUser.contains(currentUserId)) {
-            val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.agree)
+        if (surveyItem.votedUser.contains(currentUserId)){
+            val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.gold)
             holder.binding.cvSurvey.setCardBackgroundColor(votedColor)
         } else {
             val notVotedColor = ContextCompat.getColor(holder.itemView.context, R.color.colorvoteitem)
@@ -288,10 +306,15 @@ class SurveyAdapter(
         }
     }
 
-    private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder) {
-        holder.binding.btnVoteUp.isEnabled = false
-        holder.binding.btnVoteDown.isEnabled = false
+
+    private fun updateUiAfterVoteQuestion(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
+        if (surveyItem.votedQuestionUser.contains(currentUserId)){
+            holder.binding.btnVoteDown.isVisible = false
+            holder.binding.btnVoteUp.isVisible = false
+        }
     }
+
+
 
     private fun updatePercentageVisibility(holder: SurveyItemViewHolder, surveyItem: SurveyItem) {
         // Sichtbarkeit für die Prozentsatzanzeigen der Antwortoptionen 1 und 2
@@ -318,6 +341,7 @@ class SurveyAdapter(
         holder.binding.tvVoteCountOption3.text = surveyItem.percentageOption3()
         holder.binding.tvVoteCountOption4.text = surveyItem.percentageOption4()
     }
+
 
     private fun showToast(holder: SurveyAdapter.SurveyItemViewHolder, messageResId: Int, iconResId: Int) {
         // Erstellen und Anzeigen des Toasts

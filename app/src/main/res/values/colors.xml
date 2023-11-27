@@ -21,6 +21,7 @@
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
     <color name="disagree">#FF6B6B</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="gold">#FFF27B</color>
 
 
 </resources>

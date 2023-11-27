@@ -10,7 +10,9 @@ import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.dataclass.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
 
 class RepositoryFirestore {
@@ -93,14 +95,13 @@ class RepositoryFirestore {
                 }
                 db.collection("SurveyItem")
                     .document(it.id).update(
-                        mapOf("surveyId" to it.id)
+                        mapOf("surveyid" to it.id)
                     )
             }
             .addOnFailureListener {
                 Log.d("FirestorRepository", "Failed: $it")
             }
     }
-
     fun addSurveyToUser(userId:String,surveyId:String){
         val userRef = db.collection("users").document(userId)
         userRef.get().addOnSuccessListener {
@@ -112,6 +113,109 @@ class RepositoryFirestore {
         }
     }
 
+
+    //HomeTabMenü- Daten
+    fun getLatestSurveysForHomepage(): LiveData<List<SurveyItem>> {
+        val latestSurveysLiveData = MutableLiveData<List<SurveyItem>>()
+
+        db.collection("SurveyItem")
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val surveys = querySnapshot.toObjects(SurveyItem::class.java)
+                latestSurveysLiveData.postValue(surveys)
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting latest surveys: ", exception)
+                latestSurveysLiveData.postValue(emptyList()) // Post an empty list or handle the error as needed
+            }
+        return latestSurveysLiveData
+    }
+    fun getSurveysUserNotVoted(userId: String): LiveData<List<SurveyItem>> {
+        val notVotedSurveysLiveData = MutableLiveData<List<SurveyItem>>()
+
+        db.collection("SurveyItem")
+            // Annahme: Sie haben eine separate Feld "votedUserIds" mit einer Liste von User-IDs
+            .whereNotIn("votedUser", listOf(userId))
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val surveys = querySnapshot.toObjects(SurveyItem::class.java)
+                notVotedSurveysLiveData.postValue(surveys.filter { userId !in it.votedUser })
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting surveys user not voted: ", exception)
+                notVotedSurveysLiveData.postValue(emptyList()) // Post an empty list or handle the error as needed
+            }
+        return notVotedSurveysLiveData
+    }
+    fun getSurveysByQuestionCount(): LiveData<List<SurveyItem>> {
+        val surveysByVotesLiveData = MutableLiveData<List<SurveyItem>>()
+
+        db.collection("SurveyItem")
+            .orderBy("votedQuestionResult", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val surveys = querySnapshot.toObjects(SurveyItem::class.java)
+                surveysByVotesLiveData.postValue(surveys)
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Error getting surveys by vote count: ", exception)
+                surveysByVotesLiveData.postValue(emptyList()) // Post an empty list or handle the error as needed
+            }
+        return surveysByVotesLiveData
+    }
+
+
+
+    fun getUserSurvey(userId: String):LiveData<List<SurveyItem>>{
+        val userSurveysLiveData = MutableLiveData<List<SurveyItem>>()
+        db.collection("users").document(userId).get().addOnSuccessListener {
+            val user = it.toObject(User::class.java)
+            if (user!= null && user.userCreatedSurveys.isNotEmpty()){
+                db.collection("SurveyItem")
+                    .whereIn("surveyid",user.userCreatedSurveys)
+                    .get()
+                    .addOnSuccessListener {querySnapshot ->
+                        val surveys = querySnapshot.toObjects(SurveyItem::class.java)
+                        userSurveysLiveData.postValue(surveys)
+                    }
+            }else{
+                userSurveysLiveData.postValue(emptyList())
+            }
+        }
+        return userSurveysLiveData
+    }
+
+    fun getUserSavedSurveys(userId: String): LiveData<List<SurveyItem>> {
+        // Initialisiere LiveData für die gespeicherten Umfragen.
+        val savedSurveysLiveData = MutableLiveData<List<SurveyItem>>()
+
+        // Abrufen von Benutzerdaten aus der Datenbank anhand der Benutzer-ID.
+        db.collection("users").document(userId).get().addOnSuccessListener { documentSnapshot ->
+            // Konvertiere das Dokumentensnapshot in ein User-Objekt.
+            val user = documentSnapshot.toObject(User::class.java)
+
+            // Überprüfe, ob Benutzerobjekt nicht null ist und gespeicherte Umfragen enthält.
+            if (user != null && user.savedSurveys.isNotEmpty()) {
+                // Abrufen der gespeicherten Umfragen, falls vorhanden.
+                db.collection("SurveyItem")
+                    .whereIn("surveyid", user.savedSurveys)
+                    .get()
+                    .addOnSuccessListener { querySnapshot ->
+                        // Konvertiere die erhaltenen Daten in SurveyItem-Objekte.
+                        val surveys = querySnapshot.toObjects(SurveyItem::class.java)
+                        // Aktualisiere LiveData mit den erhaltenen Umfragen.
+                        savedSurveysLiveData.postValue(surveys)
+                    }
+            } else {
+                // Wenn die Liste leer ist, geben Sie eine leere Liste zurück.
+                // Gute Behandlung von Fällen, in denen keine Umfragen gespeichert sind.
+                savedSurveysLiveData.postValue(emptyList())
+            }
+        }
+        // Rückgabe der LiveData, die die gespeicherten Umfragen repräsentiert.
+        return savedSurveysLiveData
+    }
 
     fun addSurveyToUserFavoriteList(userId: String, surveyId: String, shouldSave: Boolean) {
         val userRef = db.collection("users").document(userId)
@@ -154,6 +258,25 @@ class RepositoryFirestore {
         }.addOnFailureListener { e ->
             Log.e(TAG, "Error removing survey from saved list: ", e)
             // Optional: Benutzerfeedback über UI-Komponenten
+        }
+    }
+
+
+    fun addSurveyIdToUserList(userId: String,surveyid: String){
+        val userRef =db.collection("users").document(userId)
+        db.runTransaction{transaction ->
+            val userSnapshot = transaction.get(userRef)
+            val user = userSnapshot.toObject(User::class.java)
+            user?.let {
+                if (!user.idSurveyList.contains(surveyid)){
+                    user.idSurveyList.add(surveyid)
+                    transaction.set(userRef, user)
+                }
+            }
+        }.addOnSuccessListener {
+            Log.d(TAG, "Survey ID added to user's list successfully")
+        }.addOnFailureListener { e ->
+            Log.e(TAG, "Error adding survey ID to user's list: ", e)
         }
     }
 }

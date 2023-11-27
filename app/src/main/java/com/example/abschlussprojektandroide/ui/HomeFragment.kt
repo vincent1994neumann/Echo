@@ -13,6 +13,7 @@ import com.example.abschlussprojektandroide.adapter.SurveyAdapter
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentHomeBinding
+import com.google.android.material.tabs.TabLayout
 
 class HomeFragment : Fragment() {
     // Deklaration der Variablen für das Binding und das ViewModel
@@ -73,5 +74,59 @@ class HomeFragment : Fragment() {
         binding.btnFloatingNewVote.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSurveyCreateFragment())
         }
+
+
+        viewModel.currentAppUser.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                setUpTabLayout(user.userId)
+            }
+        }
+    }
+
+
+
+    private fun setUpTabLayout(surveyId:String){
+        binding.tlTabbarHome.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when(tab?.position){
+                    0-> viewModel.getLatestSurveysForHomepage()
+                        .observe(viewLifecycleOwner){surveys ->
+                            updateAdapter(surveys)
+                        }
+                    1-> viewModel.getSurveysUserNotVoted()
+                        .observe(viewLifecycleOwner){surveys ->
+                            updateAdapter(surveys)
+                        }
+                    2-> viewModel.getSurveysByQuestionCount()
+                        .observe(viewLifecycleOwner){surveys ->
+                            updateAdapter(surveys)
+                        }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+
+        })
+    }
+
+    private fun updateAdapter(surveys: List<SurveyItem>) {
+        // Nehmen Sie an, dass viewModel.currentUser und viewModel.currentAppUser bereits beobachtet werden und ihre Werte haben.
+        val currentUserId = viewModel.currentUser.value?.uid ?: ""
+        val savedSurveys = viewModel.currentAppUser.value?.savedSurveys ?: mutableListOf()
+
+        // Initialisierung des Adapters mit den neuen Daten
+        binding.rvHome.adapter = SurveyAdapter(
+            surveys,
+            currentUserId,
+            { surveyItem -> viewModel.updateSurveyItem(surveyItem) }, // updateSurveyItem Callback
+            { surveyId, shouldSave -> viewModel.updateFavoriteSurveys(surveyId, shouldSave) }, // onSaveClicked Callback
+            savedSurveys
+        )
     }
 }
