@@ -65,9 +65,8 @@ class HomeFragment : Fragment() {
         }
 
         // Beobachten von Änderungen in der Umfrageliste und Aktualisieren des Adapters bei Änderungen
-        viewModel.survey.observe(viewLifecycleOwner) { surveyList ->
-            Log.d("HomeFragment", viewModel.currentAppUser.value.toString())
-            surveyAdapter.updateData(surveyList)
+        viewModel.getLatestSurveysForHomepage().observe(viewLifecycleOwner) { surveys ->
+            surveyAdapter.updateData(surveys)
         }
 
         // Setzen des Click Listeners für den Floating Action Button, um zur Umfrageerstellungsseite zu navigieren
@@ -85,7 +84,7 @@ class HomeFragment : Fragment() {
 
 
 
-    private fun setUpTabLayout(surveyId:String){
+    private fun setUpTabLayout(userId: String) {
         binding.tlTabbarHome.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
@@ -113,6 +112,7 @@ class HomeFragment : Fragment() {
             }
 
         })
+
     }
 
     private fun updateAdapter(surveys: List<SurveyItem>) {

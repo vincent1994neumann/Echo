@@ -20,9 +20,6 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
     val quoteOfTheDay = repository.quoteOfTheDay
     val survey = repository.survey
     var firebaseAuth = FirebaseAuth.getInstance()
-    //val userPosts: LiveData<List<SurveyItem>> = repository.firestore.getUserSurvey(currentUser.value?.uid?:"")
-    //val userSavedSurveys: LiveData<List<SurveyItem>> = repository.firestore.getUserSavedSurveys(currentUser.value?.uid?:"") // Implementieren Sie ähnlich wie userPosts
-   // val userDraft: LiveData<List<SurveyItem>> // Implementieren Sie ähnlich wie userPosts
 
 
     //LiveData Überwachung vom User
@@ -35,7 +32,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
         get()= _currentAppUser
 
     init {
-        repository.loadSurveys()
+
     }
 
     // Diese Funktion ist dafür verantwortlich, die aktuellen Benutzerdaten aus Firestore zu holen.
@@ -93,7 +90,12 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
         }
     }
 
-    //RV Segmentierung der SurveyItems
+    //SearchAbfrage
+    fun getFilteredSurveysForSearch(search: String): LiveData<List<SurveyItem>>{
+        return repository.firestore.getFilteredSurveysForSearch(search)
+    }
+
+    //ProfilTabMenü
 
     fun getUserCreatedSurveys(userId: String): LiveData<List<SurveyItem>> {
         return repository.firestore.getUserSurvey(userId)

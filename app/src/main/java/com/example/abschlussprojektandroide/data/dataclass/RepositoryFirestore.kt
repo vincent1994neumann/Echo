@@ -10,6 +10,7 @@ import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.data.dataclass.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.Filter
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
@@ -26,8 +27,6 @@ class RepositoryFirestore {
         get() = _currentUser
 
 
-
-
     fun login(email: String, password: String, context: Context) {
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -42,7 +41,13 @@ class RepositoryFirestore {
         }
     }
 
-    fun register(email: String, password: String, confirmPassword: String, username:String, context: Context) {
+    fun register(
+        email: String,
+        password: String,
+        confirmPassword: String,
+        username: String,
+        context: Context
+    ) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
                 val user = User(
@@ -91,7 +96,7 @@ class RepositoryFirestore {
                 val surveyItemId = it.id
                 val currentUser = firebaseAuth.currentUser
                 currentUser?.let {
-                    addSurveyToUser(it.uid,surveyItemId)
+                    addSurveyToUser(it.uid, surveyItemId)
                 }
                 db.collection("SurveyItem")
                     .document(it.id).update(
@@ -102,12 +107,13 @@ class RepositoryFirestore {
                 Log.d("FirestorRepository", "Failed: $it")
             }
     }
-    fun addSurveyToUser(userId:String,surveyId:String){
+
+    fun addSurveyToUser(userId: String, surveyId: String) {
         val userRef = db.collection("users").document(userId)
         userRef.get().addOnSuccessListener {
             val user = it.toObject(User::class.java)
             user?.userCreatedSurveys?.add(surveyId)
-            userRef.update("userCreatedSurveys",user?.userCreatedSurveys)
+            userRef.update("userCreatedSurveys", user?.userCreatedSurveys)
         }.addOnFailureListener { e ->
             Log.e(TAG, "Error adding survey to user: ", e)
         }
@@ -131,6 +137,7 @@ class RepositoryFirestore {
             }
         return latestSurveysLiveData
     }
+
     fun getSurveysUserNotVoted(userId: String): LiveData<List<SurveyItem>> {
         val notVotedSurveysLiveData = MutableLiveData<List<SurveyItem>>()
 
@@ -148,6 +155,7 @@ class RepositoryFirestore {
             }
         return notVotedSurveysLiveData
     }
+
     fun getSurveysByQuestionCount(): LiveData<List<SurveyItem>> {
         val surveysByVotesLiveData = MutableLiveData<List<SurveyItem>>()
 
@@ -166,20 +174,43 @@ class RepositoryFirestore {
     }
 
 
+    //Searchabfrage - alle Surveys werden geladen und dann gefiltert (nicht optimal da es bei großen Datenmenegen  ineffizient ist und zur Überschreitung der Abfrage Daten kommen kann)
 
-    fun getUserSurvey(userId: String):LiveData<List<SurveyItem>>{
+    fun getFilteredSurveysForSearch(search: String): LiveData<List<SurveyItem>> {
+        val searchResultsLiveData = MutableLiveData<List<SurveyItem>>()
+        db.collection("SurveyItem")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val allSurveys = querySnapshot.toObjects(SurveyItem::class.java)
+                val filteredSurveys = allSurveys.filter {
+                    it.header.contains(search) ||
+                            it.surveyText.contains(search) ||
+                            it.category.contains(search)
+                }
+                searchResultsLiveData.postValue(filteredSurveys)
+            }
+            .addOnFailureListener { exception ->
+                Log.e("Repository", "Error filtering surveys: ", exception)
+                searchResultsLiveData.postValue(emptyList())
+            }
+        return searchResultsLiveData
+
+    }
+
+
+    fun getUserSurvey(userId: String): LiveData<List<SurveyItem>> {
         val userSurveysLiveData = MutableLiveData<List<SurveyItem>>()
         db.collection("users").document(userId).get().addOnSuccessListener {
             val user = it.toObject(User::class.java)
-            if (user!= null && user.userCreatedSurveys.isNotEmpty()){
+            if (user != null && user.userCreatedSurveys.isNotEmpty()) {
                 db.collection("SurveyItem")
-                    .whereIn("surveyid",user.userCreatedSurveys)
+                    .whereIn("surveyid", user.userCreatedSurveys)
                     .get()
-                    .addOnSuccessListener {querySnapshot ->
+                    .addOnSuccessListener { querySnapshot ->
                         val surveys = querySnapshot.toObjects(SurveyItem::class.java)
                         userSurveysLiveData.postValue(surveys)
                     }
-            }else{
+            } else {
                 userSurveysLiveData.postValue(emptyList())
             }
         }
@@ -262,13 +293,13 @@ class RepositoryFirestore {
     }
 
 
-    fun addSurveyIdToUserList(userId: String,surveyid: String){
-        val userRef =db.collection("users").document(userId)
-        db.runTransaction{transaction ->
+    fun addSurveyIdToUserList(userId: String, surveyid: String) {
+        val userRef = db.collection("users").document(userId)
+        db.runTransaction { transaction ->
             val userSnapshot = transaction.get(userRef)
             val user = userSnapshot.toObject(User::class.java)
             user?.let {
-                if (!user.idSurveyList.contains(surveyid)){
+                if (!user.idSurveyList.contains(surveyid)) {
                     user.idSurveyList.add(surveyid)
                     transaction.set(userRef, user)
                 }

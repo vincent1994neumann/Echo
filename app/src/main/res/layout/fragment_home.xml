@@ -47,12 +47,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Latest Surveys" />
+            android:text="Newest Surveys" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not yet voted" />
+            android:text="Discover" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

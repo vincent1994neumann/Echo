@@ -84,5 +84,6 @@ class SurveyCreateFragment : Fragment() {
         if (surveyItem != null) {
             viewModel.saveSurveyItem(surveyItem)
         }
+
     }
 }

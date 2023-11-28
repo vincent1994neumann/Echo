@@ -163,7 +163,6 @@
         <!-- Material Design Text Input für die ersten beiden stets sichtbaren Antwortfelder -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_answer1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
@@ -178,7 +177,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_answer2"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp">
@@ -193,7 +191,6 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_answer3"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -204,13 +201,11 @@
                 android:id="@+id/et_answer3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint="Option 3" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_answer4"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -221,7 +216,6 @@
                 android:id="@+id/et_answer4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint="Option 4" />
         </com.google.android.material.textfield.TextInputLayout>
 
