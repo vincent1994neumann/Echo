@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="16dp"
-    android:background="@color/colorvoteitem">
+    android:background="@drawable/echologinbackground">
 
 
     <TextView
         android:id="@+id/tv_reg_header"
+        style="@style/LoginTextColorStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Sign Up"
-        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:text="@string/signup_header"
         android:textSize="28dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_LogoR" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_e_username_reg"
         android:layout_width="320dp"
         android:layout_height="65dp"
-        android:layout_margin="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="290dp"
+        app:boxCornerRadiusTopEnd="25dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/white"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_reg_header">
 
@@ -34,7 +39,7 @@
             android:id="@+id/textInputusername_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="@string/hint_username"
             android:maxLines="1"
             android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,6 +50,10 @@
         android:layout_height="65dp"
         android:layout_margin="8dp"
         android:layout_marginTop="16dp"
+        android:textColorHint="@color/white"
+        app:boxStrokeColor="@color/KIColor"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_e_username_reg">
@@ -53,7 +62,9 @@
             android:id="@+id/textInputemail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/hint_email"
+            android:fontFamily="monospace"
+            android:textColor="@color/white"
             android:maxLines="1"
             android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,6 +75,13 @@
         android:layout_height="65dp"
         android:layout_margin="8dp"
         android:layout_marginTop="16dp"
+        android:textColorHint="@color/white"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:boxStrokeColor="@color/disagree"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/white"
+        app:endIconTint="@color/white"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_e_mail_reg"
@@ -73,7 +91,7 @@
             android:id="@+id/textInputpassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textSize="18dp" />
@@ -85,6 +103,13 @@
         android:layout_height="65dp"
         android:layout_margin="8dp"
         android:layout_marginTop="16dp"
+        android:textColorHint="@color/white"
+        app:boxCornerRadiusBottomStart="25dp"
+        app:boxStrokeColor="@color/disagree"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/white"
+        app:endIconTint="@color/white"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ti_password_reg"
@@ -94,7 +119,7 @@
             android:id="@+id/textInputpasswordrepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Confirm Password"
+            android:hint="@string/hint_confirm_password"
             android:inputType="textPassword"
             android:maxLines="1"
             android:textSize="18dp" />
@@ -106,34 +131,25 @@
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="SIGN UP"
-        app:layout_constraintBottom_toTopOf="@+id/btn_back_to_login"
-        app:layout_constraintEnd_toEndOf="@+id/btn_back_to_login"
-        app:layout_constraintStart_toStartOf="@+id/btn_back_to_login" />
-
-
-    <ImageView
-        android:id="@+id/iv_LogoR"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerInside"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/echo" />
+        android:layout_marginEnd="32dp"
+        android:text="@string/signup_button"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_back_to_login"
+        app:layout_constraintEnd_toEndOf="@+id/ti_password_repeat_reg"
+        app:layout_constraintTop_toTopOf="@+id/btn_back_to_login" />
 
     <Button
         android:id="@+id/btn_back_to_login"
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/grey"
-        android:text="BACK"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="264dp"
+        android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/btn_background2"
+        android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/ti_password_repeat_reg" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

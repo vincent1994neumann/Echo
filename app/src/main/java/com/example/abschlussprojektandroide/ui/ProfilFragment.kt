@@ -38,7 +38,6 @@ class ProfilFragment : Fragment() {
             binding.headerProfil.text = it?.username
             binding.tvCountSurveysCreated.text = it?.userCreatedSurveys?.size.toString()
             binding.tvCountSavedSurveys.text = it?.savedSurveys?.size.toString()
-            Log.d("Anzahl Survey"," ${binding.tvCountSurveysCreated.text}")
         }
 
         val rVc = binding.rvProfil

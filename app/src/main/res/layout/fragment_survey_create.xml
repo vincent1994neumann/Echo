@@ -119,26 +119,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_CategoryLabel" />
 
-    <Switch
-        android:id="@+id/switch_isPublished"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Publish"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addAnswerButton" />
-
     <Button
-        android:id="@+id/btn_back"
+        android:id="@+id/btn_back_to_home"
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Submit"
+        android:text="Back"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_isPublished" />
+        app:layout_constraintTop_toBottomOf="@+id/addAnswerButton" />
+
+
+    <Button
+        android:id="@+id/btn_publish"
+        style="@style/StyledButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Publish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_back_to_home" />
 
     <TextView
         android:id="@+id/tv_ChoiceLabel"
@@ -230,7 +232,7 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/baseline_add_24"
         android:drawableTint="@color/agree"
-        android:text="add"
+        android:text="Add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/answerContainer" />
 
@@ -242,7 +244,7 @@
         android:layout_marginEnd="50dp"
         android:drawableLeft="@drawable/baseline_delete_forever_24"
         android:drawableTint="@color/disagree"
-        android:text="delete"
+        android:text="Remove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/addAnswerButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

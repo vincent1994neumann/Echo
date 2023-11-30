@@ -1,31 +1,65 @@
 <resources>
     <!-- App-Name -->
-    <string name="app_name">Echo</string>
+    <string name="app_name">E c h o</string>
     <string name="Slogan">Demokratie digital. Meinung zentral.</string>
 
-    <!-- Homescreen -->
-    <string name="daily_polls">search polls</string>
+
+    <!-- LoginScreen -->
+    <string name="welcome_back">Welcome To Echo</string>
+    <string name="log_in">Log In</string>
+    <string name="email_hint">Email </string>
+    <string name="password_hint">Password</string>
+    <string name="login_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="forget_password">Forget password?</string>
+
+
+    <!-- Registration Screen -->
+    <string name="signup_header">Sign Up</string>
+    <string name="hint_username">Username</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="signup_button">SIGN UP</string>
+    <string name="back_button">BACK</string>
+
+
+    <!-- HomeScreen -->
+    <!-- Header Profile -->
+    <string name="header_home">Home</string>
+
+    <!-- Tab Layout Items -->
+    <string name="tab_newest_surveys">Newest Surveys</string>
+    <string name="tab_discover">Discover</string>
+    <string name="tab_top_votes">Top Votes</string>
+
+
+    <!-- ProfileScreen -->
+    <!-- Profile Header -->
+    <string name="profile_header">Profilname</string>
+
+    <!-- Created Surveys Label -->
+    <string name="label_created_surveys">Created Surveys</string>
+    <!-- Saved Surveys Label -->
+    <string name="label_saved_surveys">Saved Surveys</string>
+
+    <!-- Profile Tab Layout Items -->
+    <string name="tab_my_posts">My Post</string>
+    <string name="tab_my_saved">My Saved</string>
+
+
+    <!-- SearchScreen -->
+    <!-- Profile Screen -->
+    <string name="header_search">Search</string>
+    <string name="hint_search_surveys">search for surveys</string>
+
 
     <!-- Navigation -->
     <string name="navigation_home">Home</string>
     <string name="navigation_profile">Profil</string>
     <string name="navigation_settings">Einstellungen</string>
 
-    <!-- Umfrage -->
-    <string name="vote">Abstimmen</string>
-    <string name="agree">Zustimmen</string>
-    <string name="disagree">Ablehnen</string>
-
-    <!-- Profile -->
-    <string name="user_profile">Mein Profil</string>
-    <string name="user_name_default">Klaus Peter</string>
-    <string name="user_profil_pic">Profilbild</string>
-    <string name="edit_profile">Profil bearbeiten</string>
-    <string name="create_poll">Umfrage erstellen</string>
-
-    <!-- Kommentare -->
-    <string name="comments">Kommentare</string>
-    <string name="post_comment">Kommentar posten</string>
 
     <!-- Allgemeine Fehlermeldungen -->
     <string name="survey_removed">removed from - My Saved Surveys</string>

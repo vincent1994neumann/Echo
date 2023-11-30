@@ -19,18 +19,20 @@ import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
 import com.example.abschlussprojektandroide.util.VoteTypeQuestion
 
 class SurveyAdapter(
-    private var dataset: List<SurveyItem>,
-    var currentUserId: String,
-    var updateSurveyItem: (SurveyItem) -> Unit, //Lambda Syntas - var  die sich verhält wie eine funktion
-    var onSaveClicked: (String,Boolean) -> Unit,
-    var savedSurveyItems: MutableList<String>
+    private var dataset: List<SurveyItem>, // Liste von Umfrage-Elementen
+    var currentUserId: String, // ID des aktuellen Benutzers
+    var updateSurveyItem: (SurveyItem) -> Unit, // Lambda-Funktion zum Aktualisieren eines Umfrageelements
+    var onSaveClicked: (String,Boolean) -> Unit, // Lambda-Funktion für Klick auf Speichern-Button
+    var savedSurveyItems: MutableList<String> // Liste der gespeicherten Umfrageelemente
 
-) : RecyclerView.Adapter<SurveyAdapter.SurveyItemViewHolder>() {
+) : RecyclerView.Adapter<SurveyAdapter.SurveyItemViewHolder>() { // Erweiterung des RecyclerView.Adapter
+
 
     class SurveyItemViewHolder(
         val binding: ListItemSurveyBinding
     ) : RecyclerView.ViewHolder(binding.root)
 
+    // Erzeugt neuen ViewHolder für jedes Umfrageelement
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SurveyItemViewHolder {
         val binding =
             ListItemSurveyBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -46,7 +48,7 @@ class SurveyAdapter(
 
 
 
-        // View wird aufgebaut!
+        // Hier beginnt die Zuweisung der Daten an die Views (Textfelder, Buttons usw.)
         holder.binding.tvHeaderCv.text = surveyItem.header
         holder.binding.tvCategorieCv.text = surveyItem.category
         holder.binding.tvSurveyText.text = surveyItem.surveyText
@@ -55,7 +57,7 @@ class SurveyAdapter(
         holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
         holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
 
-        // Abstimmung
+        // Logik zur Verwaltung der Sichtbarkeit und Interaktion der Abstimmungsoptionen
         // Radio Btn's 1+2
         holder.binding.rbOption1.setText(surveyItem.answerOption1)
         holder.binding.rbOption2.setText(surveyItem.answerOption2)

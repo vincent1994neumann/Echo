@@ -30,8 +30,11 @@ class SurveyCreateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.btnBackToHome.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
-        binding.btnBack.setOnClickListener {
+        binding.btnPublish.setOnClickListener {
             createSurveyItem()
             findNavController().popBackStack()
         }
