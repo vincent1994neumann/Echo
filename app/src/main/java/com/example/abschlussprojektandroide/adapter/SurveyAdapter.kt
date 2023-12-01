@@ -120,7 +120,7 @@ class SurveyAdapter(
         //_______________________________________________________________________
 
         //UP & Down Vote der Frage Logik
-        updateUiAfterVoteQuestion(surveyItem, holder)
+        updateUiAfterVoteQuestion2(surveyItem, holder)
         if (!surveyItem.votedQuestionUser.contains(currentUserId)){
             holder.binding.btnVoteUp.setOnClickListener {
                 surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONUP)
@@ -128,7 +128,7 @@ class SurveyAdapter(
                 holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
                 disableVotingUpDownBtn(holder)
                 updateSurveyItem(surveyItem)
-                updateUiAfterVoteQuestion(surveyItem, holder)
+                updateUiAfterVoteQuestion2(surveyItem, holder)
                 surveyItem.hasVotedQuestion = true
             }
             holder.binding.btnVoteDown.setOnClickListener {
@@ -137,9 +137,12 @@ class SurveyAdapter(
                 holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
                 disableVotingUpDownBtn(holder)
                 updateSurveyItem(surveyItem)
-                updateUiAfterVoteQuestion(surveyItem, holder)
+                updateUiAfterVoteQuestion2(surveyItem, holder)
                 surveyItem.hasVotedQuestion = true
             }
+        }else{
+            //Token
+            //Deine Stimme zählt bereits
         }
 
 
@@ -308,12 +311,22 @@ class SurveyAdapter(
         }
     }
 
-
+/*
     private fun updateUiAfterVoteQuestion(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
         if (surveyItem.votedQuestionUser.contains(currentUserId)){
             holder.binding.btnVoteDown.isVisible = false
             holder.binding.btnVoteUp.isVisible = false
         }
+    }
+
+ */
+
+
+    private fun updateUiAfterVoteQuestion2(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
+       if (surveyItem.votedQuestionUser.contains(currentUserId)){
+           holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
+           holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
+       }
     }
 
 
