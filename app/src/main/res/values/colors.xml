@@ -27,7 +27,16 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="gold">#7BC1FF</color>
 
+    <!-- Spezifische Farben UpDownVoteLogik -->
+    <color name="upVote1">#D8FFD0</color>
+    <color name="upVote2">#B7FBA8</color>
+    <color name="upVote3">#91FA7B</color>
+    <color name="upVote4">#3AFF11</color>
 
+    <color name="DownVote1">#FFD0D0</color>
+    <color name="DownVote2">#FBA8A8</color>
+    <color name="DownVote3">#FA7B7B</color>
+    <color name="DownVote4">#FF2E2E</color>
 
 
 </resources>
