@@ -1,11 +1,14 @@
 package com.example.abschlussprojektandroide.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.BounceInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -130,6 +133,7 @@ class SurveyAdapter(
                 updateSurveyItem(surveyItem)
                 updateUiAfterVoteQuestion2(surveyItem, holder)
                 surveyItem.hasVotedQuestion = true
+                animationLike(holder)
             }
             holder.binding.btnVoteDown.setOnClickListener {
                 surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONDOWN)
@@ -281,6 +285,30 @@ class SurveyAdapter(
             )
         }
     }
+
+    private fun animationLike(holder: SurveyItemViewHolder){
+
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X,2f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y,2f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(holder.binding.btnVoteUp,scaleX,scaleY)
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.interpolator = BounceInterpolator()
+        animator.start()
+    }
+
+    private fun animationDisLike(holder: SurveyItemViewHolder){
+
+        val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X,2f)
+        val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y,2f)
+        val animator = ObjectAnimator.ofPropertyValuesHolder(holder.binding.btnVoteDown,scaleX,scaleY)
+        animator.duration = 500
+        animator.repeatCount = 1
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.interpolator = BounceInterpolator()
+        animator.start()
+    }
     private fun disableVotingUpDownBtn(holder: SurveyItemViewHolder) {
         holder.binding.btnVoteUp.isEnabled = false
         holder.binding.btnVoteDown.isEnabled = false
@@ -324,8 +352,8 @@ class SurveyAdapter(
 
     private fun updateUiAfterVoteQuestion2(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
        if (surveyItem.votedQuestionUser.contains(currentUserId)){
-           holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
-           holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
+         //  holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
+          // holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
        }
     }
 
