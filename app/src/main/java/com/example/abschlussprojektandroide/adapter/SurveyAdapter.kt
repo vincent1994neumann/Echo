@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -50,6 +51,15 @@ class SurveyAdapter(
     override fun onBindViewHolder(holder: SurveyItemViewHolder, position: Int) {
         val surveyItem = dataset[position]
 
+        //Ausklappen der Voting Funktion
+        val btnToggle :ImageButton = holder.binding.btnToggleDown
+        val voteSection: ViewGroup = holder.binding.voteSection
+
+        btnToggle.setOnClickListener {
+            val isVisible = voteSection.visibility == View.VISIBLE
+            voteSection.visibility = if (isVisible) View.GONE else View.VISIBLE
+        }
+
 
 
         // Hier beginnt die Zuweisung der Daten an die Views (Textfelder, Buttons usw.)
@@ -60,6 +70,56 @@ class SurveyAdapter(
         holder.binding.tvPublishedUsernameInput.text = surveyItem.publishedBy
         holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
         holder.binding.tvTotalVoteCount.text = surveyItem.totalVotes.toString()
+
+
+        //_______________________________________________________________________
+
+        //UP & Down Vote der Frage Logik
+        updateUiAfterVoteQuestion2(surveyItem, holder)
+        if (!surveyItem.votedQuestionUser.contains(currentUserId)){
+
+            enableUpDownVotingButtons(holder)
+            var UpDownButtonList = listOf(
+                holder.binding.btnVoteUp,
+                holder.binding.btnVoteDown
+            )
+            UpDownButtonList.forEach { it.isEnabled = true  }
+
+            holder.binding.btnVoteUp.setOnClickListener {
+                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONUP)
+                surveyItem.totalUpDownVotes()
+                holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+                updateSurveyItem(surveyItem)
+                holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
+                surveyItem.hasVotedQuestion = true
+                animationLike(holder)
+                disableVotingUpDownBtn(holder)
+                updateUiAfterVoteQuestion2(surveyItem,holder)
+
+
+            }
+            holder.binding.btnVoteDown.setOnClickListener {
+                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONDOWN)
+                surveyItem.totalUpDownVotes()
+                holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
+                updateSurveyItem(surveyItem)
+                holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
+                surveyItem.hasVotedQuestion = true
+                animationDisLike(holder)
+                disableVotingUpDownBtn(holder)
+                updateUiAfterVoteQuestion2(surveyItem,holder)
+            }
+        }else{
+           //Toast
+            //Deine Stimme zählt bereits
+        }
+
+        //_______________________________________________________________________
+        //Aufklappen der Abstimmlogik
+
+
+
+        //_______________________________________________________________________
 
         // Logik zur Verwaltung der Sichtbarkeit und Interaktion der Abstimmungsoptionen
         // Radio Btn's 1+2
@@ -118,46 +178,6 @@ class SurveyAdapter(
             } else {
                 holder.binding.tvVoteCountOption4.visibility = View.INVISIBLE
             }
-        }
-
-
-        //_______________________________________________________________________
-
-        //UP & Down Vote der Frage Logik
-        updateUiAfterVoteQuestion2(surveyItem, holder)
-        if (!surveyItem.votedQuestionUser.contains(currentUserId)){
-
-            enableUpDownVotingButtons(holder)
-            var UpDownButtonList = listOf(
-                holder.binding.btnVoteUp,
-                holder.binding.btnVoteDown
-            )
-            UpDownButtonList.forEach { it.isEnabled = true  }
-
-            holder.binding.btnVoteUp.setOnClickListener {
-                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONUP)
-                surveyItem.totalUpDownVotes()
-                holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
-                updateSurveyItem(surveyItem)
-                holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
-                surveyItem.hasVotedQuestion = true
-                animationLike(holder)
-                disableVotingUpDownBtn(holder)
-
-            }
-            holder.binding.btnVoteDown.setOnClickListener {
-                surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONDOWN)
-                surveyItem.totalUpDownVotes()
-                holder.binding.tvVoteCounter.text = surveyItem.totalUpDownVotes()
-                updateSurveyItem(surveyItem)
-                holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
-                surveyItem.hasVotedQuestion = true
-                animationDisLike(holder)
-                disableVotingUpDownBtn(holder)
-            }
-        }else{
-            //Token
-            //Deine Stimme zählt bereits
         }
 
 

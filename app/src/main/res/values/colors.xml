@@ -20,6 +20,8 @@
     <color name="KIColor">#A72C9B</color> <!-- PrimarySignalColor (optional) -->
     <color name="desired_non_focused_color">#FFFFFFFF</color>
 
+    <!-- Umrandung TI Login ... -->
+    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 
     <!-- Spezifische Farben für Umfragen -->
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
