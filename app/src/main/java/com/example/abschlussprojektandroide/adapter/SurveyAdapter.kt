@@ -58,6 +58,12 @@ class SurveyAdapter(
         btnToggle.setOnClickListener {
             val isVisible = voteSection.visibility == View.VISIBLE
             voteSection.visibility = if (isVisible) View.GONE else View.VISIBLE
+            if (isVisible){
+                btnToggle.setImageResource(R.drawable.ic_dropdown_arrow)
+            }else{
+                btnToggle.setImageResource(R.drawable.ic_dropup_arrow_24)
+            }
+
         }
 
 
@@ -356,7 +362,6 @@ class SurveyAdapter(
             disableVotingUpDownBtn(holder)
             holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbsup_filled24)
             holder.binding.btnVoteDown.setImageResource(R.drawable.ic_thumbsdown_filled24)
-            holder.binding.upDownCheck.isVisible = true
         }else{
             holder.binding.btnVoteUp.setImageResource(R.drawable.ic_thumbs24)
             holder.binding.btnVoteDown.setImageResource(R.drawable.thumbs_down_24)
@@ -387,9 +392,11 @@ class SurveyAdapter(
         if (surveyItem.votedUser.contains(currentUserId)){
             val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.gold)
             holder.binding.cvSurvey.setCardBackgroundColor(votedColor)
+            holder.binding.upDownCheck.isVisible = true
         } else {
             val notVotedColor = ContextCompat.getColor(holder.itemView.context, R.color.white)
             holder.binding.cvSurvey.setCardBackgroundColor(notVotedColor)
+            holder.binding.upDownCheck.isVisible = false
         }
     }
 

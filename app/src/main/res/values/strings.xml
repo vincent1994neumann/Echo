@@ -71,15 +71,14 @@
 
     <string-array name="survey_categories">
         <item>Sonstiges</item>
+        <item>Politik</item>
         <item>Bildung</item>
         <item>Technologie</item>
-        <item>Politik</item>
         <item>Umwelt</item>
         <item>Wirtschaft</item>
         <item>Sport</item>
         <item>Reisen</item>
         <item>Gesundheit und Wellness</item>
         <item>Kunst und Kultur</item>
-        <item>Soziale Gerechtigkeit</item>
     </string-array>
 </resources>

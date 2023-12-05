@@ -37,7 +37,7 @@ class SplashScreenFragment : Fragment() {
         if (firebaseAuth.currentUser == null){
             Handler(Looper.myLooper()!!).postDelayed({
                 findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-            },2500)
+            },4000)
         }
 
         //currentAPPUser Laden

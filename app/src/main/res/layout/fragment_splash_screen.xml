@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:background="@drawable/splashscreenbackground"
+    android:background="@drawable/backgroundapp"
     tools:context=".ui.SplashScreenFragment">
 
 
@@ -14,13 +14,14 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="monospace"
         android:gravity="center"
         android:text="Fantasie ist wichtiger als Wissen, denn Wissen ist begrenzt."
         android:textColor="@color/white"
         android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,18 +29,19 @@
 
     <TextView
         android:id="@+id/tv_appName"
-        android:fontFamily="monospace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="375dp"
-        android:text="@string/app_name"
-        android:textColor="@color/KIColor"
-        android:textAllCaps="true"
-        android:textStyle="bold"
-        android:textSize="28dp"
+        android:layout_marginTop="16dp"
         android:elegantTextHeight="true"
+        android:fontFamily="monospace"
+        android:text="@string/app_name"
         android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="@color/KIColor"
+        android:textSize="28dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
