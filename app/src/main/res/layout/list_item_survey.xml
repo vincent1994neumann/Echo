@@ -204,7 +204,7 @@
                 android:id="@+id/voteSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2_unterdropdown">
@@ -260,15 +260,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/rg_radiogroup" />
 
 
-
-
                 <TextView
                     android:id="@+id/tv_vote_count_option1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    android:text="0"
 
+                    android:text="0"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/rg_radiogroup" />
 
@@ -298,7 +297,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="10dp"
                     android:text="0"
                     app:layout_constraintBottom_toBottomOf="@+id/rg_radiogroup"
                     app:layout_constraintEnd_toEndOf="parent" />
