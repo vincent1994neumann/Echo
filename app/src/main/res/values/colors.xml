@@ -12,7 +12,7 @@
 
     <!-- Akzentfarbe -->
     <color name="colorvoteitem">#E1DFD7</color> <!-- PrimarySignalColor (optional) -->
-    <color name="grey">#4A4A4A</color>
+    <color name="grey">#B6B6B6</color>
 
     <!-- Hintergrund und Schriftfarben -->
     <color name="background">#F5F5DC</color> <!-- SecondColor -->
@@ -27,7 +27,7 @@
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
     <color name="disagree">#FF6B6B</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="gold">#FFF27B</color>
+    <color name="gold">#FCF18E</color>
 
     <!-- Spezifische Farben UpDownVoteLogik -->
     <color name="upVote1">#D8FFD0</color>

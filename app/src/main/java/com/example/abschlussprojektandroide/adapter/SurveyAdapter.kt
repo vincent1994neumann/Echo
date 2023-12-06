@@ -390,7 +390,7 @@ class SurveyAdapter(
 
     private fun updateUiAfterVote(surveyItem: SurveyItem, holder: SurveyItemViewHolder){
         if (surveyItem.votedUser.contains(currentUserId)){
-            val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.gold)
+            val votedColor = ContextCompat.getColor(holder.itemView.context, R.color.grey)
             holder.binding.cvSurvey.setCardBackgroundColor(votedColor)
             holder.binding.upDownCheck.isVisible = true
         } else {

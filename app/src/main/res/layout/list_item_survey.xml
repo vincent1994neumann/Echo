@@ -63,45 +63,86 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_bookmark_border_24" />
 
-            <TextView
-                android:id="@+id/tv_categorie_cv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Umwelt"
-                android:textSize="14dp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="@+id/tv_header_cv"
-                app:layout_constraintStart_toStartOf="@+id/tv_header_cv"
-                app:layout_constraintTop_toBottomOf="@+id/tv_header_cv" />
 
-
-            <TextView
-                android:id="@+id/tv_surveyText"
-                android:layout_width="340dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Glauben Sie, dass Elektroautos die Schlüssellösung für die Herausforderungen des Klimawandels sind?"
-                android:textAlignment="center"
-                android:textSize="14dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/gold"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_categorie_cv" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_header_cv">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_categorie_cv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Umwelt"
+                        android:textSize="14dp"
+                        android:textStyle="italic"
+                        app:layout_constraintEnd_toEndOf="@+id/tv_surveyText"
+                        app:layout_constraintStart_toStartOf="@+id/tv_surveyText"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_surveyText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="Glauben Sie, dass Elektroautos die Schlüssellösung für die Herausforderungen des Klimawandels sind?"
+                        android:textAlignment="center"
+                        android:textSize="14dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_categorie_cv" />
+
+                    <ImageView
+                        android:id="@+id/upDownCheck"
+                        android:layout_width="60dp"
+                        android:layout_height="32dp"
+                        android:layout_marginTop="8dp"
+                        android:visibility="invisible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.901"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/voted4" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
 
             <ImageButton
                 android:id="@+id/btn_vote_down"
                 android:layout_width="150dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="@color/transparent"
                 app:layout_constraintStart_toStartOf="@+id/divider5"
-                app:layout_constraintTop_toBottomOf="@+id/upDownCheck"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3"
                 app:srcCompat="@drawable/thumbs_down_24" />
 
             <TextView
                 android:id="@+id/tv_vote_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center"
                 android:text="29"
                 android:textColor="@color/black"
@@ -109,7 +150,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btn_vote_up"
                 app:layout_constraintStart_toEndOf="@+id/btn_vote_down"
-                app:layout_constraintTop_toBottomOf="@+id/upDownCheck" />
+                app:layout_constraintTop_toBottomOf="@+id/cardView3" />
 
             <ImageButton
                 android:id="@+id/btn_vote_up"
@@ -169,22 +210,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_publishedby" />
 
 
-            <ImageView
-                android:id="@+id/upDownCheck"
-                android:layout_width="60dp"
-                android:layout_height="32dp"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_surveyText"
-                app:srcCompat="@drawable/voted4" />
+
 
             <ImageButton
                 android:id="@+id/btn_toggle_down"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@color/transparent"
+                android:background="@color/agree"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/divider2_unterdropdown"
                 app:layout_constraintTop_toBottomOf="@+id/tv_publishedby"
@@ -204,7 +237,7 @@
                 android:id="@+id/voteSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider2_unterdropdown">
@@ -325,6 +358,30 @@
                     app:layout_constraintTop_toTopOf="@+id/tv_gesamteVotes" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="80dp"
+                android:text="VOTE"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_toggle_down"
+                app:layout_constraintStart_toStartOf="@+id/btn_toggle_down"
+                app:layout_constraintTop_toBottomOf="@+id/divider5" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80dp"
+                android:text="HERE"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
