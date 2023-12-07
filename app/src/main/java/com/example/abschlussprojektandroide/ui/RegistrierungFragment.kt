@@ -1,5 +1,6 @@
 package com.example.abschlussprojektandroide.ui
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ class RegistrierungFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        rotate()
         // Beobachtet den aktuellen App-Benutzer und navigiert zum Home-Fragment, falls bereits eingeloggt
         viewModel.currentAppUser.observe(viewLifecycleOwner) {
             if (it != null && viewModel.currentUser.value != null) {
@@ -65,5 +67,13 @@ class RegistrierungFragment : Fragment() {
                 Toast.makeText(requireContext(), "Password Is Not Matching!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun rotate (){
+        val animation = ObjectAnimator.ofFloat(binding.ivLogoecho, View.ROTATION,0f,360f)
+        animation.duration = 2000
+        animation.repeatCount = 20
+        animation.repeatMode = ObjectAnimator.RESTART
+        animation.start()
     }
 }

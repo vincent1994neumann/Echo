@@ -1,5 +1,6 @@
 package com.example.abschlussprojektandroide.ui
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -30,6 +31,7 @@ class SplashScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        rotate()
         // Überprüft, ob ein Benutzer angemeldet ist und navigiert entsprechend
         if (firebaseAuth.currentUser == null){
             Handler(Looper.myLooper()!!).postDelayed({
@@ -63,5 +65,13 @@ class SplashScreenFragment : Fragment() {
         if (viewModel.quoteOfTheDay.value == null) {
             viewModel.loadQuoteOfTheDay()
         }
+    }
+
+    private fun rotate (){
+        val animation = ObjectAnimator.ofFloat(binding.imageView, View.ROTATION,0f,360f)
+        animation.duration = 1000
+        animation.repeatCount = 1
+        animation.repeatMode = ObjectAnimator.REVERSE
+        animation.start()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.abschlussprojektandroide.ui
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -66,5 +67,8 @@ class LoginFragment : Fragment() {
             Toast.makeText(context, "E-Mail und Passwort dürfen nicht leer sein", Toast.LENGTH_LONG).show()
         }
     }
+
+
+
 }
 

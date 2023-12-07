@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/echologinbackground">
+    android:background="@drawable/backgroundhome2">
 
 
     <TextView
@@ -13,9 +13,10 @@
         style="@style/LoginTextColorStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="72dp"
         android:text="@string/signup_header"
-        android:textSize="28dp"
+        android:textSize="32dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,9 +25,9 @@
         android:id="@+id/ti_e_username_reg"
         android:layout_width="320dp"
         android:layout_height="65dp"
-        android:layout_marginTop="290dp"
-        app:boxCornerRadiusTopEnd="25dp"
+        android:layout_marginTop="180dp"
         android:textColorHint="@color/white"
+        app:boxCornerRadiusTopEnd="25dp"
         app:boxStrokeColor="@color/white"
         app:boxStrokeWidth="1dp"
         app:hintTextColor="@color/white"
@@ -39,9 +40,9 @@
             android:id="@+id/textInputusername_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:hint="@string/hint_username"
             android:maxLines="1"
+            android:textColor="@color/white"
             android:textSize="18dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -149,12 +150,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="264dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="48dp"
         android:backgroundTint="@color/btn_background2"
         android:text="@string/back_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/ti_password_repeat_reg" />
+
+    <ImageView
+        android:id="@+id/iv_logoecho"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        app:layout_constraintBottom_toTopOf="@+id/ti_e_username_reg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_reg_header"
+        app:srcCompat="@drawable/echologo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
