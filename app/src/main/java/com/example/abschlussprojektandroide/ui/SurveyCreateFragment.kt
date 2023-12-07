@@ -19,6 +19,7 @@ class SurveyCreateFragment : Fragment() {
     private lateinit var binding: FragmentSurveyCreateBinding
     private val viewModel: SharedViewModel by activityViewModels()
 
+    // Wird aufgerufen, um das Layout für das Fragment zu erstellen
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,26 +29,34 @@ class SurveyCreateFragment : Fragment() {
         return binding.root
     }
 
+    // Wird aufgerufen, nachdem die Ansicht erstellt wurde
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Setzt einen Klick-Listener für den Zurück-Button
         binding.btnBackToHome.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        // Setzt einen Klick-Listener für den Veröffentlichen-Button
         binding.btnPublish.setOnClickListener {
             createSurveyItem()
             findNavController().popBackStack()
         }
+
+        // Setzt Klick-Listener für das Hinzufügen und Entfernen von Antwortfeldern
         binding.addAnswerButton.setOnClickListener { addAnswerField() }
         binding.removeAnswerButton.setOnClickListener { removeAnswerField() }
     }
 
+    // Fügt ein Antwortfeld hinzu, wenn es versteckt ist
     private fun addAnswerField() {
         val answerFields = listOf(binding.tilAnswer3, binding.tilAnswer4) // Nur die zusätzlichen Felder
         val nextHiddenField = answerFields.firstOrNull { it.visibility == View.GONE }
         nextHiddenField?.visibility = View.VISIBLE
     }
 
+    // Entfernt das letzte sichtbare Antwortfeld
     private fun removeAnswerField() {
         val answerFields = listOf(binding.tilAnswer3, binding.tilAnswer4) // Nur die zusätzlichen Felder
         val lastVisibleField = answerFields.lastOrNull { it.visibility == View.VISIBLE }
@@ -55,8 +64,9 @@ class SurveyCreateFragment : Fragment() {
     }
 
 
+    // Erstellt ein SurveyItem-Objekt und speichert es, wenn alle erforderlichen Felder ausgefüllt sind
     private fun createSurveyItem(){
-
+        // Sammelt Daten aus den Eingabefeldern
         val header = binding.tiHeaderSurvey.text.toString()
         val surveyText = binding.tiTextSurvey.text.toString()
         val category = binding.spinnerCategory.selectedItem.toString()
@@ -65,9 +75,12 @@ class SurveyCreateFragment : Fragment() {
         val answerOption3 = binding.etAnswer3.text.toString()
         val answerOption4 = binding.etAnswer4.text.toString()
 
+        // Überprüft, ob die erforderlichen Felder ausgefüllt sind
         if (header.isBlank() || surveyText.isBlank() || answerOption1.isBlank() || answerOption2.isBlank()){
             Snackbar.make(binding.root, "Header, Survey Text, and at least two Answer Options are required.", Snackbar.LENGTH_LONG).show()
         }
+
+        // Erstellt ein SurveyItem, wenn der aktuelle Benutzer vorhanden ist
         val surveyItem = viewModel.currentUser.value?.let {
             SurveyItem(
                 surveyid ="",
@@ -84,6 +97,8 @@ class SurveyCreateFragment : Fragment() {
                 answerOption4 = answerOption4
             )
         }
+
+        // Speichert das SurveyItem, wenn es nicht null ist
         if (surveyItem != null) {
             viewModel.saveSurveyItem(surveyItem)
         }

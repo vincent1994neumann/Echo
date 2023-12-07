@@ -1,6 +1,5 @@
 package com.example.abschlussprojektandroide.ui
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,54 +13,53 @@ import com.example.abschlussprojektandroide.data.viewmodel.SharedViewModel
 import com.example.abschlussprojektandroide.databinding.FragmentSplashScreenBinding
 import com.google.firebase.auth.FirebaseAuth
 
-
 class SplashScreenFragment : Fragment() {
-    private lateinit var binding : FragmentSplashScreenBinding
-    private val viewModel: SharedViewModel by activityViewModels()
-    var firebaseAuth = FirebaseAuth.getInstance()
+    private lateinit var binding : FragmentSplashScreenBinding // Späte Initialisierung der Binding-Variable
+    private val viewModel: SharedViewModel by activityViewModels() // Verwendung eines gemeinsamen ViewModel
+    var firebaseAuth = FirebaseAuth.getInstance() // Instanz von FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding= FragmentSplashScreenBinding.inflate(inflater,container,false)
+        binding = FragmentSplashScreenBinding.inflate(inflater, container, false) // Inflate des Layouts für dieses Fragment
         return binding.root
-
     }
 
-    //@SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Überprüft, ob ein Benutzer angemeldet ist und navigiert entsprechend
         if (firebaseAuth.currentUser == null){
             Handler(Looper.myLooper()!!).postDelayed({
                 findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-            },4000)
+            }, 4000) // Verzögerung von 4 Sekunden
         }
 
-        //currentAPPUser Laden
+        // Lädt den aktuellen App-Benutzer und navigiert zum Home-Fragment, falls angemeldet
         viewModel.currentAppUser.observe(viewLifecycleOwner){
             if (it != null && viewModel.currentUser.value != null){
                 findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToHomeFragment())
             }
         }
+
+        // Überwacht Änderungen am aktuellen Firebase-Benutzer
         viewModel.currentUser.observe(viewLifecycleOwner) {
             if (it != null) {
                 viewModel.fetchCurrentUser()
             }
         }
 
-        // Beobachte das LiveData-Objekt für das Zitat des Tages
+        // Beobachtet das LiveData-Objekt für das Zitat des Tages
         viewModel.quoteOfTheDay.observe(viewLifecycleOwner) { quote ->
-            // Überprüfe, ob das Zitat nicht null ist, bevor du es anzeigst
+            // Setzt das Zitat des Tages im Textfeld
             quote?.let {
                 binding.tvApiCallQuote.text = "\"${it.quote}\"\n - ${it.author} -"
             }
         }
 
-
-        // Lade das Zitat des Tages, wenn das ViewModel noch keinen Wert hat
+        // Lädt das Zitat des Tages, falls es noch nicht geladen wurde
         if (viewModel.quoteOfTheDay.value == null) {
             viewModel.loadQuoteOfTheDay()
         }

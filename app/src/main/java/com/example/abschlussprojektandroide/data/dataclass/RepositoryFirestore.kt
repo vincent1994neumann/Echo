@@ -175,7 +175,6 @@ class RepositoryFirestore {
 
 
     //Searchabfrage - alle Surveys werden geladen und dann gefiltert (nicht optimal da es bei großen Datenmenegen  ineffizient ist und zur Überschreitung der Abfrage Daten kommen kann)
-
     fun getFilteredSurveysForSearch(search: String): LiveData<List<SurveyItem>> {
         val searchResultsLiveData = MutableLiveData<List<SurveyItem>>()
         db.collection("SurveyItem")
@@ -289,25 +288,6 @@ class RepositoryFirestore {
         }.addOnFailureListener { e ->
             Log.e(TAG, "Error removing survey from saved list: ", e)
             // Optional: Benutzerfeedback über UI-Komponenten
-        }
-    }
-
-
-    fun addSurveyIdToUserList(userId: String, surveyid: String) {
-        val userRef = db.collection("users").document(userId)
-        db.runTransaction { transaction ->
-            val userSnapshot = transaction.get(userRef)
-            val user = userSnapshot.toObject(User::class.java)
-            user?.let {
-                if (!user.idSurveyList.contains(surveyid)) {
-                    user.idSurveyList.add(surveyid)
-                    transaction.set(userRef, user)
-                }
-            }
-        }.addOnSuccessListener {
-            Log.d(TAG, "Survey ID added to user's list successfully")
-        }.addOnFailureListener { e ->
-            Log.e(TAG, "Error adding survey ID to user's list: ", e)
         }
     }
 }

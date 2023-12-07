@@ -15,14 +15,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.launch
 
-class SharedViewModel(application: Application) : AndroidViewModel(application){
-    private val repository = AppRepository()
-    val quoteOfTheDay = repository.quoteOfTheDay
-    val survey = repository.survey
-    var firebaseAuth = FirebaseAuth.getInstance()
+// Erweitert AndroidViewModel und nutzt die Application-Instanz für Kontext-spezifische Operationen
+class SharedViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository = AppRepository() // Eine Instanz von AppRepository, das für die Datenabstraktion sorgt
+    val quoteOfTheDay = repository.quoteOfTheDay // LiveData für das Zitat des Tages
+    val survey = repository.survey // LiveData für Umfragen
+    var firebaseAuth = FirebaseAuth.getInstance() // Instanz von FirebaseAuth für Authentifizierungszwecke
 
 
-    //LiveData Überwachung vom User
+    // LiveData-Objekte für die Überwachung des aktuellen Firebase- und App-Benutzers
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
     val currentUser :LiveData<FirebaseUser?>
         get() = repository.firestore.currentUser
@@ -35,7 +36,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
 
     }
 
-    // Diese Funktion ist dafür verantwortlich, die aktuellen Benutzerdaten aus Firestore zu holen.
+    // Holt aktuelle Benutzerdaten aus Firebase und aktualisiert _currentAppUser
     fun fetchCurrentUser() {
         // Zunächst holen wir die Benutzer-ID des aktuell angemeldeten Benutzers.
         val userId = firebaseAuth.currentUser?.uid
@@ -78,7 +79,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
         repository.firestore.saveSurveyItem(surveyItem)
     }
 
-
+    // Funktionen zur Verwaltung von Benutzerfavoriten und Suchanfragen
     fun updateFavoriteSurveys(surveyId: String, shouldSave: Boolean) {
         val userId = firebaseAuth.currentUser?.uid ?: return
         viewModelScope.launch {
@@ -119,6 +120,7 @@ class SharedViewModel(application: Application) : AndroidViewModel(application){
 
 
     //QQD API Call
+    // Ruft das Zitat des Tages von einer externen API ab
     fun loadQuoteOfTheDay(category: String? = null) {
         viewModelScope.launch {
                 repository.loadQuoteOfTheDay()

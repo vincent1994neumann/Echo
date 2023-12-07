@@ -38,8 +38,6 @@ data class SurveyItem(
     var questionUpVotes: Int = 0, // Anzahl der Zustimmungen für die Umfrage (für das Ranking)
     var questionDownVotes: Int = 0, // Anzahl der Ablehnungen für die Umfrage (für das Ranking)
     var hasVotedQuestion: Boolean = false,
-
-
     ) {
     //Ergebniss Berechnung
     /* Die Funktionen `percentageOption1` bis `percentageOption4` berechnen den Prozentsatz der Stimmen für jede Antwortoption.
