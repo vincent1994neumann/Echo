@@ -78,30 +78,30 @@ class SurveyCreateFragment : Fragment() {
         // Überprüft, ob die erforderlichen Felder ausgefüllt sind
         if (header.isBlank() || surveyText.isBlank() || answerOption1.isBlank() || answerOption2.isBlank()){
             Snackbar.make(binding.root, "Header, Survey Text, and at least two Answer Options are required.", Snackbar.LENGTH_LONG).show()
-        }
+        }else {
 
-        // Erstellt ein SurveyItem, wenn der aktuelle Benutzer vorhanden ist
-        val surveyItem = viewModel.currentUser.value?.let {
-            SurveyItem(
-                surveyid ="",
-                userId = it.uid ,
-                timestamp = Timestamp.now(),
-                publishedBy =it.uid, // ToDo - richtigen Namen vom User einpflegen (Datenbank user bearbeite)
-                isPublished = false,
-                header = header,
-                category = category,
-                surveyText= surveyText,
-                answerOption1 = answerOption1,
-                answerOption2 = answerOption2,
-                answerOption3 = answerOption3,
-                answerOption4 = answerOption4
-            )
-        }
+            // Erstellt ein SurveyItem, wenn der aktuelle Benutzer vorhanden ist
+            val surveyItem = viewModel.currentUser.value?.let {
+                SurveyItem(
+                    surveyid = "",
+                    userId = it.uid,
+                    timestamp = Timestamp.now(),
+                    publishedBy = it.uid, // ToDo - richtigen Namen vom User einpflegen (Datenbank user bearbeite)
+                    isPublished = false,
+                    header = header,
+                    category = category,
+                    surveyText = surveyText,
+                    answerOption1 = answerOption1,
+                    answerOption2 = answerOption2,
+                    answerOption3 = answerOption3,
+                    answerOption4 = answerOption4
+                )
+            }
 
-        // Speichert das SurveyItem, wenn es nicht null ist
-        if (surveyItem != null) {
-            viewModel.saveSurveyItem(surveyItem)
+            // Speichert das SurveyItem, wenn es nicht null ist
+            if (surveyItem != null) {
+                viewModel.saveSurveyItem(surveyItem)
+            }
         }
-
     }
 }

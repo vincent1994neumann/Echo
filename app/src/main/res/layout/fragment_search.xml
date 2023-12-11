@@ -42,6 +42,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        app:boxCornerRadiusTopEnd="5dp"
+        app:boxCornerRadiusBottomStart="5dp"
+        app:boxCornerRadiusTopStart="5dp"
+        app:boxCornerRadiusBottomEnd="5dp"
+        app:boxStrokeWidth="1dp"
+        app:boxStrokeColor="@color/KIColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:hintTextColor="@color/white"
@@ -49,11 +55,10 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/ti_searchInput"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/hint_search_surveys"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:maxLines="1"
             android:textSize="18sp" />
