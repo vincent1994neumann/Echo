@@ -137,25 +137,23 @@
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/signup_button"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_back_to_login"
-        app:layout_constraintEnd_toEndOf="@+id/ti_password_repeat_reg"
-        app:layout_constraintTop_toTopOf="@+id/btn_back_to_login" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btn_back_to_login"
         style="@style/StyledButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="264dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="38dp"
         android:backgroundTint="@color/btn_background2"
         android:text="@string/back_button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ti_password_repeat_reg" />
+        app:layout_constraintBottom_toTopOf="@+id/btn_SignUp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_SignUp"
+        app:layout_constraintStart_toStartOf="@+id/btn_SignUp" />
 
     <ImageView
         android:id="@+id/iv_logoecho"

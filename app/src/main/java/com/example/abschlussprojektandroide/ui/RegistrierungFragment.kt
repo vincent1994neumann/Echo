@@ -66,6 +66,8 @@ class RegistrierungFragment : Fragment() {
             } else {
                 Toast.makeText(requireContext(), "Password Is Not Matching!", Toast.LENGTH_SHORT).show()
             }
+        }else{
+            Toast.makeText(requireContext(), "Please enter your login details.", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -63,7 +63,7 @@ class SearchFragment : Fragment() {
                 // Verarbeitet den eingegebenen Text nach dessen Änderung
                 s?.let { searchText ->
                     performSearch(searchText.toString())
-                    Log.e("Search!!!!", "${performSearch(searchText.toString())}")
+                    Log.e("Search!", "${performSearch(searchText.toString())}")
                 }
             }
 
@@ -80,9 +80,13 @@ class SearchFragment : Fragment() {
     private fun performSearch(query: String) {
         // Führt eine Suche durch und aktualisiert die Ergebnisse
         searchJob?.cancel() // Bisherige Suche abbrechen
+        // Startet einen neuen Coroutine-Job für die Suche.
         searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            delay(500) // Verzögerung von 500 Millisekunden
+            delay(500) // Verzögerung von 500 Millisekunden, um unnötige Suchanfragen zu vermeiden.
+
+            // Ruft die Funktion im ViewModel auf, um gefilterte Umfragen basierend auf der Suchanfrage zu erhalten.
             viewModel.getFilteredSurveysForSearch(query).observe(viewLifecycleOwner) { surveyItems ->
+                // Aktualisiert den Adapter mit den neuen Suchergebnissen.
                 surveyAdapter.updateData(surveyItems)
             }
             // Weitere Suchmethoden, falls nötig

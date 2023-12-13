@@ -55,7 +55,7 @@ class ProfilFragment : Fragment() {
         binding.btnFloatingNewVoteProfil.setOnClickListener {
             findNavController().popBackStack()
             viewModel.logout()
-            Toast.makeText(context, "Erfolgreich ausgeloggt", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Successfully logged out.", Toast.LENGTH_SHORT).show()
 
         }
 

@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.abschlussprojektandroide.data.dataclass.model.api.Quote
 import com.example.abschlussprojektandroide.data.dataclass.remote.QuotesApi
 import kotlinx.coroutines.launch
-
+// Klasse ApiRepository, welche als Vermittler zwischen der API und der UI fungiert.
 class ApiRepository {
 
 
-    //LiveData für den QuoteOfDay
+    // MutableLiveData für den QuoteOfDay. Diese wird von der UI beobachtet.
     private val _quoteOfTheDay = MutableLiveData<Quote>()
+    // Öffentlich zugängliches LiveData, das von der UI beobachtet wird.
     val quoteOfTheDay: LiveData<Quote> = _quoteOfTheDay
+
+    // Funktion zum Laden des Zitats des Tages von der API.
     suspend fun loadQuoteOfTheDay(category: String? = null) {
         try {
             val response = QuotesApi.retrofitService.getQuoteOfTheDay()

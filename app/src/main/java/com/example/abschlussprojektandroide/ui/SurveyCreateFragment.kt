@@ -42,6 +42,7 @@ class SurveyCreateFragment : Fragment() {
         binding.btnPublish.setOnClickListener {
             createSurveyItem()
             findNavController().popBackStack()
+            Snackbar.make(binding.root, "Your survey has been published.", Snackbar.LENGTH_LONG).show()
         }
 
         // Setzt Klick-Listener für das Hinzufügen und Entfernen von Antwortfeldern

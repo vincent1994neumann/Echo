@@ -22,6 +22,7 @@ import com.example.abschlussprojektandroide.util.VoteType
 import com.example.abschlussprojektandroide.data.dataclass.model.SurveyItem
 import com.example.abschlussprojektandroide.databinding.ListItemSurveyBinding
 import com.example.abschlussprojektandroide.util.VoteTypeQuestion
+import com.google.android.material.snackbar.Snackbar
 
 class SurveyAdapter(
     private var dataset: List<SurveyItem>, // Liste von Umfrage-Elementen
@@ -81,9 +82,11 @@ class SurveyAdapter(
         //_______________________________________________________________________
 
         //UP & Down Vote der Frage Logik
-        updateUiAfterVoteQuestion2(surveyItem, holder)
-        if (!surveyItem.votedQuestionUser.contains(currentUserId)){
+        updateUiAfterVoteQuestion2(surveyItem, holder) // Aktualisiert die Benutzeroberfläche nach einer Abstimmung.
 
+        // Überprüft, ob der aktuelle Benutzer bereits abgestimmt hat.
+        if (!surveyItem.votedQuestionUser.contains(currentUserId)){
+        // Aktiviert die Up- und Down-Vote-Buttons.
             enableUpDownVotingButtons(holder)
             var UpDownButtonList = listOf(
                 holder.binding.btnVoteUp,
@@ -91,6 +94,15 @@ class SurveyAdapter(
             )
             UpDownButtonList.forEach { it.isEnabled = true  }
 
+            /* Wenn der Up-Vote-Button gedrückt wird, werden folgende Aktionen ausgeführt:
+                  1. Der aktuelle Benutzer wird zur Liste der Abstimmenden hinzugefügt.
+                  2. Die Gesamtzahl der Up- und Down-Votes wird aktualisiert.
+                  3. Der aktualisierte Wert wird in der Benutzeroberfläche angezeigt.
+                  4. Das SurveyItem-Objekt wird mit den neuen Daten aktualisiert.
+                  5. Der Up-Vote-Button wird visuell als ausgewählt markiert.
+                  6. Eine Like-Animation wird ausgelöst.
+                  7. Die Abstimmungsbuttons werden deaktiviert.
+                  8. Die Benutzeroberfläche wird erneut aktualisiert, um die Änderungen widerzuspiegeln. */
             holder.binding.btnVoteUp.setOnClickListener {
                 surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONUP)
                 surveyItem.totalUpDownVotes()
@@ -101,9 +113,16 @@ class SurveyAdapter(
                 animationLike(holder)
                 disableVotingUpDownBtn(holder)
                 updateUiAfterVoteQuestion2(surveyItem,holder)
-
-
             }
+            /* Wenn der Down-Vote-Button gedrückt wird, werden folgende Aktionen ausgeführt:
+      1. Der aktuelle Benutzer wird zur Liste der Abstimmenden hinzugefügt.
+      2. Die Gesamtzahl der Up- und Down-Votes wird aktualisiert.
+      3. Der aktualisierte Wert wird in der Benutzeroberfläche angezeigt.
+      4. Das SurveyItem-Objekt wird mit den neuen Daten aktualisiert.
+      5. Der Down-Vote-Button wird visuell als ausgewählt markiert.
+      6. Eine Like-Animation wird ausgelöst.
+      7. Die Abstimmungsbuttons werden deaktiviert.
+      8. Die Benutzeroberfläche wird erneut aktualisiert, um die Änderungen widerzuspiegeln. */
             holder.binding.btnVoteDown.setOnClickListener {
                 surveyItem.addUserToQuestionUpDownVote(currentUserId,VoteTypeQuestion.OPTIONDOWN)
                 surveyItem.totalUpDownVotes()
@@ -115,15 +134,7 @@ class SurveyAdapter(
                 disableVotingUpDownBtn(holder)
                 updateUiAfterVoteQuestion2(surveyItem,holder)
             }
-        }else{
-           //Toast
-            //Deine Stimme zählt bereits
         }
-
-        //_______________________________________________________________________
-        //Aufklappen der Abstimmlogik
-
-
 
         //_______________________________________________________________________
 
@@ -149,12 +160,16 @@ class SurveyAdapter(
         }
 
 
-        // die Sichtbarkeit der Prozentangaben basierend auf der showPercentages-Eigenschaft - erst nach Abstimmung sichtbar
+        // Definiert eine Variable für die Sichtbarkeit der Prozentanzeige basierend auf dem `showPercentage`-Attribut des `surveyItem`.
         val percentageVisibility = if (surveyItem.showPercentage) View.VISIBLE else View.INVISIBLE
+        /* Setzt die Sichtbarkeit und den Text für die Anzeige der Prozentwerte der ersten Option.
+        1. `tvVoteCountOption1.visibility` - Legt fest, ob die Prozentanzeige sichtbar oder unsichtbar sein soll.
+        2. `tvVoteCountOption1.text` - Zeigt den prozentualen Anteil der ersten Option an, basierend auf der Methode `percentageOption1` des `surveyItem`. */
         holder.binding.tvVoteCountOption1.visibility = percentageVisibility
         holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
         holder.binding.tvVoteCountOption2.visibility = percentageVisibility
         holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
+
         // Setze Text und Sichtbarkeit für RadioButton 3
         if (surveyItem.answerOption3.isEmpty()) {
             holder.binding.rbOption3.visibility = View.GONE
@@ -190,6 +205,7 @@ class SurveyAdapter(
         //_______________________________________________________________________
         //Abstimmungslogik der Frage
 
+        //Update der UI da sonst die RV die ListItems nicht richtig recyclet
         updateUiAfterVote(surveyItem,holder)
         if (!surveyItem.votedUser.contains(currentUserId)) {
 
@@ -203,6 +219,15 @@ class SurveyAdapter(
                 holder.binding.rbOption4
             )
             radioButtonList.forEach { it.isChecked = false }
+
+            /* Für jeden Radio-Button wird ein OnClickListener gesetzt, der:
+             1. Die Stimme des Benutzers zur Umfrage hinzufügt.
+             2. Die Abstimmungsbuttons deaktiviert.
+             3. Die Anzeige der Prozentsätze aktiviert und aktualisiert.
+             4. Die Gesamtstimmenzahl in der UI aktualisiert.
+             5. Die UI nach der Stimmabgabe aktualisiert.
+             6. Das SurveyItem-Objekt mit den neuen Daten aktualisiert.
+             Dieser Vorgang wird für alle vier Optionen wiederholt. */
 
             holder.binding.rbOption1.setOnClickListener {
                 surveyItem.addVote(currentUserId, VoteType.OPTION1)
@@ -249,6 +274,8 @@ class SurveyAdapter(
             }
         }
         else{
+            /* Wenn der Benutzer bereits abgestimmt hat, werden die Abstimmungsbuttons deaktiviert und
+             die Prozentsätze der einzelnen Optionen in der UI aktualisiert. */
             disableVotingButtons(holder)
             holder.binding.tvVoteCountOption1.text = surveyItem.percentageOption1()
             holder.binding.tvVoteCountOption2.text = surveyItem.percentageOption2()
@@ -257,8 +284,9 @@ class SurveyAdapter(
         }
 
         //_______________________________________________________________________
-
         // SaveBtn - Speicherung der Umfrage im Profil
+
+        // Überprüft, ob das aktuelle Umfrage-Item bereits gespeichert ist, und setzt das entsprechende Icon.
         if (savedSurveyItems.contains(surveyItem.surveyid)) {
             holder.binding.ivSaveIcon.setImageResource(R.drawable.baseline_bookmark_24)
         } else {
@@ -267,7 +295,8 @@ class SurveyAdapter(
         holder.binding.ivSaveIcon.setOnClickListener {
             val isCurrentlySaved = savedSurveyItems.contains(surveyItem.surveyid)
 
-            // Callback aufrufen und lokale Liste sofort aktualisieren
+            /* Ruft die Callback-Methode `onSaveClicked` auf und aktualisiert die lokale Liste sofort.
+        Die Callback-Methode wird verwendet, um Aktionen auszuführen, die notwendig sind, wenn ein Item gespeichert oder entfernt wird. */
             onSaveClicked(surveyItem.surveyid, !isCurrentlySaved)
             if (isCurrentlySaved) {
                 savedSurveyItems.remove(surveyItem.surveyid)

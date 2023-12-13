@@ -64,7 +64,7 @@ class LoginFragment : Fragment() {
             Log.d("RepositoryFirestore", "Login erfolgreich für Benutzer: ${email}")
         } else {
             Log.d("RepositoryFirestore", "Login nicht erfolgreich für Benutzer: ${email}")
-            Toast.makeText(context, "E-Mail und Passwort dürfen nicht leer sein", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Email and password cannot be empty.", Toast.LENGTH_LONG).show()
         }
     }
 

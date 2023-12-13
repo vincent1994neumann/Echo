@@ -10,13 +10,17 @@ import com.google.firebase.Timestamp
 
 class AppRepository {
 
+    // LiveData, das eine Liste von SurveyItem-Objekten enthält.
     private val _survey = MutableLiveData<List<SurveyItem>>()
+
+    // Öffentlich zugängliches LiveData-Objekt.
     val survey: LiveData<List<SurveyItem>>
         get() = _survey
-
+    // Instanzen der Firestore- und ApiRepository-Klassen.
     var firestore = RepositoryFirestore()
     private var apiRepository = ApiRepository()
 
+    // LiveData für das Zitat des Tages aus dem ApiRepository.
     val quoteOfTheDay = apiRepository.quoteOfTheDay
 
 
@@ -209,7 +213,5 @@ class AppRepository {
    suspend fun loadQuoteOfTheDay(){
         apiRepository.loadQuoteOfTheDay()
     }
-
-
 }
 

@@ -15,18 +15,20 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
-
+// Klasse RepositoryFirestore, die als Schnittstelle zu Firebase Firestore und Firebase Auth fungiert.
 class RepositoryFirestore {
-
+    // Firebase Auth und Firestore Instanzen.
     var firebaseAuth = FirebaseAuth.getInstance()
     val db = Firebase.firestore
     var TAG = "RepositoryFirestore"
 
+    // MutableLiveData für den aktuellen Benutzer.
     private val _currentUser = MutableLiveData<FirebaseUser?>(firebaseAuth.currentUser)
     val currentUser: LiveData<FirebaseUser?>
         get() = _currentUser
 
 
+    // Funktionen für Login, Registrierung, Logout und Benutzerdaten-Management.
     fun login(email: String, password: String, context: Context) {
         try {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -78,6 +80,10 @@ class RepositoryFirestore {
         firebaseAuth.signOut()
     }
 
+
+    //________________________________________________________________________
+
+    // Funktionen zur Verwaltung von SurveyItem-Daten in Firestore.
     fun updateSurveyItem(surveyItem: SurveyItem) {
         val surveyRef = db.collection("SurveyItem").document(surveyItem.surveyid)
         try {

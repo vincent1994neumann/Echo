@@ -23,11 +23,13 @@
     <!-- Umrandung TI Login ... -->
     <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 
+
+
     <!-- Spezifische Farben für Umfragen -->
     <color name="agree">#3FB185</color> <!-- Color1_agree -->
     <color name="disagree">#FF6B6B</color>
     <color name="transparent">#00FFFFFF</color>
-    <color name="gold">#FCF18E</color>
+    <color name="gold">#FCF3A8</color>
 
     <!-- Spezifische Farben UpDownVoteLogik -->
     <color name="upVote1">#D8FFD0</color>
