@@ -36,7 +36,7 @@ class SplashScreenFragment : Fragment() {
         if (firebaseAuth.currentUser == null){
             Handler(Looper.myLooper()!!).postDelayed({
                 findNavController().navigate(SplashScreenFragmentDirections.actionSplashScreenFragmentToLoginFragment())
-            }, 4000) // Verzögerung von 4 Sekunden
+            }, 6000) // Verzögerung von 4 Sekunden
         }
 
         // Lädt den aktuellen App-Benutzer und navigiert zum Home-Fragment, falls angemeldet
@@ -69,7 +69,7 @@ class SplashScreenFragment : Fragment() {
 
     private fun rotate (){
         val animation = ObjectAnimator.ofFloat(binding.imageView, View.ROTATION,0f,360f)
-        animation.duration = 1000
+        animation.duration = 1500
         animation.repeatCount = 1
         animation.repeatMode = ObjectAnimator.REVERSE
         animation.start()
